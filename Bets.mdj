@@ -4858,7 +4858,7 @@
 									"font": "Arial;13;0",
 									"left": 367.5,
 									"top": 292.5,
-									"width": 112.578125,
+									"width": 112,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFhA18XufUR8Hw="
@@ -6067,7 +6067,7 @@
 									"font": "Arial;13;0",
 									"left": 857.5,
 									"top": 332.5,
-									"width": 83.68994140625,
+									"width": 83,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TAemtyCU4w="
@@ -6266,7 +6266,7 @@
 									"font": "Arial;13;0",
 									"left": 93,
 									"top": 756.5,
-									"width": 101.03173828125,
+									"width": 100,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TJFnt1Jtc8="
@@ -6465,7 +6465,7 @@
 									"font": "Arial;13;0",
 									"left": 401.5,
 									"top": 756.5,
-									"width": 84.38818359375,
+									"width": 84,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TJ4ut2h/W8="
@@ -8541,7 +8541,7 @@
 									"font": "Arial;13;0",
 									"left": 810.5,
 									"top": 236.5,
-									"width": 87.29541015625,
+									"width": 86,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+7pSFTymFiL4="
@@ -11074,7 +11074,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Kuotak Ipini",
-					"documentation": "# Flow of events\n\n## Basic Flow\n\n## Alternative flow"
+					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du Egutegi bat non gertaeradun egunak markatutak daude\n\n2. *Admin* **egun** bat aukeratzen du\n\n3. *Admin*  egun horretan dagoen **gertaera** bat aukeratzen du\n\n4. *Admin* gertaera horren kuotaren **deskripzioa** sartzen du\n\n5. *System* sortzen du  kuota hori **gertaera** horretarako\n\n\n## Alternative flow\n\n1.   **kuotaZenbakia**, **kantitatea** edota **aukera**  hutsik egotea. Orduan, ez da kuota berri hori sortzen.\n\n\n"
 				},
 				{
 					"_type": "UMLClass",
