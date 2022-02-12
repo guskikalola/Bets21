@@ -1,0 +1,69 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-11 19:38:26 #1 store] 
+Database '/home/guskikalola/Development/uni/2do/2KUAT/SI/proiektua/0Iterazioa/Bets21/src/main/resources/bets.temp' is opened by 6228@guskikalola
+
+[2022-02-11 19:38:27 #2 type.registry] 
+New type domain.Question
+
+[2022-02-11 19:38:27 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-11 19:38:27 #4 type.registry] 
+New type domain.Event
+
+[2022-02-11 19:38:27 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-11 19:38:27 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-11 19:38:27 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-11 19:40:14 #1 store] 
+Database '/home/guskikalola/Development/uni/2do/2KUAT/SI/proiektua/0Iterazioa/Bets21/src/main/resources/bets.temp' is opened by 6293@guskikalola
+
+[2022-02-11 19:40:15 #2 type.registry] 
+New type domain.Question
+
+[2022-02-11 19:40:15 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-11 19:40:15 #4 type.registry] 
+New type domain.Event
+
+[2022-02-11 19:40:15 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-11 19:40:15 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-11 19:40:15 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-11 19:46:04 #1 store] 
+Database '/home/guskikalola/Development/uni/2do/2KUAT/SI/proiektua/0Iterazioa/Bets21/src/main/resources/bets.temp' is opened by 6521@guskikalola
+
+[2022-02-11 19:46:05 #2 type.registry] 
+New type domain.Question
+
+[2022-02-11 19:46:05 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-11 19:46:05 #4 type.registry] 
+New type domain.Event
+
+[2022-02-11 19:46:05 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-11 19:46:05 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-11 19:46:05 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
