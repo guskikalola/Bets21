@@ -11056,7 +11056,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Erregistratu",
-					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du pantaila bat erregistratzeko\n2. *Erabiltzaile Erregistratuta* bere **izena** (kontuaren izena), **pasahitza** eta **jahiotze data** idazten ditu\n3. *System* aztertzen du ea **izena** duen erabiltzailerik existitzen den, hori baita gako arrotza\n4. *System* ahalbidetuko dio **Erabiltzaile Erregistratuta**-ri sistema apustuak egiteko\n## Alternative flow\n\n1. **izena**, **pasahitza** edota **jahiotze data** hutsik daude. Ezin da erregistroa bete.\n2. Jadanik  **Erabiltzaile Ez Erregistratuta** jarri duen **izena** existitzen da. Ezin da erregistroa bete.\n3. **Erabiltzaile Ez Erregistratuta** jarri duen **jahiotze data**-ren arabera ez du 18 urte baino gehiago. Ezin da erregistroa bete."
+					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du pantaila bat erregistratzeko\n2. *Erabiltzaile Ez Erregistratuta* bere **izena** (kontuaren izena), **pasahitza** eta **jahiotze data** idazten ditu\n3. *System* aztertzen du ea **izena** duen erabiltzailerik existitzen den, hori baita gako arrotza\n4. *System* sortuko du **izena**, **pasahitza** eta **adina** duen erabiltzailea\n## Alternative flow\n\n1. **izena**, **pasahitza** edota **jahiotze data** hutsik daude. Ezin da erregistroa bete.\n2. Jadanik  *Erabiltzaile Ez Erregistratuta* jarri duen **izena** existitzen da. Ezin da erregistroa bete.\n3. *Erabiltzaile Ez Erregistratuta* jarri duen **jahiotze data**-ren arabera ez du 18 urte baino gehiago. Ezin da erregistroa bete."
 				},
 				{
 					"_type": "UMLUseCase",
