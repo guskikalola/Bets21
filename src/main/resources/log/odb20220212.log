@@ -1,0 +1,46 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-12 16:24:43 #1 store] 
+Database '/home/guskikalola/Development/uni/2do/2KUAT/SI/proiektua/0Iterazioa/Bets21/src/main/resources/bets.temp' is opened by 9067@guskikalola
+
+[2022-02-12 16:24:43 #2 type.registry] 
+New type domain.Question
+
+[2022-02-12 16:24:43 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-12 16:24:43 #4 type.registry] 
+New type domain.Event
+
+[2022-02-12 16:24:43 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-12 16:24:43 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-12 16:24:43 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-12 16:35:41 #1 store] 
+Database '/home/guskikalola/Development/uni/2do/2KUAT/SI/proiektua/0Iterazioa/Bets21/src/main/resources/bets.temp' is opened by 9318@guskikalola
+
+[2022-02-12 16:35:41 #2 type.registry] 
+New type domain.Question
+
+[2022-02-12 16:35:41 #3 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-12 16:35:41 #4 type.registry] 
+New type domain.Event
+
+[2022-02-12 16:35:41 #5 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-12 16:35:41 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-12 16:35:41 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
