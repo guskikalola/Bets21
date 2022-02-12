@@ -6491,8 +6491,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -120,
-									"top": 488,
+									"left": -136,
+									"top": 448,
 									"width": 10,
 									"height": 10
 								},
@@ -6507,8 +6507,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -120,
-									"top": 488,
+									"left": -136,
+									"top": 448,
 									"width": 10,
 									"height": 10
 								},
@@ -6523,8 +6523,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -120,
-									"top": 488,
+									"left": -136,
+									"top": 448,
 									"width": 10,
 									"height": 10
 								},
@@ -6539,8 +6539,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -120,
-									"top": 488,
+									"left": -136,
+									"top": 448,
 									"width": 10,
 									"height": 10
 								},
@@ -6555,8 +6555,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -120,
-									"top": 488,
+									"left": -136,
+									"top": 448,
 									"width": 10,
 									"height": 10
 								}
@@ -11065,7 +11065,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Gertaera Sortu",
-					"documentation": "# Flow of events\n\n## Basic Flow\n\n## Alternative flow"
+					"documentation": "# Flow of events\n\n## Basic Flow\n1. *System* erakusten du Egutegi bat non gertaeradun egunak markatutak daude\n2. *Admin* **egun** bat aukeratzen du\n3. *Admin* gertaeraren **deskripzioa** sartzen du\n4. *System* sortzen du gertaera hori **egun** horretarako\n\n## Alternative flow\n1. Deskripzioa hutsik dago. Ez da gertaera sortzen."
 				},
 				{
 					"_type": "UMLUseCase",
