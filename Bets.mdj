@@ -4858,7 +4858,7 @@
 									"font": "Arial;13;0",
 									"left": 367.5,
 									"top": 292.5,
-									"width": 112,
+									"width": 112.578125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFhA18XufUR8Hw="
@@ -6067,7 +6067,7 @@
 									"font": "Arial;13;0",
 									"left": 857.5,
 									"top": 332.5,
-									"width": 83,
+									"width": 83.68994140625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TAemtyCU4w="
@@ -6266,7 +6266,7 @@
 									"font": "Arial;13;0",
 									"left": 93,
 									"top": 756.5,
-									"width": 100,
+									"width": 101.03173828125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TJFnt1Jtc8="
@@ -6465,7 +6465,7 @@
 									"font": "Arial;13;0",
 									"left": 401.5,
 									"top": 756.5,
-									"width": 84,
+									"width": 84.38818359375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+6TJ4ut2h/W8="
@@ -8541,7 +8541,7 @@
 									"font": "Arial;13;0",
 									"left": 810.5,
 									"top": 236.5,
-									"width": 86,
+									"width": 87.29541015625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF+7pSFTymFiL4="
@@ -10554,23 +10554,6 @@
 									"subViews": [
 										{
 											"_type": "UMLAttributeView",
-											"_id": "AAAAAAF+6UneEPjh5JY=",
-											"_parent": {
-												"$ref": "AAAAAAF+6Ul7G/htWt0="
-											},
-											"model": {
-												"$ref": "AAAAAAF+6Und0/jY9YU="
-											},
-											"font": "Arial;13;0",
-											"left": 301,
-											"top": 446,
-											"width": 123.21435546875,
-											"height": 13,
-											"text": "+erabiltzaileZenbakia",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF+6Un9wvkSSHg=",
 											"_parent": {
 												"$ref": "AAAAAAF+6Ul7G/htWt0="
@@ -10580,7 +10563,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 301,
-											"top": 461,
+											"top": 446,
 											"width": 123.21435546875,
 											"height": 13,
 											"text": "+rola",
@@ -10597,7 +10580,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 301,
-											"top": 476,
+											"top": 461,
 											"width": 123.21435546875,
 											"height": 13,
 											"text": "+pasahitza",
@@ -10614,7 +10597,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 301,
-											"top": 491,
+											"top": 476,
 											"width": 123.21435546875,
 											"height": 13,
 											"text": "+izena",
@@ -10631,7 +10614,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 301,
-											"top": 506,
+											"top": 491,
 											"width": 123.21435546875,
 											"height": 13,
 											"text": "+adina",
@@ -10642,7 +10625,7 @@
 									"left": 296,
 									"top": 441,
 									"width": 133.21435546875,
-									"height": 83
+									"height": 68
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -11056,7 +11039,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Erregistratu",
-					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du pantaila bat erregistratzeko\n2. *Erabiltzaile Ez Erregistratuta* bere **izena** (kontuaren izena), **pasahitza** eta **jahiotze data** idazten ditu\n3. *System* aztertzen du ea **izena** duen erabiltzailerik existitzen den, hori baita gako arrotza\n4. *System* sortuko du **izena**, **pasahitza** eta **adina** duen erabiltzailea\n## Alternative flow\n\n1. **izena**, **pasahitza** edota **jahiotze data** hutsik daude. Ezin da erregistroa bete.\n2. Jadanik  *Erabiltzaile Ez Erregistratuta* jarri duen **izena** existitzen da. Ezin da erregistroa bete.\n3. *Erabiltzaile Ez Erregistratuta* jarri duen **jahiotze data**-ren arabera ez du 18 urte baino gehiago. Ezin da erregistroa bete."
+					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du pantaila bat erregistratzeko\n2. *Erabiltzaile Ez Erregistratuta* bere **izena** (kontuaren izena), **pasahitza** eta **jahiotze data** idazten ditu\n3. *System* aztertzen du ea **izena** duen erabiltzailerik existitzen den, hori baita oinarrizko gakoa\n4. *System* sortuko du **izena**, **pasahitza** eta **adina** duen erabiltzailea\n## Alternative flow\n\n1. **izena**, **pasahitza** edota **jahiotze data** hutsik daude. Ezin da erregistroa bete.\n2. Jadanik  *Erabiltzaile Ez Erregistratuta* jarri duen **izena** existitzen da. Ezin da erregistroa bete.\n3. *Erabiltzaile Ez Erregistratuta* jarri duen **jahiotze data**-ren arabera ez du 18 urte baino gehiago. Ezin da erregistroa bete."
 				},
 				{
 					"_type": "UMLUseCase",
@@ -11074,7 +11057,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Kuotak Ipini",
-					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du Egutegi bat non gertaeradun egunak markatutak daude\n\n2. *Admin* **egun** bat aukeratzen du\n\n3. *Admin*  egun horretan dagoen **gertaera** bat aukeratzen du\n\n4. *Admin* gertaera horren kuotaren **deskripzioa** sartzen du\n\n5. *System* sortzen du  kuota hori **gertaera** horretarako\n\n\n## Alternative flow\n\n1.   **kuotaZenbakia**, **kantitatea** edota **aukera**  hutsik egotea. Orduan, ez da kuota berri hori sortzen.\n\n\n"
+					"documentation": "# Flow of events\n\n## Basic Flow\n\n1. *System* erakusten du Egutegi bat non gertaeradun egunak markatutak daude\n\n2. *Admin* **egun** bat aukeratzen du\n\n3. *Admin*  egun horretan dagoen **gertaera** bat aukeratzen du\n\n4. *Admin* gertaera horren kuotaren **aukera** eta **kantitatea** sartzen ditu\n\n5. *System* sortzen du kuota hori **gertaera** horretarako eta esleitzen dio **kuotaZenbakia** bakarra\n\n\n## Alternative flow\n\n1.   **kantitatea** edota **aukera** hutsik egotea. Orduan, ez da kuota berri hori sortzen.\n\n\n"
 				},
 				{
 					"_type": "UMLClass",
@@ -11155,15 +11138,6 @@
 					},
 					"name": "Erabiltzaile",
 					"attributes": [
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAF+6Und0/jY9YU=",
-							"_parent": {
-								"$ref": "AAAAAAF+6Ul7GvhlumE="
-							},
-							"name": "erabiltzaileZenbakia",
-							"type": ""
-						},
 						{
 							"_type": "UMLAttribute",
 							"_id": "AAAAAAF+6Un9pfkJf40=",
