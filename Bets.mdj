@@ -11183,7 +11183,7 @@
 						"$ref": "AAAAAAFhA13LI/TXQXY="
 					},
 					"name": "Kuotak Ikusi",
-					"documentation": "# Flow of events\n\n## Basic Flow\n1. *Erabiltzaile ez erregistratuta* aukeratzen du **galdera** bat\n2. *System* listatzen ditu **galdera** horren **kuotak**\n\n## Alternative flow\n1. Galdera ez ditu kuotarik. Ez du ezer listatzen."
+					"documentation": "# Flow of events\n\n## Basic Flow\n1. *System* erakusten du Egutegi bat non gertaeradun egunak markatutak daude\n2. *Erabiltzaile ez erregistratuta* **egun** bat aukeratzen du\n3. *System* listatzen ditu **egun** horretako **gertaerak**\n4. *Erabiltzaile ez erregistratuta* aukeratzen du **gertaera** bat\n5. *System* erakusten ditu **gertaera** horren **galderak**\n6. *Erabiltzaile ez erregistratuta* aukeratzen du **galdera** bat\n7. *System* listatzen ditu **galdera** horren **kuotak**\n\n## Alternative flow\n1. Galdera ez ditu kuotarik. Ez du ezer listatzen."
 				}
 			]
 		}
