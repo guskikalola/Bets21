@@ -10,6 +10,7 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.Erabiltzailea;
 import domain.Event;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -125,6 +126,18 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.initializeDB();
 		dbManager.close();
 	}
+
+	@Override
+	public Erabiltzailea existitzenDa(String izena, String pasahitza) {
+		dbManager.open(false);
+		Erabiltzailea e = dbManager.getErabiltzailea(izena);
+		dbManager.close();
+		if(e != null && e.getPasahitza().equals(pasahitza)) {
+			return e;
+		} 
+		return null;
+	}
+
 
 }
 

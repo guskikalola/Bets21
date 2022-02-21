@@ -17,6 +17,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
+import domain.Erabiltzailea;
 import domain.Event;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
@@ -117,6 +118,11 @@ public class DataAccess  {
 				q6=ev17.addQuestion("Golak sartuko dira lehenengo zatian?",2);
 				
 			}
+			
+			// TODO: Ezabatu ( Probako login )
+			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ADMIN);
+			
+			db.persist(e);
 			
 			
 			db.persist(q1);
@@ -260,6 +266,18 @@ public boolean existQuestion(Event event, String question) {
 	public void close(){
 		db.close();
 		System.out.println("DataBase closed");
+	}
+
+	public boolean existitzenDa(String izena, String pasahitza) {
+		Erabiltzailea e = db.find(Erabiltzailea.class, izena);
+		if(e == null) return false;
+		else {
+			return e.pasahitzaZuzena(pasahitza);
+		}
+	}
+
+	public Erabiltzailea getErabiltzailea(String izena) {
+		return db.find(Erabiltzailea.class, izena);
 	}
 	
 }
