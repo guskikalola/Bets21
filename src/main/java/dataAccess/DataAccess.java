@@ -279,5 +279,39 @@ public boolean existQuestion(Event event, String question) {
 	public Erabiltzailea getErabiltzailea(String izena) {
 		return db.find(Erabiltzailea.class, izena);
 	}
+
+	private boolean adinaDu(Date jaiotzeData) {
+		Date gaur = new Date();
+		int urteDif = gaur.getYear() - jaiotzeData.getYear();
+		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
+		
+		int hilabKop = (urteDif*12) + (hilbDif > 0 ? hilbDif : 0);
+		
+		int urteKop = hilabKop / 12;
+		
+		return (urteKop>=18);
+}
+	
+	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData) {
+		// Aztertu ea aurretik existitzen den erabiltzailea izen horrekin
+		Erabiltzailea e = this.getErabiltzailea(izena);
+		if(e == null) {
+			// Erabiltzailerik ez da existitzen
+			// Aztertu ea adina >= 18 den
+			boolean adinaNahikoa = this.adinaDu(jaiotzeData);
+			if(adinaNahikoa) {
+				Erabiltzailea er = this.sortuErabiltzailea(izena,pasahitza,jaiotzeData);
+				return er;
+			} else return null;
+		} else return null;
+	}
+
+	private Erabiltzailea sortuErabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
+		db.getTransaction().begin();
+		Erabiltzailea er = new Erabiltzailea(izena, pasahitza, jaiotzeData);
+		db.persist(er);
+		db.getTransaction().commit();
+		return er;
+	}
 	
 }
