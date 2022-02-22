@@ -138,6 +138,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		return null;
 	}
 
+	@Override
+	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData) {
+		dbManager.open(false);
+		Erabiltzailea e = dbManager.erregistratu(izena,pasahitza,jaiotzeData);
+		dbManager.close();
+		return e;
+	}
+
 
 }
 

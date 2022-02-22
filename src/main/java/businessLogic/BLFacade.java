@@ -61,6 +61,10 @@ public interface BLFacade  {
 	
 	public Erabiltzailea existitzenDa(String izena, String pasahitza);
 	
+	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData);
+	
+	
+	
 
 	
 }

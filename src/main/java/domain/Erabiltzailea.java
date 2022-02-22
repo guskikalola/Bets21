@@ -17,7 +17,15 @@ public class Erabiltzailea {
 	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData, String rola) {
 		this.izena = izena;
 		this.pasahitza = pasahitza;
-		this.adina = new Date().getYear() - jaiotzeData.getYear();
+		
+		Date gaur = new Date();
+		int urteDif = gaur.getYear() - jaiotzeData.getYear();
+		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
+		
+		int hilabKop = (urteDif > 0 ? urteDif*12 : 0) + (hilbDif > 0 ? hilbDif : 0);
+		
+		this.adina = hilabKop / 12;
+		
 		this.rola = rola;
 	}
 	
