@@ -23,6 +23,7 @@ public class LoginGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private static LoginGUI frame;
 
 	/**
 	 * Launch the application.
@@ -31,7 +32,7 @@ public class LoginGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGUI frame = new LoginGUI();
+					frame = new LoginGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,6 +45,9 @@ public class LoginGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginGUI() {
+		
+		frame =this; 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -82,8 +86,17 @@ public class LoginGUI extends JFrame {
 					String rola = e.getRola();
 					// TODO: Ireki interfaze berria
 					System.out.println(e);
+					if(rola.equals(Erabiltzailea.ERABILTZAILEA)) {
+						frame.setVisible(false);
+						ErabiltzaileGUI era= new ErabiltzaileGUI();
+						era.setVisible(true);
+					}else if(rola.equals(Erabiltzailea.ADMIN)) {
+						frame.setVisible(false);
+						//AdministratzaileGUI adm= new AdministratzaileGUI();
+						//adm.setVisible(true);
+					}
 				} else {
-					
+				
 					System.out.println("Errorea");
 					// Errorea
 				}

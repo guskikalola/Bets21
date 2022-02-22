@@ -120,7 +120,7 @@ public class DataAccess  {
 			}
 			
 			// TODO: Ezabatu ( Probako login )
-			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ADMIN);
+			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ERABILTZAILEA);
 			
 			db.persist(e);
 			
