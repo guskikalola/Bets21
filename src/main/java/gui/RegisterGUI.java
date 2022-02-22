@@ -1,0 +1,127 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class RegisterGUI extends JFrame {
+
+	private JPanel contentPane;
+	private JPasswordField password;
+	private JPasswordField confirm_passwordField;
+	private JTextField user;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegisterGUI frame = new RegisterGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public RegisterGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblRegister = new JLabel("Register");
+		lblRegister.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblRegister.setBounds(12, 12, 136, 15);
+		contentPane.add(lblRegister);
+		
+		JLabel lblUser = new JLabel("User:");
+		lblUser.setBounds(35, 57, 73, 15);
+		contentPane.add(lblUser);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(35, 96, 103, 15);
+		contentPane.add(lblPassword);
+		
+		JLabel lblRepitPassword = new JLabel("Confirm Password:");
+		lblRepitPassword.setBounds(34, 130, 146, 15);
+		contentPane.add(lblRepitPassword);
+		
+		JLabel lblBirthday = new JLabel("Birthday: ");
+		lblBirthday.setBounds(35, 163, 96, 15);
+		contentPane.add(lblBirthday);
+		
+		
+		//regist botoia
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRegister.setBounds(161, 216, 117, 25);
+		contentPane.add(btnRegister);
+		
+		//urtea comboBox 
+		JComboBox urtea_comboBox = new JComboBox();
+		urtea_comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		urtea_comboBox.setBounds(138, 163, 84, 15);
+		contentPane.add(urtea_comboBox);
+		
+		//hilabetea comboBox
+		JComboBox hilabetea_comboBox = new JComboBox();
+		hilabetea_comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		hilabetea_comboBox.setBounds(233, 163, 117, 15);
+		contentPane.add(hilabetea_comboBox);
+		
+		//eguna comboBox
+		JComboBox eguna_comboBox = new JComboBox();
+		eguna_comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		eguna_comboBox.setBounds(362, 163, 60, 15);
+		contentPane.add(eguna_comboBox);
+		
+		password = new JPasswordField();
+		password.setBounds(185, 94, 237, 19);
+		contentPane.add(password);
+		
+		confirm_passwordField = new JPasswordField();
+		confirm_passwordField.setBounds(185, 128, 237, 19);
+		contentPane.add(confirm_passwordField);
+		
+		user = new JTextField();
+		user.setBounds(185, 55, 237, 19);
+		contentPane.add(user);
+		user.setColumns(10);
+	}
+}
