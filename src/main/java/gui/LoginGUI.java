@@ -88,12 +88,12 @@ public class LoginGUI extends JFrame {
 					System.out.println(e);
 					if(rola.equals(Erabiltzailea.ERABILTZAILEA)) {
 						frame.setVisible(false);
-						ErabiltzaileGUI era= new ErabiltzaileGUI();
+						ErabiltzaileGUI era= new ErabiltzaileGUI(e);
 						era.setVisible(true);
 					}else if(rola.equals(Erabiltzailea.ADMIN)) {
 						frame.setVisible(false);
-						//AdministratzaileGUI adm= new AdministratzaileGUI();
-						//adm.setVisible(true);
+						AdministratzaileGUI adm= new AdministratzaileGUI(e);
+						adm.setVisible(true);
 					}
 				} else {
 				
@@ -109,5 +109,31 @@ public class LoginGUI extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(163, 150, 114, 18);
 		contentPane.add(passwordField);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				RegisterGUI rg = new RegisterGUI();
+				rg.setVisible(true);
+			}
+		});
+		btnRegister.setBounds(321, 48, 98, 24);
+		contentPane.add(btnRegister);
+		
+		JLabel lblEzDaukazuKonturik = new JLabel("No account?");
+		lblEzDaukazuKonturik.setBounds(294, 32, 168, 14);
+		contentPane.add(lblEzDaukazuKonturik);
+		
+		JButton btnGuest = new JButton("Guest");
+		btnGuest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				FindQuestionsGUI fq = new FindQuestionsGUI();
+				fq.setVisible(true);
+			}
+		});
+		btnGuest.setBounds(321, 262, 98, 24);
+		contentPane.add(btnGuest);
 	}
 }

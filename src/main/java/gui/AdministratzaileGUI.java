@@ -7,12 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domain.Erabiltzailea;
 import domain.Event;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 
@@ -21,6 +23,7 @@ public class AdministratzaileGUI extends JFrame {
 
 	private JPanel contentPane;
 	private static AdministratzaileGUI frame;
+	private Erabiltzailea erabiltzailea;
 
 	/**
 	 * Launch the application.
@@ -29,7 +32,7 @@ public class AdministratzaileGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new AdministratzaileGUI();
+					frame = new AdministratzaileGUI(new Erabiltzailea("a","b",new Date()));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +44,11 @@ public class AdministratzaileGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdministratzaileGUI() {
+	public AdministratzaileGUI(Erabiltzailea erabiltzailea) {
+		
+		frame = this;
+		this.erabiltzailea = erabiltzailea;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -91,6 +98,11 @@ public class AdministratzaileGUI extends JFrame {
 		});
 		btnNewButton_1.setBounds(301, 119, 111, 60);
 		contentPane.add(btnNewButton_1);
+		
+		JLabel lblKaixoErabiltzaile = new JLabel("Kaixo, erabiltzaile");
+		lblKaixoErabiltzaile.setBounds(311, 24, 125, 14);
+		lblKaixoErabiltzaile.setText("Kaixo, " + this.erabiltzailea.getIzena());
+		contentPane.add(lblKaixoErabiltzaile);
 	}
 }
 

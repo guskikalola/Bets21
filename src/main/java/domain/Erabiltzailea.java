@@ -19,11 +19,11 @@ public class Erabiltzailea {
 		this.pasahitza = pasahitza;
 		
 		Date gaur = new Date();
-		int urteDif = gaur.getYear() - jaiotzeData.getYear();
+		int urteDif = Math.abs(2022 - jaiotzeData.getYear());
 		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
 		
-		int hilabKop = (urteDif > 0 ? urteDif*12 : 0) + (hilbDif > 0 ? hilbDif : 0);
-		
+		int hilabKop = urteDif*12 + (hilbDif > 0 ? hilbDif : 0);
+				
 		this.adina = hilabKop / 12;
 		
 		this.rola = rola;

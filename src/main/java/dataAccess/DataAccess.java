@@ -120,7 +120,7 @@ public class DataAccess  {
 			}
 			
 			// TODO: Ezabatu ( Probako login )
-			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ERABILTZAILEA);
+			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ADMIN);
 			
 			db.persist(e);
 			
@@ -282,12 +282,14 @@ public boolean existQuestion(Event event, String question) {
 
 	private boolean adinaDu(Date jaiotzeData) {
 		Date gaur = new Date();
-		int urteDif = gaur.getYear() - jaiotzeData.getYear();
+		// TODO: Aldatu
+		int urteDif = Math.abs(2022 - jaiotzeData.getYear());
 		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
 		
 		int hilabKop = (urteDif*12) + (hilbDif > 0 ? hilbDif : 0);
 		
 		int urteKop = hilabKop / 12;
+		System.out.println(urteKop);
 		
 		return (urteKop>=18);
 }
