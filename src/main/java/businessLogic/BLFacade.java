@@ -11,6 +11,7 @@ import java.util.Date;
 import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Kuota;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -65,5 +66,6 @@ public interface BLFacade  {
 	
 	public Event sortuGertaera(Date data, String deskribapena);
 	
+	public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
 	
 }

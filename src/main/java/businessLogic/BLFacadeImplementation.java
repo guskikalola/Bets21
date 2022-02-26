@@ -12,6 +12,7 @@ import dataAccess.DataAccess;
 import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Kuota;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -153,6 +154,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		Event event = dbManager.sortuGertaera(data, deskribapena);
 		dbManager.close();
 		return event;
+	}
+
+	@Override
+	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
+		dbManager.open(false);
+		Kuota k = dbManager.ipiniKuota(q,aukera,kantitatea);
+		dbManager.close();
+		return k;
 	}
 
 

@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.util.Vector;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,6 +24,9 @@ public class Question implements Serializable {
 	private String result;  
 	@XmlIDREF
 	private Event event;
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	private Vector<Kuota> kuotak=new Vector<Kuota>();
 
 	public Question(){
 		super();
@@ -157,8 +161,24 @@ public class Question implements Serializable {
 	public String toString(){
 		return questionNumber+";"+question+";"+Float.toString(betMinimum);
 	}
+	
+	public boolean kuotaExistitzenDa(String aukera) {
+		for(Kuota k : this.kuotak) {
+			if(k.getAukera().equals(aukera))
+				return true;
+		}
+		return false;
+	}
+	
+	public Kuota ipiniKuota(String aukera, double kantitatea) {
+		Kuota k = new Kuota(aukera,kantitatea);
+		this.kuotak.add(k);
+		return k;
+	}
 
-
+	public Vector<Kuota> getKuotak() {
+		return this.kuotak;
+	}
 
 
 	
