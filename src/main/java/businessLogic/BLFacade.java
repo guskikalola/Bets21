@@ -11,6 +11,7 @@ import java.util.Date;
 import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Kuota;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -63,7 +64,7 @@ public interface BLFacade  {
 	
 	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData);
 	
-	
+	public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
 	
 
 	

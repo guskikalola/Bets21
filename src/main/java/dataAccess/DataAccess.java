@@ -19,8 +19,10 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Kuota;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
+import gui.MainGUI;
 
 /**
  * It implements the data access to the objectDb database
@@ -314,6 +316,18 @@ public boolean existQuestion(Event event, String question) {
 		db.persist(er);
 		db.getTransaction().commit();
 		return er;
+	}
+
+	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
+		db.getTransaction().begin();
+		Question qDB = db.find(Question.class, q.getQuestionNumber());
+		Kuota k = null;
+		if(qDB != null && !qDB.kuotaExistitzenDa(aukera)) {
+			// Kuota ez da existitzen, sortu.
+			k = qDB.ipiniKuota(aukera, kantitatea);
+		} 
+		db.getTransaction().commit();
+		return k;
 	}
 	
 }
