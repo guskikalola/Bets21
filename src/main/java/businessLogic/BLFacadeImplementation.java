@@ -145,6 +145,15 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return e;
 	}
+	
+	
+	@Override
+	public Event sortuGertaera(Date data, String deskribapena) {
+		dbManager.open(false);
+		Event event = dbManager.sortuGertaera(data, deskribapena);
+		dbManager.close();
+		return event;
+	}
 
 
 }

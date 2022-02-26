@@ -63,8 +63,7 @@ public interface BLFacade  {
 	
 	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData);
 	
+	public Event sortuGertaera(Date data, String deskribapena);
 	
-	
-
 	
 }

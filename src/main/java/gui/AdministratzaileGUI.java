@@ -90,10 +90,9 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnNewButton_1 = new JButton("Gertaera sortu");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//CreateEventGUI ceGUI = new CreateEventGUI();
-				//ceGUI.setVisible(true);
 				frame.setVisible(false);
-				
+				GertaeraSortuGUI ceGUI = new GertaeraSortuGUI();
+				ceGUI.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(301, 119, 111, 60);

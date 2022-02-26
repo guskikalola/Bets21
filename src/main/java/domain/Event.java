@@ -39,7 +39,7 @@ public class Event implements Serializable {
 		super();
 	}
 
-	public Event(Integer eventNumber, String description,Date eventDate) {
+	public Event(Integer eventNumber, String description, Date eventDate) {
 		this.eventNumber = eventNumber;
 		this.description = description;
 		this.eventDate=eventDate;

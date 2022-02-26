@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
@@ -233,7 +234,7 @@ public class DataAccess  {
 	}
 	
 
-public void open(boolean initializeMode){
+	public void open(boolean initializeMode){
 		
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
@@ -257,12 +258,12 @@ public void open(boolean initializeMode){
     	   }
 		
 	}
-public boolean existQuestion(Event event, String question) {
-	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-	Event ev = db.find(Event.class, event.getEventNumber());
-	return ev.DoesQuestionExists(question);
+	public boolean existQuestion(Event event, String question) {
+		System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
+		Event ev = db.find(Event.class, event.getEventNumber());
+		return ev.DoesQuestionExists(question);
+	}
 	
-}
 	public void close(){
 		db.close();
 		System.out.println("DataBase closed");
@@ -316,4 +317,34 @@ public boolean existQuestion(Event event, String question) {
 		return er;
 	}
 	
+	
+	public Event sortuGertaera(Date data, String deskripzioa) {
+		boolean exists= this.gertaeraExistitzenDa(data, deskripzioa);
+		if (!exists) {
+			Event event = this.createEvent(data, deskripzioa);
+			event.toString();
+			return event;
+		}else {
+			return null;
+		}
+	}
+	
+	private boolean gertaeraExistitzenDa(Date data, String deskripzioa) {
+		Query query = db.createQuery("SELECT ev FROM EVENT ev WHERE ev.eventDate=? data AND ev.description=? deskripzioa");
+		if(query != null) {
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
+		
+	private Event createEvent(Date data, String deskripzioa) {
+		db.getTransaction().begin();
+		Event event = new Event(deskripzioa, data);
+		db.persist(event);
+		event.toString();
+		db.getTransaction().commit();
+		return event;
+	}
 }
