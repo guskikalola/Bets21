@@ -131,15 +131,13 @@ public class GertaeraSortuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String deskribapena = textFieldDescription.getText();
-				Date data = new Date();
+				Date data = new Date((Integer) YearBox.getSelectedItem() - 1900,
+						MonthBox.getSelectedIndex(), (Integer) DayBox.getSelectedItem());
 				// TODO: Bete ComboBox-a
-				//data.setYear((Integer) YearBox.getSelectedItem());
-				//data.setMonth(MonthBox.getSelectedIndex());
 				
 				BLFacade facade = MainGUI.getBusinessLogic();
 				Event event = facade.sortuGertaera(data, deskribapena);
 				if(event != null) {
-					event.toString();
 					frame.setVisible(false);
 					FindQuestionsGUI quest= new FindQuestionsGUI();
 					quest.setVisible(true);

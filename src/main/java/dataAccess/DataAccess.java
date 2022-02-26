@@ -23,7 +23,6 @@ import domain.Event;
 import domain.Kuota;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
-import gui.MainGUI;
 
 /**
  * It implements the data access to the objectDb database
