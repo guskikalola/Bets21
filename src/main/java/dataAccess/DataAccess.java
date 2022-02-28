@@ -283,10 +283,10 @@ public class DataAccess  {
 	}
 
 	private boolean adinaDu(Date jaiotzeData) {
-		Date gaur = new Date();
+		Calendar gaur = Calendar.getInstance();
 		// TODO: Aldatu
-		int urteDif = Math.abs(2022 - jaiotzeData.getYear());
-		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
+		int urteDif = Math.abs(gaur.get(Calendar.YEAR) - jaiotzeData.getYear());
+		int hilbDif = gaur.get(Calendar.MONTH) - jaiotzeData.getMonth();
 		
 		int hilabKop = (urteDif*12) + (hilbDif > 0 ? hilbDif : 0);
 		
@@ -345,8 +345,11 @@ public class DataAccess  {
 	}
 	
 	private boolean gertaeraExistitzenDa(Date data, String deskripzioa) {
-		Query query = db.createQuery("SELECT ev FROM EVENT ev WHERE ev.eventDate=? data AND ev.description=? deskripzioa");
-		if(query != null) {
+		Query query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1 AND ev.description=?2");
+		query.setParameter(1, data);
+		query.setParameter(2, deskripzioa);
+		List<Event> eventsList = query.getResultList();
+		if(eventsList.isEmpty()) {
 			return false;
 		}else{
 			return true;

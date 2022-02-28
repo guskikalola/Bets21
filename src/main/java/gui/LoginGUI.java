@@ -133,7 +133,7 @@ public class LoginGUI extends JFrame {
 				fq.setVisible(true);
 			}
 		});
-		btnGuest.setBounds(321, 262, 98, 24);
+		btnGuest.setBounds(321, 222, 98, 24);
 		contentPane.add(btnGuest);
 	}
 }
