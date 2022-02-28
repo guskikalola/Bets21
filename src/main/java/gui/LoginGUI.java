@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 
 public class LoginGUI extends JFrame {
@@ -65,11 +66,13 @@ public class LoginGUI extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblUser = new JLabel("User:");
+		// TODO : Etiketa ( User )
+		JLabel lblUser = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User")+":"); // "User"
 		lblUser.setBounds(90, 80, 55, 14);
 		contentPane.add(lblUser);
 		
-		JLabel lblPassword = new JLabel("Password:");
+		// TODO : Etiketa ( Password )
+		JLabel lblPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Password") + ":"); // "Password"
 		lblPassword.setBounds(90, 152, 70, 14);
 		contentPane.add(lblPassword);
 		
@@ -110,7 +113,8 @@ public class LoginGUI extends JFrame {
 		passwordField.setBounds(163, 150, 114, 18);
 		contentPane.add(passwordField);
 		
-		JButton btnRegister = new JButton("Register");
+		// TODO : Etiketa ( Register )
+		JButton btnRegister = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register")); // "Register"
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
@@ -121,11 +125,13 @@ public class LoginGUI extends JFrame {
 		btnRegister.setBounds(321, 48, 98, 24);
 		contentPane.add(btnRegister);
 		
-		JLabel lblEzDaukazuKonturik = new JLabel("No account?");
+		// TODO : Etiketa ( NoAccount )
+		JLabel lblEzDaukazuKonturik = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("NoAccount")); // "No account?"
 		lblEzDaukazuKonturik.setBounds(294, 32, 168, 14);
 		contentPane.add(lblEzDaukazuKonturik);
 		
-		JButton btnGuest = new JButton("Guest");
+		// TODO: Etiketa ( Guest )
+		JButton btnGuest = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Guest")); // "Guest"
 		btnGuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
