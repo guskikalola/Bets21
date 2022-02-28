@@ -64,8 +64,8 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnKuotakIpini = new JButton("Kuotak ipini");
 		btnKuotakIpini.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//KuotakGUI k = new KuotakGUI();
-				//k.setVisible(true);
+				KuotakIpiniGUI k = new KuotakIpiniGUI();
+				k.setVisible(true);
 				frame.setVisible(false);
 			}
 		});

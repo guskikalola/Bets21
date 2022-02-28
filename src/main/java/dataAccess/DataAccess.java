@@ -325,7 +325,9 @@ public class DataAccess  {
 		if(qDB != null && !qDB.kuotaExistitzenDa(aukera)) {
 			// Kuota ez da existitzen, sortu.
 			k = qDB.ipiniKuota(aukera, kantitatea);
+			db.persist(k);
 		} 
+		
 		db.getTransaction().commit();
 		return k;
 	}
