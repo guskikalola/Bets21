@@ -283,10 +283,10 @@ public class DataAccess  {
 	}
 
 	private boolean adinaDu(Date jaiotzeData) {
-		Date gaur = new Date();
+		Calendar gaur = Calendar.getInstance();
 		// TODO: Aldatu
-		int urteDif = Math.abs(2022 - jaiotzeData.getYear());
-		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
+		int urteDif = Math.abs(gaur.get(Calendar.YEAR) - jaiotzeData.getYear());
+		int hilbDif = gaur.get(Calendar.MONTH) - jaiotzeData.getMonth();
 		
 		int hilabKop = (urteDif*12) + (hilbDif > 0 ? hilbDif : 0);
 		

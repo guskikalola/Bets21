@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -18,9 +19,9 @@ public class Erabiltzailea {
 		this.izena = izena;
 		this.pasahitza = pasahitza;
 		
-		Date gaur = new Date();
-		int urteDif = Math.abs(2022 - jaiotzeData.getYear());
-		int hilbDif = gaur.getMonth() - jaiotzeData.getMonth();
+		Calendar gaur = Calendar.getInstance();
+		int urteDif = Math.abs(gaur.get(Calendar.YEAR) - jaiotzeData.getYear());
+		int hilbDif = gaur.get(Calendar.MONTH) - jaiotzeData.getMonth();
 		
 		int hilabKop = urteDif*12 + (hilbDif > 0 ? hilbDif : 0);
 				
