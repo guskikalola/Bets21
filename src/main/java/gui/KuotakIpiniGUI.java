@@ -76,9 +76,9 @@ public class KuotakIpiniGUI extends JFrame {
 
 	};
 	private final JTextField kantitateaTextField = new JTextField();
-	private final JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("KuotakIpiniGUI.lblNewLabel.text")); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JLabel lblFee = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("KuotakIpiniGUI.lblFee.text")); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("KuotakIpiniGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Description")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JLabel lblFee = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Amount")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Create")); //$NON-NLS-1$ //$NON-NLS-2$
 	private final JTextField AukeraTextField = new JTextField();
 	
 	private String aukera;
@@ -265,7 +265,7 @@ public class KuotakIpiniGUI extends JFrame {
 		kantitateaTextField.setBounds(487, 347, 259, 20);
 		
 		getContentPane().add(kantitateaTextField);
-		lblNewLabel.setBounds(488, 249, 46, 14);
+		lblNewLabel.setBounds(488, 249, 111, 14);
 		
 		getContentPane().add(lblNewLabel);
 		lblFee.setBounds(487, 322, 112, 14);
