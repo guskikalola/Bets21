@@ -35315,7 +35315,7 @@
 															"top": 87,
 															"width": 101.1181640625,
 															"height": 13,
-															"text": "Lifeline1: Admin"
+															"text": ": Admin"
 														},
 														{
 															"_type": "LabelView",
@@ -37492,7 +37492,6 @@
 									"_parent": {
 										"$ref": "AAAAAAF/Smi+s09QUtc="
 									},
-									"name": "Lifeline1",
 									"represent": {
 										"$ref": "AAAAAAF/Smi+s09Rk/I="
 									},
