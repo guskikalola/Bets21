@@ -33895,17 +33895,17 @@
 														"$ref": "AAAAAAF/XyRXUit2Gfo="
 													},
 													"font": "Arial;13;0",
-													"left": 1185,
+													"left": 1056,
 													"top": 512,
-													"width": 159.6689453125,
+													"width": 555.13427734375,
 													"height": 13,
-													"alpha": 1.5707963267948966,
-													"distance": 10,
+													"alpha": 0.14392542881632045,
+													"distance": 69.72087205421343,
 													"hostEdge": {
 														"$ref": "AAAAAAF/XyRXUyt3BU8="
 													},
 													"edgePosition": 1,
-													"text": "17 : new ErabiltzaileGUI(er)"
+													"text": "17 [er!=null && er.rola.equails(\"erabiltzailea\")] : new ErabiltzaileGUI(er)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -34229,9 +34229,9 @@
 														"$ref": "AAAAAAF/XyURDiu7bDk="
 													},
 													"font": "Arial;13;0",
-													"left": 1257,
+													"left": 1123,
 													"top": 600,
-													"width": 187.83984375,
+													"width": 455.380859375,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -34239,7 +34239,7 @@
 														"$ref": "AAAAAAF/XyURDiu8i6Q="
 													},
 													"edgePosition": 1,
-													"text": "20 : new AdministratzaileGUI(er)"
+													"text": "20 [er!=null && er.rola.equails(\"administratzaile\")] : new AdministratzaileGUI(er)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -34914,7 +34914,8 @@
 									"target": {
 										"$ref": "AAAAAAF/XyLyuisozjI="
 									},
-									"arguments": "er"
+									"arguments": "er",
+									"guard": "er!=null && er.rola.equails(\"erabiltzailea\")"
 								},
 								{
 									"_type": "UMLMessage",
@@ -34959,7 +34960,8 @@
 									"target": {
 										"$ref": "AAAAAAF/XyMcvStJaSs="
 									},
-									"arguments": "er"
+									"arguments": "er",
+									"guard": "er!=null && er.rola.equails(\"administratzaile\")"
 								},
 								{
 									"_type": "UMLMessage",
