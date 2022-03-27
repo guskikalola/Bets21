@@ -66,7 +66,7 @@ public class ErabiltzaileGUI extends JFrame {
 				FindQuestionsGUI f= new FindQuestionsGUI();
 				f.setVisible(true);
 		}});
-		btnNewButton.setBounds(142, 126, 148, 50);
+		btnNewButton.setBounds(61, 124, 148, 50);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Zer egin nahi duzu?");
@@ -91,5 +91,20 @@ public class ErabiltzaileGUI extends JFrame {
 		});
 		button.setBounds(12, 0, 41, 27);
 		contentPane.add(button);
+		
+		JButton btnDiruaSartu = new JButton("Dirua Sartu");
+		btnDiruaSartu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				DiruaSartuGUI f = new DiruaSartuGUI();
+				f.setVisible(true);
+				
+				
+			}
+		});
+		btnDiruaSartu.setBounds(245, 123, 148, 51);
+		contentPane.add(btnDiruaSartu);
 	}
 }
