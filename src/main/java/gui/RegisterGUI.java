@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
+import domain.Admin;
 import domain.Erabiltzailea;
+import domain.Pertsona;
 
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
@@ -123,19 +125,17 @@ public class RegisterGUI extends JFrame {
 					System.out.println("Errorea: Pasahitzak ez dira berdinak");
 				} else {
 
-					Erabiltzailea er = facade.erregistratu(izena, pasahitza, jaiotzeData);
+					Pertsona er = facade.erregistratu(izena, pasahitza, jaiotzeData);
 
 					if (er != null) {
-						String rola = er.getRola();
-						// TODO: Ireki interfaze berria
 						System.out.println(e);
-						if (rola.equals(Erabiltzailea.ERABILTZAILEA)) {
+						if (er instanceof Erabiltzailea) {
 							frame.setVisible(false);
-							ErabiltzaileGUI era = new ErabiltzaileGUI(er);
+							ErabiltzaileGUI era = new ErabiltzaileGUI((Erabiltzailea) er);
 							era.setVisible(true);
-						} else if (rola.equals(Erabiltzailea.ADMIN)) {
+						} else if (er instanceof Admin) {
 							frame.setVisible(false);
-							AdministratzaileGUI adm = new AdministratzaileGUI(er);
+							AdministratzaileGUI adm = new AdministratzaileGUI((Admin) er);
 							adm.setVisible(true);
 						}
 					} else {

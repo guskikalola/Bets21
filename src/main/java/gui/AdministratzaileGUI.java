@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domain.Admin;
 import domain.Erabiltzailea;
 import domain.Event;
 
@@ -23,7 +24,7 @@ public class AdministratzaileGUI extends JFrame {
 
 	private JPanel contentPane;
 	private static AdministratzaileGUI frame;
-	private Erabiltzailea erabiltzailea;
+	private Admin erabiltzailea;
 
 	/**
 	 * Launch the application.
@@ -32,7 +33,7 @@ public class AdministratzaileGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new AdministratzaileGUI(new Erabiltzailea("a","b",new Date()));
+					frame = new AdministratzaileGUI(new Admin("a","b",new Date()));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +45,7 @@ public class AdministratzaileGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdministratzaileGUI(Erabiltzailea erabiltzailea) {
+	public AdministratzaileGUI(Admin erabiltzailea) {
 		
 		frame = this;
 		this.erabiltzailea = erabiltzailea;

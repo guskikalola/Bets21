@@ -1,76 +1,58 @@
 package domain;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Erabiltzailea {
-	@Id
-	private String izena;
-	private String rola;
-	private String pasahitza;
-	private int adina;
+public class Erabiltzailea extends Pertsona {
 	
-	public final static String ADMIN = "admin";
-	public final static String ERABILTZAILEA = "erabiltzailea";
+	private double saldoa;
 	
-	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData, String rola) {
-		this.izena = izena;
-		this.pasahitza = pasahitza;
-		
-		Calendar gaur = Calendar.getInstance();
-		int urteDif = Math.abs(gaur.get(Calendar.YEAR) - jaiotzeData.getYear());
-		int hilbDif = gaur.get(Calendar.MONTH) - jaiotzeData.getMonth();
-		
-		int hilabKop = urteDif*12 + (hilbDif > 0 ? hilbDif : 0);
-				
-		this.adina = hilabKop / 12;
-		
-		this.rola = rola;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	private List<Mugimendua> mugimenduak;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	private List<Apustua> apustuak;
+	
+	public Erabiltzailea() {
+		super();
+		this.mugimenduak = null;
+		this.saldoa = 0;
 	}
 	
 	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
-		this(izena,pasahitza,jaiotzeData,Erabiltzailea.ERABILTZAILEA);
+		super(izena,pasahitza,jaiotzeData);
+		this.mugimenduak = new ArrayList<Mugimendua>();
+		this.saldoa = 0;
 	}
 
-	public String getIzena() {
-		return izena;
+	public double getSaldoa() {
+		return saldoa;
 	}
 
-	public void setIzena(String izena) {
-		this.izena = izena;
+	public void setSaldoa(double saldoa) {
+		this.saldoa = saldoa;
 	}
 
-	public String getRola() {
-		return rola;
+	public List<Mugimendua> getMugimenduak() {
+		return mugimenduak;
 	}
 
-	public void setRola(String rola) {
-		this.rola = rola;
+	public void setMugimenduak(List<Mugimendua> mugimenduak) {
+		this.mugimenduak = mugimenduak;
 	}
 
-	public String getPasahitza() {
-		return pasahitza;
+	public List<Apustua> getApustuak() {
+		return apustuak;
 	}
 
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
-	}
-
-	public int getAdina() {
-		return adina;
-	}
-
-	public void setAdina(int adina) {
-		this.adina = adina;
-	}
-
-	public boolean pasahitzaZuzena(String pasahitza) {
-		return (pasahitza.equals(this.pasahitza));
+	public void setApustuak(List<Apustua> apustuak) {
+		this.apustuak = apustuak;
 	}
 	
-	public String toString() {
-		return "Izena: " + this.izena + " Adina: " + this.adina + " Rola: " + this.rola;
-	}
 }

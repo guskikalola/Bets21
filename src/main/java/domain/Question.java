@@ -1,9 +1,14 @@
 package domain;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.Vector;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlIDREF;
@@ -171,7 +176,7 @@ public class Question implements Serializable {
 	}
 	
 	public Kuota ipiniKuota(String aukera, double kantitatea) {
-		Kuota k = new Kuota(aukera,kantitatea);
+		Kuota k = new Kuota(aukera,kantitatea,this);
 		this.kuotak.add(k);
 		return k;
 	}

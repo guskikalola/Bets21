@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
+import domain.Admin;
 import domain.Erabiltzailea;
+import domain.Pertsona;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -83,25 +85,23 @@ public class LoginGUI extends JFrame {
 				String pasahitza = passwordField.getText();
 				BLFacade facade = MainGUI.getBusinessLogic();
 				
-				Erabiltzailea e = facade.existitzenDa(izena, pasahitza);
+				Pertsona e = facade.existitzenDa(izena, pasahitza);
 				
 				if(e != null) {
-					String rola = e.getRola();
-					// TODO: Ireki interfaze berria
+					facade.setLoginErabiltzailea(e);
+					facade.eguneratuHistorala(frame);
 					System.out.println(e);
-					if(rola.equals(Erabiltzailea.ERABILTZAILEA)) {
+					if(e instanceof Erabiltzailea) {
 						frame.setVisible(false);
-						ErabiltzaileGUI era= new ErabiltzaileGUI(e);
+						ErabiltzaileGUI era= new ErabiltzaileGUI((Erabiltzailea) e);
 						era.setVisible(true);
-					}else if(rola.equals(Erabiltzailea.ADMIN)) {
+					}else if(e instanceof Admin) {
 						frame.setVisible(false);
-						AdministratzaileGUI adm= new AdministratzaileGUI(e);
+						AdministratzaileGUI adm= new AdministratzaileGUI((Admin) e);
 						adm.setVisible(true);
 					}
 				} else {
-				
 					System.out.println("Errorea");
-					// Errorea
 				}
 				
 			}
@@ -118,6 +118,8 @@ public class LoginGUI extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
 				RegisterGUI rg = new RegisterGUI();
 				rg.setVisible(true);
 			}
@@ -135,6 +137,8 @@ public class LoginGUI extends JFrame {
 		btnGuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
 				FindQuestionsGUI fq = new FindQuestionsGUI();
 				fq.setVisible(true);
 			}

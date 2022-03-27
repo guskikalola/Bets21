@@ -12,11 +12,13 @@ import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.swing.JFrame;
 
 /**
  * Interface that specifies the business logic.
@@ -60,12 +62,17 @@ public interface BLFacade  {
 	 */	
 	@WebMethod public void initializeBD();
 	
-	public Erabiltzailea existitzenDa(String izena, String pasahitza);
+	public Pertsona existitzenDa(String izena, String pasahitza);
 	
-	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData);
+	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData);
 	
 	public Event sortuGertaera(Date data, String deskribapena);
 	
 	public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
+	
+	public Pertsona getLoginErabiltzailea();
+	public void setLoginErabiltzailea(Pertsona er);
+	public JFrame atzeraEgin();
+	public void eguneratuHistorala(JFrame frame);
 	
 }

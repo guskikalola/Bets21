@@ -2,10 +2,12 @@ package businessLogic;
 //hola
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.Vector;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.swing.JFrame;
 
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
@@ -13,6 +15,7 @@ import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -22,6 +25,8 @@ import exceptions.QuestionAlreadyExist;
 @WebService(endpointInterface = "businessLogic.BLFacade")
 public class BLFacadeImplementation  implements BLFacade {
 	DataAccess dbManager;
+	private Pertsona loginErabiltzailea;
+	private Stack<JFrame> historiala;
 
 	public BLFacadeImplementation()  {		
 		System.out.println("Creating BLFacadeImplementation instance");
@@ -48,6 +53,9 @@ public class BLFacadeImplementation  implements BLFacade {
 			da.close();
 
 		}
+		
+		historiala = new Stack<JFrame>();
+		
 		dbManager=da;		
 	}
 	
@@ -129,9 +137,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	@Override
-	public Erabiltzailea existitzenDa(String izena, String pasahitza) {
+	public Pertsona existitzenDa(String izena, String pasahitza) {
 		dbManager.open(false);
-		Erabiltzailea e = dbManager.getErabiltzailea(izena);
+		Pertsona e = dbManager.getErabiltzailea(izena);
 		dbManager.close();
 		if(e != null && e.getPasahitza().equals(pasahitza)) {
 			return e;
@@ -140,9 +148,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	@Override
-	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData) {
+	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData) {
 		dbManager.open(false);
-		Erabiltzailea e = dbManager.erregistratu(izena,pasahitza,jaiotzeData);
+		Pertsona e = dbManager.erregistratu(izena,pasahitza,jaiotzeData);
 		dbManager.close();
 		return e;
 	}
@@ -164,6 +172,24 @@ public class BLFacadeImplementation  implements BLFacade {
 		return k;
 	}
 
+	@Override
+	public Pertsona getLoginErabiltzailea() {
+		return this.loginErabiltzailea;
+	}
+	
+	public void setLoginErabiltzailea(Pertsona er) {
+		this.loginErabiltzailea = er;
+	}
+
+	@Override
+	public JFrame atzeraEgin() {
+		if(this.historiala.isEmpty()) return null;
+		else return this.historiala.pop();
+	}
+	
+	public void eguneratuHistorala(JFrame frame) {
+		this.historiala.push(frame);
+	}
 
 }
 

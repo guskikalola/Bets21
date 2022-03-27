@@ -18,9 +18,11 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
+import domain.Admin;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Pertsona;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
 
@@ -122,9 +124,9 @@ public class DataAccess  {
 			}
 			
 			// TODO: Ezabatu ( Probako login )
-			Erabiltzailea e = new Erabiltzailea("admin","pass",new Date(),Erabiltzailea.ADMIN);
+			Admin admin = new Admin("admin","pass",new Date());
 			
-			db.persist(e);
+			db.persist(admin);
 			
 			
 			db.persist(q1);
@@ -271,15 +273,15 @@ public class DataAccess  {
 	}
 
 	public boolean existitzenDa(String izena, String pasahitza) {
-		Erabiltzailea e = db.find(Erabiltzailea.class, izena);
+		Pertsona e = db.find(Pertsona.class, izena);
 		if(e == null) return false;
 		else {
 			return e.pasahitzaZuzena(pasahitza);
 		}
 	}
 
-	public Erabiltzailea getErabiltzailea(String izena) {
-		return db.find(Erabiltzailea.class, izena);
+	public Pertsona getErabiltzailea(String izena) {
+		return db.find(Pertsona.class, izena);
 	}
 
 	private boolean adinaDu(Date jaiotzeData) {
@@ -296,23 +298,24 @@ public class DataAccess  {
 		return (urteKop>=18);
 }
 	
-	public Erabiltzailea erregistratu(String izena, String pasahitza, Date jaiotzeData) {
+	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData) {
 		// Aztertu ea aurretik existitzen den erabiltzailea izen horrekin
-		Erabiltzailea e = this.getErabiltzailea(izena);
+		Pertsona e = this.getErabiltzailea(izena);
 		if(e == null) {
 			// Erabiltzailerik ez da existitzen
 			// Aztertu ea adina >= 18 den
 			boolean adinaNahikoa = this.adinaDu(jaiotzeData);
 			if(adinaNahikoa) {
-				Erabiltzailea er = this.sortuErabiltzailea(izena,pasahitza,jaiotzeData);
+				Pertsona er = this.sortuErabiltzailea(izena,pasahitza,jaiotzeData);
 				return er;
 			} else return null;
 		} else return null;
 	}
 
-	private Erabiltzailea sortuErabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
+	private Pertsona sortuErabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
 		db.getTransaction().begin();
-		Erabiltzailea er = new Erabiltzailea(izena, pasahitza, jaiotzeData);
+		// TODO: Soilik Erabiltzaileak sortu daitezke.
+		Pertsona er = new Erabiltzailea(izena, pasahitza, jaiotzeData);
 		db.persist(er);
 		db.getTransaction().commit();
 		return er;

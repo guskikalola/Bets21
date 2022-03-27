@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import businessLogic.BLFacade;
 import domain.Erabiltzailea;
 
 import javax.swing.JLabel;
@@ -55,7 +56,7 @@ public class ErabiltzaileGUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("ERABILTZAILEA");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(37, 25, 158, 14);
+		lblNewLabel.setBounds(22, 37, 158, 14);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Gertaerak ikusi");
@@ -73,9 +74,22 @@ public class ErabiltzaileGUI extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblKaixoErabiltzailea = new JLabel("Kaixo, erabiltzailea");
-		lblKaixoErabiltzailea.setBounds(326, 26, 120, 14);
+		lblKaixoErabiltzailea.setBounds(322, 38, 120, 14);
 		contentPane.add(lblKaixoErabiltzailea);
 		
 		lblKaixoErabiltzailea.setText(this.erabiltzailea.getIzena());
+		
+		// Atzera egiteko butoia
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		contentPane.add(button);
 	}
 }
