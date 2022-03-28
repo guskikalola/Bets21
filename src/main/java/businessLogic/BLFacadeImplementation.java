@@ -174,7 +174,10 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	@Override
 	public Pertsona getLoginErabiltzailea() {
-		return this.loginErabiltzailea;
+		dbManager.open(false);
+		Pertsona er = dbManager.getErabiltzailea(this.loginErabiltzailea.getIzena());
+		dbManager.close();
+		return er;
 	}
 	
 	public void setLoginErabiltzailea(Pertsona er) {
@@ -189,6 +192,14 @@ public class BLFacadeImplementation  implements BLFacade {
 	
 	public void eguneratuHistorala(JFrame frame) {
 		this.historiala.push(frame);
+	}
+
+	@Override
+	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea) {
+		dbManager.open(false);
+		boolean em = dbManager.diruaSartu(erabiltzaile, pasahitza, kantitatea);
+		dbManager.close();
+		return em;
 	}
 
 }

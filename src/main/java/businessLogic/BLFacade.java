@@ -75,4 +75,6 @@ public interface BLFacade  {
 	public JFrame atzeraEgin();
 	public void eguneratuHistorala(JFrame frame);
 	
+	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
+	
 }

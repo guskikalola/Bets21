@@ -54,5 +54,13 @@ public class Erabiltzailea extends Pertsona {
 	public void setApustuak(List<Apustua> apustuak) {
 		this.apustuak = apustuak;
 	}
+
+	public void saldoaAldatu(Double kantitatea) {
+		this.saldoa += kantitatea;
+	}
+
+	public void mugimenduaGehitu(Mugimendua m) {
+		this.mugimenduak.add(m);
+	}
 	
 }

@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 
 public class ErabiltzaileGUI extends JFrame {
@@ -54,12 +55,12 @@ public class ErabiltzaileGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("ERABILTZAILEA");
+		JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(22, 37, 158, 14);
+		lblNewLabel.setBounds(35, 37, 158, 14);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Gertaerak ikusi");
+		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
@@ -69,15 +70,15 @@ public class ErabiltzaileGUI extends JFrame {
 		btnNewButton.setBounds(61, 124, 148, 50);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("Zer egin nahi duzu?");
-		lblNewLabel_1.setBounds(75, 98, 120, 14);
+		JLabel lblNewLabel_1 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("what_do_you_want_to_do"));
+		lblNewLabel_1.setBounds(75, 98, 194, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblKaixoErabiltzailea = new JLabel("Kaixo, erabiltzailea");
-		lblKaixoErabiltzailea.setBounds(322, 38, 120, 14);
+		lblKaixoErabiltzailea.setBounds(292, 38, 120, 14);
 		contentPane.add(lblKaixoErabiltzailea);
 		
-		lblKaixoErabiltzailea.setText(this.erabiltzailea.getIzena());
+		lblKaixoErabiltzailea.setText(ResourceBundle.getBundle("Etiquetas").getString("kaixo") + ", " + this.erabiltzailea.getIzena());
 		
 		// Atzera egiteko butoia
 		JButton button = new JButton("<");
@@ -92,7 +93,7 @@ public class ErabiltzaileGUI extends JFrame {
 		button.setBounds(12, 0, 41, 27);
 		contentPane.add(button);
 		
-		JButton btnDiruaSartu = new JButton("Dirua Sartu");
+		JButton btnDiruaSartu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("dirua_sartu"));
 		btnDiruaSartu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BLFacade facade = MainGUI.getBusinessLogic();
@@ -100,11 +101,22 @@ public class ErabiltzaileGUI extends JFrame {
 				frame.setVisible(false);
 				DiruaSartuGUI f = new DiruaSartuGUI();
 				f.setVisible(true);
-				
-				
 			}
 		});
 		btnDiruaSartu.setBounds(245, 123, 148, 51);
 		contentPane.add(btnDiruaSartu);
+		
+		JButton btnMugimenduakikusi = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
+		btnMugimenduakikusi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				MugimenduakIkusiGUI f = new MugimenduakIkusiGUI();
+				f.setVisible(true);
+			}
+		});
+		btnMugimenduakikusi.setBounds(143, 186, 181, 50);
+		contentPane.add(btnMugimenduakikusi);
 	}
 }

@@ -22,6 +22,7 @@ import domain.Admin;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
@@ -367,5 +368,20 @@ public class DataAccess  {
 		event.toString();
 		db.getTransaction().commit();
 		return event;
+	}
+
+	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea) {
+		Erabiltzailea e = db.find(Erabiltzailea.class, erabiltzaile.getIzena());
+		if(e==null) return false;
+		else if(!e.pasahitzaZuzena(pasahitza)) return false;
+		else {
+			db.getTransaction().begin();
+			e.saldoaAldatu(kantitatea);
+			Mugimendua m = new Mugimendua(erabiltzaile, kantitatea, "Dirua Sartu");
+			e.mugimenduaGehitu(m);
+			db.persist(m);
+			db.getTransaction().commit();
+			return true;
+		}
 	}
 }
