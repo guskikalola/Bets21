@@ -130,7 +130,7 @@ public class RegisterGUI extends JFrame {
 				} else {
 
 					Pertsona er = facade.erregistratu(izena, pasahitza, jaiotzeData);
-
+					facade.setLoginErabiltzailea(er);
 					if (er != null) {
 						System.out.println(e);
 						if (er instanceof Erabiltzailea) {

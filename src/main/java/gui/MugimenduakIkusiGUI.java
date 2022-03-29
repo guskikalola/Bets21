@@ -3,6 +3,7 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -55,7 +56,7 @@ public class MugimenduakIkusiGUI extends JFrame {
 
 		BLFacade facade = MainGUI.getBusinessLogic();
 
-		this.beteTaula();
+		this.listatuMugimenduak();
 
 		JLabel lblMugimenduakikusi = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
 		lblMugimenduakikusi.setBounds(22, 39, 165, 17);
@@ -87,12 +88,12 @@ public class MugimenduakIkusiGUI extends JFrame {
 	}
 	@Override
 	public void setVisible(boolean visible) {
-		if(visible) this.beteTaula();
+		if(visible) this.listatuMugimenduak();
 		super.setVisible(visible);
 	}
 	
 	
-	public void beteTaula() {
+	public void listatuMugimenduak() {
 		String[] zutabeIzenak = { ResourceBundle.getBundle("Etiquetas").getString("mugimendu_zbkia"),
 				ResourceBundle.getBundle("Etiquetas").getString("Amount"),
 				ResourceBundle.getBundle("Etiquetas").getString("Description") };
@@ -101,18 +102,21 @@ public class MugimenduakIkusiGUI extends JFrame {
 		if (facade.getLoginErabiltzailea() instanceof Erabiltzailea) {
 			Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
 			// Bete mugimenduak lista
-			int mugimenduKopurua = er.getMugimenduak().size();
+			
+			List<Mugimendua> mugList = facade.mugimenduakIkusi(er);
+			
+			int mugimenduKopurua = mugList.size();
 			String mugimenduak[][] = new String[mugimenduKopurua][3];
 	
 			int i = 0;
-			for(Mugimendua m : er.getMugimenduak()) {
+			for(Mugimendua m : mugList) {
 				
 				int zbkia = m.getMugimenduZbkia();
 				double kantitatea = m.getKantitatea();
 				
 				mugimenduak[i][0] = Integer.toString(zbkia);
 				mugimenduak[i][1] = Double.toString(kantitatea);
-				mugimenduak[i][2] = m.getArrazoia();
+				mugimenduak[i][2] = ResourceBundle.getBundle("Etiquetas").getString(m.getArrazoia());
 				
 				i++;
 			}

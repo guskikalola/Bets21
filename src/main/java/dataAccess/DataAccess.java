@@ -19,6 +19,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Admin;
+import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
@@ -377,11 +378,47 @@ public class DataAccess  {
 		else {
 			db.getTransaction().begin();
 			e.saldoaAldatu(kantitatea);
-			Mugimendua m = new Mugimendua(erabiltzaile, kantitatea, "Dirua Sartu");
+			Mugimendua m = new Mugimendua(erabiltzaile, kantitatea, "dirua_sartu");
 			e.mugimenduaGehitu(m);
 			db.persist(m);
 			db.getTransaction().commit();
 			return true;
 		}
+	}
+
+	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er) {
+		if(!(er instanceof Erabiltzailea)) return null;
+		else {
+			Erabiltzailea e = db.find(Erabiltzailea.class, er.getIzena());
+			List<Mugimendua> m = e.getMugimenduak();
+			return m;
+		}
+	}
+
+	public boolean removeEvent(Event ev) {
+		db.getTransaction().begin();
+		Event evDB = db.find(Event.class, ev.getEventNumber());
+		if(evDB == null) return false;
+		List<Question> galderak = evDB.getQuestions();
+		for(Question q : galderak) {
+			List<Kuota> kuotak = q.getKuotak();
+			for(Kuota k : kuotak) {
+				List<Apustua> apustuak = k.getApustuak();
+				for(Apustua ap : apustuak) {
+					Erabiltzailea er = ap.getErabiltzailea();
+					double diruKopurua = ap.getDiruKop();
+					er.saldoaAldatu(diruKopurua);
+					Mugimendua g = new Mugimendua(er,diruKopurua,"gertaera_ezabatuta");
+					db.persist(g);
+					er.ezabatuApustua(ap);
+					db.remove(ap);
+				}
+				db.remove(k);
+			}
+			db.remove(q);
+		}
+		db.remove(evDB);
+		db.getTransaction().commit();
+		return true;
 	}
 }

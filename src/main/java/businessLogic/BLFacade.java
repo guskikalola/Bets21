@@ -2,16 +2,14 @@ package businessLogic;
 
 import java.util.Vector;
 import java.util.Date;
-
-
-
-
+import java.util.List;
 
 //import domain.Booking;
 import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -76,5 +74,11 @@ public interface BLFacade  {
 	public void eguneratuHistorala(JFrame frame);
 	
 	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
+
+
+	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er);
+
+
+	public boolean removeEvent(Event ev);
 	
 }
