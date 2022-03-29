@@ -123,11 +123,35 @@ public class DataAccess  {
 				
 			}
 			
+			Kuota k1;
+			Kuota k2;
+			
+			if (Locale.getDefault().equals(new Locale("es"))) {
+				k1=q3.ipiniKuota("Aaukera", 10);
+				k2=q3.ipiniKuota("Baukera", 11);
+			}
+			else if (Locale.getDefault().equals(new Locale("en"))) {
+				k1=q3.ipiniKuota("a aukera", 10);
+				k2=q3.ipiniKuota("b aukera", 11);
+			}			
+			else {
+				k1=q3.ipiniKuota("a aukera", 10);
+				k2=q3.ipiniKuota("b aukera", 11);
+			}
+
+			
+			
+			
+			
 			// TODO: Ezabatu ( Probako login )
 			Admin admin = new Admin("admin","pass",new Date());
+			Erabiltzailea erab = new Erabiltzailea("a", "a", new Date());
 			
 			db.persist(admin);
+			db.persist(erab);
 			
+			db.persist(k1);
+			db.persist(k2);
 			
 			db.persist(q1);
 			db.persist(q2);
@@ -367,5 +391,11 @@ public class DataAccess  {
 		event.toString();
 		db.getTransaction().commit();
 		return event;
+	}
+	
+	public Vector<Kuota> getKuotaAukera(Question q){
+		Vector<Kuota> list= null;
+		
+		return list;
 	}
 }

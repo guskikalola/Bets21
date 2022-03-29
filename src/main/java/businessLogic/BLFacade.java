@@ -74,5 +74,6 @@ public interface BLFacade  {
 	public void setLoginErabiltzailea(Pertsona er);
 	public JFrame atzeraEgin();
 	public void eguneratuHistorala(JFrame frame);
+	public Vector<Kuota> getKuotaAukera(Question q);
 	
 }

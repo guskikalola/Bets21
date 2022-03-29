@@ -191,5 +191,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		this.historiala.push(frame);
 	}
 
+	
+	@Override
+	public Vector<Kuota> getKuotaAukera(Question q){
+		dbManager.open(false);
+		Vector <Kuota> list = dbManager.getKuotaAukera(q);
+		dbManager.close();
+		
+		return  list;
+	}
 }
 

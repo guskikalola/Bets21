@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import com.toedter.calendar.JCalendar;
 
@@ -49,7 +50,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
 
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
-
+	private DefaultComboBoxModel<String> comboBox;
 	// Code for JCalendar
 	private JCalendar jCalendar1 = new JCalendar();
 	private Calendar calendarAnt = null;
@@ -77,11 +78,16 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 	};
 	
-	private String aukera;
-	private double kantitatea;
-	private int selectedRow;
+	
+	private ArrayList<Kuota> kuotaList = new ArrayList<Kuota>();
 	private ArrayList<Question> questionList = new ArrayList<Question>();
 	private Question selectedQuestion;
+	private JFrame frame;
+	private String selectedAukera;
+	private JPanel contentPane;
+	private final JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("EmaitzakIpiniGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JComboBox KuotaAukera = new JComboBox();
+	private final JComboBox comboBox_1 = new JComboBox();
 
 	
 	public EmaitzakIpiniGUI()
@@ -101,13 +107,13 @@ public class EmaitzakIpiniGUI extends JFrame {
 	private void jbInit() throws Exception
 	{
 
-		
+		frame = this;
 		
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(827, 518));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 
-		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
+		jLabelEventDate.setBounds(new Rectangle(40, 41, 140, 25));
 		jLabelQueries.setBounds(40, 249, 359, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
@@ -128,7 +134,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 		this.getContentPane().add(jButtonClose, null);
 
 
-		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
+		jCalendar1.setBounds(new Rectangle(40, 67, 225, 161));
 
 		BLFacade facade = MainGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
@@ -258,6 +264,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
 
+		
+		
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
 		
@@ -270,7 +278,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 			
 			}
 		});
-		jButtonEmaitzaIpini.setBounds(507, 423, 145, 25);
+		jButtonEmaitzaIpini.setBounds(528, 423, 145, 25);
 		getContentPane().add(jButtonEmaitzaIpini);
 		
 		JLabel lblAukera = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EmaitzakIpiniGUI.lblAukera.text")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -278,10 +286,51 @@ public class EmaitzakIpiniGUI extends JFrame {
 		getContentPane().add(lblAukera);
 		
 		
-		//Aukerak erakutsi
-		JComboBox comboBoxAukerak = new JComboBox();
-		comboBoxAukerak.setBounds(508, 292, 130, 24);
-		getContentPane().add(comboBoxAukerak);
+			
+		
+		
+		
+		//Atzera joateko botoia
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(23, 7, 41, 23);
+		
+		
+		comboBox_1.setModel(comboBox);
+		getContentPane().add(btnNewButton_1);
+		comboBox_1.setBounds(498, 305, 223, 22);
+		
+		getContentPane().add(comboBox_1);
+		
+		
+		
+		
+		comboBox = new DefaultComboBoxModel<String>();
+		
+		
+		tableQueries.addMouseListener(new MouseAdapter(){
+			public void mouseCliked (MouseEvent e) {
+			
+				int i=tableQueries.getSelectedRow();
+					domain.Question q=(domain.Question)tableModelQueries.getValueAt(i, 2); // obtain ev object
+					Vector<Kuota> kuotak =q.getKuotak();
+			
+					kuotaList = new ArrayList<Kuota>();
+					for (int j = 0; j < kuotak.size(); j++){
+						
+						comboBox.addElement(kuotak.get(j).getAukera());
+											
+					}
+			}
+			
+		});	
+		
 		
 	
 
