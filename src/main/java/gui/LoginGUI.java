@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 
+
 public class LoginGUI extends JFrame {
 
 	private JPanel contentPane;

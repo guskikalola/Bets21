@@ -32,7 +32,7 @@ public class ApplicationLauncher {
 		
 		
 		// TODO : Begiratu
-		LoginGUI lG = new LoginGUI();
+		LoginGUI lG = new LoginGUI();//TODO
 		lG.setVisible(true);
 		
 

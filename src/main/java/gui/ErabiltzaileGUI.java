@@ -106,5 +106,21 @@ public class ErabiltzaileGUI extends JFrame {
 		});
 		btnDiruaSartu.setBounds(245, 123, 148, 51);
 		contentPane.add(btnDiruaSartu);
+		
+		JButton btnEmaitzaIpini = new JButton("Emaitza Ipini");
+		btnEmaitzaIpini.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				EmaitzakIpiniGUI f = new EmaitzakIpiniGUI();
+				f.setVisible(true);
+				
+				
+			}
+		});
+		btnEmaitzaIpini.setBounds(132, 214, 201, 25);
+		contentPane.add(btnEmaitzaIpini);
 	}
-}
+}	
+
