@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,17 +18,19 @@ public class Erabiltzailea extends Pertsona {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Mugimendua> mugimenduak;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private List<Apustua> apustuak;
+	private List<Apustua> apustuaLista;
 	
 	public Erabiltzailea() {
 		super();
 		this.mugimenduak = null;
+		this.apustuaLista= new ArrayList<Apustua>();
 		this.saldoa = 0;
 	}
 	
 	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
 		super(izena,pasahitza,jaiotzeData);
 		this.mugimenduak = new ArrayList<Mugimendua>();
+		this.apustuaLista= new ArrayList<Apustua>();
 		this.saldoa = 0;
 	}
 
@@ -48,11 +51,45 @@ public class Erabiltzailea extends Pertsona {
 	}
 
 	public List<Apustua> getApustuak() {
-		return apustuak;
+		return apustuaLista;
 	}
 
 	public void setApustuak(List<Apustua> apustuak) {
-		this.apustuak = apustuak;
+		this.apustuaLista = apustuak;
 	}
 	
+	public boolean diruaNahikoa(Double diruKop) {
+		if((this.getSaldoa()-diruKop)>=0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void saldoaAldatu(Double diruKop) {
+		this.setSaldoa(this.getSaldoa()+diruKop);
+	}
+
+	
+	public void mugimenduaGehitu(Mugimendua m) {
+		this.mugimenduak.add(m);
+	}
+	
+	public void apustuaGehitu(Apustua a) {
+		this.apustuaLista.add(a);
+	}
+	
+	public void apustuaEzabatuListatik(Apustua a) {
+
+		Iterator<Apustua> it = this.apustuaLista.iterator();
+		while(it.hasNext()) {
+			Apustua ap= it.next();
+			if(ap.equals(a)) {
+				it.remove();
+			}
+		}
+	}
 }
+	
+	
+

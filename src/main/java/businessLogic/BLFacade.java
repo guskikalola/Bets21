@@ -9,6 +9,7 @@ import java.util.Date;
 
 //import domain.Booking;
 import domain.Question;
+import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
@@ -74,5 +75,7 @@ public interface BLFacade  {
 	public void setLoginErabiltzailea(Pertsona er);
 	public JFrame atzeraEgin();
 	public void eguneratuHistorala(JFrame frame);
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop);
+	public boolean apustuaEzabatu(Apustua a);
 	
 }

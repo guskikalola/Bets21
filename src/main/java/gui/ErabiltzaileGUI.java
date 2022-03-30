@@ -66,11 +66,11 @@ public class ErabiltzaileGUI extends JFrame {
 				FindQuestionsGUI f= new FindQuestionsGUI();
 				f.setVisible(true);
 		}});
-		btnNewButton.setBounds(61, 124, 148, 50);
+		btnNewButton.setBounds(22, 96, 148, 50);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Zer egin nahi duzu?");
-		lblNewLabel_1.setBounds(75, 98, 120, 14);
+		lblNewLabel_1.setBounds(61, 72, 120, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblKaixoErabiltzailea = new JLabel("Kaixo, erabiltzailea");
@@ -104,7 +104,34 @@ public class ErabiltzaileGUI extends JFrame {
 				
 			}
 		});
-		btnDiruaSartu.setBounds(245, 123, 148, 51);
+		btnDiruaSartu.setBounds(248, 96, 148, 51);
 		contentPane.add(btnDiruaSartu);
+		
+		JButton ApustuEginButton = new JButton("Apustua Egin");
+		ApustuEginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				ApustuakEginGUI apustua = new ApustuakEginGUI();
+				apustua.setVisible(true);
+				
+			}
+		});
+		ApustuEginButton.setBounds(22, 156, 148, 50);
+		contentPane.add(ApustuEginButton);
+		
+		JButton ApustuaEzabatuButton = new JButton("Apustua Ezabatu");
+		ApustuaEzabatuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				ApustuakEzabatuGUI apustu = new ApustuakEzabatuGUI();
+				apustu.setVisible(true);
+			}
+		});
+		ApustuaEzabatuButton.setBounds(248, 157, 148, 49);
+		contentPane.add(ApustuaEzabatuButton);
 	}
 }

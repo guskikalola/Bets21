@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
@@ -190,6 +191,23 @@ public class BLFacadeImplementation  implements BLFacade {
 	public void eguneratuHistorala(JFrame frame) {
 		this.historiala.push(frame);
 	}
+	
+	@Override
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+		dbManager.open(false);
+		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
+		dbManager.close();
+		return a;
+	}
+	
+	@Override 
+	public boolean apustuaEzabatu(Apustua a) {
+		dbManager.open(false);
+		Boolean bool=dbManager.apustuaEzabatu(a);
+		dbManager.close();
+		return bool;
+	}
+	
 
 }
 

@@ -70,7 +70,7 @@ public class AdministratzaileGUI extends JFrame {
 				frame.setVisible(false);
 			}
 		});
-		btnKuotakIpini.setBounds(25, 119, 111, 60);
+		btnKuotakIpini.setBounds(25, 85, 111, 60);
 		contentPane.add(btnKuotakIpini);
 		
 		JButton btnNewButton = new JButton("Galdera sortu");
@@ -81,7 +81,7 @@ public class AdministratzaileGUI extends JFrame {
 				frame.setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(156, 119, 118, 60);
+		btnNewButton.setBounds(158, 85, 118, 60);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblZerEginNahi = new JLabel("Zer egin nahi duzu?");
@@ -96,7 +96,7 @@ public class AdministratzaileGUI extends JFrame {
 				ceGUI.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(301, 119, 111, 60);
+		btnNewButton_1.setBounds(298, 85, 111, 60);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblKaixoErabiltzaile = new JLabel("Kaixo, erabiltzaile");
