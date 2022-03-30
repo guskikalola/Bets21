@@ -193,12 +193,11 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override
-	public Vector<Kuota> getKuotaAukera(Question q){
+	public void emaitzaIpini(Question q, String emaitza){
 		dbManager.open(false);
-		Vector <Kuota> list = dbManager.getKuotaAukera(q);
+		dbManager.emaitzaIpini(q, emaitza);
 		dbManager.close();
 		
-		return  list;
 	}
 }
 

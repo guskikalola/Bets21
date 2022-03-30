@@ -393,9 +393,7 @@ public class DataAccess  {
 		return event;
 	}
 	
-	public Vector<Kuota> getKuotaAukera(Question q){
-		Vector<Kuota> list= null;
-		
-		return list;
+	public void emaitzaIpini(Question q, String emaitza){
+		System.out.println("DataAccess.java clasea");
 	}
 }

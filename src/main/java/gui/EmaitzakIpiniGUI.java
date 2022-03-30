@@ -24,7 +24,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import com.toedter.calendar.JCalendar;
 
@@ -37,7 +36,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.ScrollPane;
-import javax.swing.JComboBox;
 
 
 
@@ -48,24 +46,27 @@ public class EmaitzakIpiniGUI extends JFrame {
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
-
+	
+	
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
-	private DefaultComboBoxModel<String> comboBox;
+
 	// Code for JCalendar
 	private JCalendar jCalendar1 = new JCalendar();
 	private Calendar calendarAnt = null;
 	private Calendar calendarAct = null;
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
+
 	
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	private JTable tableEvents= new JTable();
 	private JTable tableQueries = new JTable();
 
+
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
-
+	
 	
 	private String[] columnNamesEvents = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
@@ -78,18 +79,16 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 	};
 	
+	private final JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Result")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Put")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JTextField AukeraTextField = new JTextField();
 	
-	private ArrayList<Kuota> kuotaList = new ArrayList<Kuota>();
+	private String emaitza;
+	private int selectedRow;
 	private ArrayList<Question> questionList = new ArrayList<Question>();
 	private Question selectedQuestion;
-	private JFrame frame;
-	private String selectedAukera;
-	private JPanel contentPane;
-	private final JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("EmaitzakIpiniGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JComboBox KuotaAukera = new JComboBox();
-	private final JComboBox comboBox_1 = new JComboBox();
+	private static EmaitzakIpiniGUI frame;
 
-	
 	public EmaitzakIpiniGUI()
 	{
 		try
@@ -102,18 +101,15 @@ public class EmaitzakIpiniGUI extends JFrame {
 		}
 	}
 
-
 	
 	private void jbInit() throws Exception
 	{
 
-		frame = this;
-		
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(827, 518));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 
-		jLabelEventDate.setBounds(new Rectangle(40, 41, 140, 25));
+		jLabelEventDate.setBounds(new Rectangle(72, 15, 140, 25));
 		jLabelQueries.setBounds(40, 249, 359, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
@@ -134,7 +130,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 		this.getContentPane().add(jButtonClose, null);
 
 
-		jCalendar1.setBounds(new Rectangle(40, 67, 225, 161));
+		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
 		BLFacade facade = MainGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
@@ -244,9 +240,11 @@ public class EmaitzakIpiniGUI extends JFrame {
 					tableModelQueries.addRow(row);	
 					questionList.add(q);
 				}
+				tableQueries.setModel(tableModelQueries);
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
-			}
+				
+				}
 		});
 
 		scrollPaneEvents.setViewportView(tableEvents);
@@ -263,76 +261,61 @@ public class EmaitzakIpiniGUI extends JFrame {
 		tableQueries.setModel(tableModelQueries);
 		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+		
+		
+		
 
-		
-		
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
+		lblNewLabel.setBounds(488, 281, 111, 14);
 		
-		
-		
-		JButton jButtonEmaitzaIpini = new JButton(ResourceBundle.getBundle("Etiquetas").getString("EmaitzakIpiniGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		jButtonEmaitzaIpini.addActionListener(new ActionListener() {
+		getContentPane().add(lblNewLabel);
+		//Ipini botoia
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO emaitza ipini button
-			
+				emaitza= AukeraTextField.getText();				
+				selectedRow = tableQueries.getSelectedRow();
+				
+				if(selectedRow != -1) {
+					selectedQuestion = questionList.get(selectedRow);
+					facade.emaitzaIpini(selectedQuestion, emaitza);
+				}
+				
+				/**	aukera = AukeraTextField.getText();
+				kantitatea = Double.parseDouble(kantitateaTextField.getText());
+				selectedRow = tableQueries.getSelectedRow();
+				if(selectedRow != -1) {
+					selectedQuestion = questionList.get(selectedRow);
+					facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
+					
+					
+				}*/
 			}
 		});
-		jButtonEmaitzaIpini.setBounds(528, 423, 145, 25);
-		getContentPane().add(jButtonEmaitzaIpini);
+		btnNewButton.setBounds(549, 406, 140, 25);
 		
-		JLabel lblAukera = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EmaitzakIpiniGUI.lblAukera.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblAukera.setBounds(525, 249, 127, 15);
-		getContentPane().add(lblAukera);
+		getContentPane().add(btnNewButton);
+		AukeraTextField.setText((String) null);
+		AukeraTextField.setColumns(10);
+		AukeraTextField.setBounds(488, 320, 259, 20);
 		
-		
-			
-		
+		getContentPane().add(AukeraTextField);
 		
 		
-		//Atzera joateko botoia
-		btnNewButton_1.addActionListener(new ActionListener() {
+		
+		frame=this;
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				BLFacade facade = MainGUI.getBusinessLogic();
 				JFrame atzekoa = facade.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(23, 7, 41, 23);
-		
-		
-		comboBox_1.setModel(comboBox);
-		getContentPane().add(btnNewButton_1);
-		comboBox_1.setBounds(498, 305, 223, 22);
-		
-		getContentPane().add(comboBox_1);
-		
-		
-		
-		
-		comboBox = new DefaultComboBoxModel<String>();
-		
-		
-		tableQueries.addMouseListener(new MouseAdapter(){
-			public void mouseCliked (MouseEvent e) {
-			
-				int i=tableQueries.getSelectedRow();
-					domain.Question q=(domain.Question)tableModelQueries.getValueAt(i, 2); // obtain ev object
-					Vector<Kuota> kuotak =q.getKuotak();
-			
-					kuotaList = new ArrayList<Kuota>();
-					for (int j = 0; j < kuotak.size(); j++){
-						
-						comboBox.addElement(kuotak.get(j).getAukera());
-											
-					}
-			}
-			
-		});	
-		
-		
-	
+		button.setBounds(21, 10, 41, 27);
+		getContentPane().add(button);
 
 	}
 

@@ -122,7 +122,7 @@ public class GertaeraSortuGUI extends JFrame {
 		contentPane.add(DayBox);
 		
 		textFieldDescription = new JTextField();
-		textFieldDescription.setBounds(149, 117, 230, 52);
+		textFieldDescription.setBounds(141, 118, 230, 52);
 		contentPane.add(textFieldDescription);
 		textFieldDescription.setColumns(10);
 		
