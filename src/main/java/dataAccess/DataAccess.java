@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.util.ArrayList;
 //hello
 import java.util.Calendar;
 import java.util.Date;
@@ -19,9 +20,11 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Admin;
+import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
 import exceptions.QuestionAlreadyExist;
@@ -123,20 +126,26 @@ public class DataAccess  {
 				
 			}
 			
-			Kuota k1;
-			Kuota k2;
+			
+			
 			
 			if (Locale.getDefault().equals(new Locale("es"))) {
-				k1=q3.ipiniKuota("Aaukera", 10);
-				k2=q3.ipiniKuota("Baukera", 11);
+				q3.ipiniKuota("Aaukera", 1.0);
+				q3.ipiniKuota("Baukera", 1.1);
+				q6.ipiniKuota("1 edo -", 2.0);
+				q6.ipiniKuota("2 edo +", 6.1);
 			}
 			else if (Locale.getDefault().equals(new Locale("en"))) {
-				k1=q3.ipiniKuota("a aukera", 10);
-				k2=q3.ipiniKuota("b aukera", 11);
+				q3.ipiniKuota("a aukera", 1.0);
+				q3.ipiniKuota("b aukera", 1.1);
+				q6.ipiniKuota("1 edo -", 2.0);
+				q6.ipiniKuota("2 edo +", 6.1);
 			}			
 			else {
-				k1=q3.ipiniKuota("a aukera", 10);
-				k2=q3.ipiniKuota("b aukera", 11);
+				q3.ipiniKuota("a aukera", 1.0);
+				q3.ipiniKuota("b aukera", 1.1);
+				q6.ipiniKuota("1 edo -", 2.0);
+				q6.ipiniKuota("2 edo +", 6.1);
 			}
 
 			
@@ -145,13 +154,14 @@ public class DataAccess  {
 			
 			// TODO: Ezabatu ( Probako login )
 			Admin admin = new Admin("admin","pass",new Date());
-			Erabiltzailea erab = new Erabiltzailea("a", "a", new Date());
+			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
+			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
 			
 			db.persist(admin);
 			db.persist(erab);
+			db.persist(erab1);
 			
-			db.persist(k1);
-			db.persist(k2);
+			
 			
 			db.persist(q1);
 			db.persist(q2);
@@ -393,7 +403,33 @@ public class DataAccess  {
 		return event;
 	}
 	
-	public void emaitzaIpini(Question q, String emaitza){
-		System.out.println("DataAccess.java clasea");
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k, String emaitza){
+		db.getTransaction().begin();
+		Integer questionNumber = q.getQuestionNumber();
+		List<Erabiltzailea> erlist = new <Erabiltzailea>ArrayList(); 
+		
+		if(db.find(Question.class, questionNumber) != null){
+			String aukera = k.getAukera();
+			if(k != null) {
+				q.setResult(aukera);
+				double kuotaBalioa = k.getKantitatea();
+				List<Apustua> alist = k.getApustuak();
+				
+				for(int i = 0; i < alist.size(); i++) {
+					Erabiltzailea erab = alist.get(i).getErabiltzailea();
+					double diruKop = alist.get(i).getDiruKop();
+					double irabaziDirua = diruKop*kuotaBalioa;
+					erab.saldoaAldatu(irabaziDirua);
+					Mugimendua m = new Mugimendua(erab, irabaziDirua , "Apustua Irabazi du" );
+					erab.gehituMugimendua(m);
+					db.persist(m);
+					
+					erlist.add(erab);
+				}
+			}
+			
+		}
+		db.getTransaction().commit();
+		return erlist;
 	}
 }

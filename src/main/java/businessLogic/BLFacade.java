@@ -74,6 +74,6 @@ public interface BLFacade  {
 	public void setLoginErabiltzailea(Pertsona er);
 	public JFrame atzeraEgin();
 	public void eguneratuHistorala(JFrame frame);
-	public void emaitzaIpini(Question q, String emaitza);
+	public void emaitzaIpini(Question q, Kuota k ,String emaitza);
 	
 }

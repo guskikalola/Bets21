@@ -55,4 +55,13 @@ public class Erabiltzailea extends Pertsona {
 		this.apustuak = apustuak;
 	}
 	
+	public void saldoaAldatu(double irabaziDirua) {
+		
+		double dirua = irabaziDirua + this.getSaldoa();
+		this.setSaldoa(dirua);
+	}
+	
+	public void gehituMugimendua(Mugimendua m) {
+		this.mugimenduak.add(m);
+	}
 }

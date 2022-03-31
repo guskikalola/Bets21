@@ -1,14 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,30 +16,36 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JCalendar;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Kuota;
 import domain.Question;
+import javax.swing.ScrollPaneConstants;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import java.awt.ScrollPane;
-
-
-
-public class EmaitzakIpiniGUI extends JFrame {
+public class proba extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	
+	private static proba frame;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
+	private final JLabel jLabelKuota = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Kuota")); 
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
-	
-	
+
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 
 	// Code for JCalendar
@@ -56,17 +54,18 @@ public class EmaitzakIpiniGUI extends JFrame {
 	private Calendar calendarAct = null;
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
-
+	private JScrollPane scrollPaneKuota = new JScrollPane();
 	
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	private JTable tableEvents= new JTable();
 	private JTable tableQueries = new JTable();
-
+	private JTable tableKuota= new JTable();
 
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
-	
+	private DefaultTableModel tableModelKuotak;
+
 	
 	private String[] columnNamesEvents = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
@@ -78,18 +77,27 @@ public class EmaitzakIpiniGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
-	
-	private final JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Result")); //$NON-NLS-1$ //$NON-NLS-2$
+	private String[] columnNamesKuota = new String[] {
+			ResourceBundle.getBundle("Etiquetas").getString("KuotaN"), 
+			ResourceBundle.getBundle("Etiquetas").getString("Kuota")
+
+	};
+	private final JTextField EmaitzaTextField = new JTextField();
+	private final JLabel lblFee = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Result")); //$NON-NLS-1$ //$NON-NLS-2$
 	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Put")); //$NON-NLS-1$ //$NON-NLS-2$
-	private final JTextField AukeraTextField = new JTextField();
 	
-	private String emaitza;
+	private String aukera;
+	//private double kantitatea;
 	private int selectedRow;
 	private ArrayList<Question> questionList = new ArrayList<Question>();
+	private ArrayList<Kuota> kuotaList = new ArrayList<Kuota>();
 	private Question selectedQuestion;
-	private static EmaitzakIpiniGUI frame;
+	private Kuota selectedKuota;
+	private final JLabel KuotakLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Kuota")); //$NON-NLS-1$ //$NON-NLS-2$
 
-	public EmaitzakIpiniGUI()
+	
+	
+	public proba()
 	{
 		try
 		{
@@ -109,8 +117,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 		this.setSize(new Dimension(827, 518));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 
-		jLabelEventDate.setBounds(new Rectangle(72, 15, 140, 25));
-		jLabelQueries.setBounds(40, 249, 359, 14);
+		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
+		jLabelQueries.setBounds(21, 233, 264, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
@@ -161,8 +169,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 					
 					if (monthAct!=monthAnt) {
 						if (monthAct==monthAnt+2) {
-							// Si en JCalendar est√° 30 de enero y se avanza al mes siguiente, devolver√≠a 2 de marzo (se toma como equivalente a 30 de febrero)
-							// Con este c√≥digo se dejar√° como 1 de febrero en el JCalendar
+							// Si en JCalendar est· 30 de enero y se avanza al mes siguiente, devolverÌa 2 de marzo (se toma como equivalente a 30 de febrero)
+							// Con este cÛdigo se dejar· como 1 de febrero en el JCalendar
 							calendarAct.set(Calendar.MONTH, monthAnt+1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
 						}						
@@ -215,7 +223,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 		this.getContentPane().add(jCalendar1, null);
 		
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
-		scrollPaneQueries.setBounds(new Rectangle(40, 275, 386, 116));
+		scrollPaneQueries.setBounds(new Rectangle(10, 257, 387, 116));
+		scrollPaneKuota.setBounds(new Rectangle(437, 257, 366, 96));
 
 		tableEvents.addMouseListener(new MouseAdapter() {
 			@Override
@@ -225,11 +234,13 @@ public class EmaitzakIpiniGUI extends JFrame {
 				Vector<Question> queries=ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
-
+				tableModelQueries.setColumnCount(3);
 				if (queries.isEmpty())
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("NoQueries")+": "+ev.getDescription());
 				else 
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedEvent")+" "+ev.getDescription());
+				
+			
 				
 				questionList = new ArrayList<Question>();
 				for (domain.Question q:queries){
@@ -237,15 +248,62 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
+					row.add(q);
 					tableModelQueries.addRow(row);	
 					questionList.add(q);
 				}
-				tableQueries.setModel(tableModelQueries);
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
-				
-				}
+				tableQueries.getColumnModel().removeColumn(tableQueries.getColumnModel().getColumn(2)); // not shown in JTable
+			}
 		});
+		
+		tableQueries.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+				int i=tableQueries.getSelectedRow();
+				domain.Question q=(domain.Question)tableModelQueries.getValueAt(i,2); // obtain qi object
+				Vector<Kuota> kuotak=q.getKuotak();
+				
+				
+				if (kuotak.isEmpty())
+					jLabelKuota.setText(ResourceBundle.getBundle("Etiquetas").getString("NoKuota"));
+				else 
+					jLabelKuota.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedKuota"));
+				
+				kuotaList = new ArrayList<Kuota>();
+				for (domain.Kuota k:kuotak){
+					Vector<Object> row = new Vector<Object>();
+					row.add(k.getKuotaZenbakia());
+					row.add(k.getAukera());
+					row.add(k.getKantitatea());
+					tableModelKuotak.addRow(row);	
+					kuotaList.add(k);
+				}
+				
+				
+			}
+		});
+		
+		frame=this;
+		
+		//Atzera botoia
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(21, 10, 41, 27);
+		getContentPane().add(button);
+		
 
 		scrollPaneEvents.setViewportView(tableEvents);
 		tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
@@ -263,59 +321,46 @@ public class EmaitzakIpiniGUI extends JFrame {
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
 		
 		
-		
+		scrollPaneKuota.setViewportView(tableKuota);
+		tableModelKuotak = new DefaultTableModel(null, columnNamesKuota);
+
+		tableKuota.setModel(tableModelKuotak);
+		tableKuota.getColumnModel().getColumn(0).setPreferredWidth(25);
+		tableKuota.getColumnModel().getColumn(1).setPreferredWidth(268);
 
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
-		lblNewLabel.setBounds(488, 281, 111, 14);
+		this.getContentPane().add(scrollPaneKuota, null);
+		EmaitzaTextField.setText((String) null);
+		EmaitzaTextField.setColumns(10);
+		EmaitzaTextField.setBounds(437, 393, 259, 20);
 		
-		getContentPane().add(lblNewLabel);
-		//Ipini botoia
+		getContentPane().add(EmaitzaTextField);
+		lblFee.setBounds(442, 369, 112, 14);
+		
+		getContentPane().add(lblFee);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				emaitza= AukeraTextField.getText();				
-				selectedRow = tableQueries.getSelectedRow();
+				selectedRow = tableKuota.getSelectedRow();
+				aukera = EmaitzaTextField.getText();
 				
 				if(selectedRow != -1) {
+					selectedKuota = kuotaList.get(selectedRow);
 					selectedQuestion = questionList.get(selectedRow);
-					//facade.emaitzaIpini(selectedQuestion, new Kuota(emaitza, opacity, selectedQuestion), " ");
+					facade.emaitzaIpini(selectedQuestion, selectedKuota, aukera);
 				}
+
+					
 				
-				/**	aukera = AukeraTextField.getText();
-				kantitatea = Double.parseDouble(kantitateaTextField.getText());
-				selectedRow = tableQueries.getSelectedRow();
-				if(selectedRow != -1) {
-					selectedQuestion = questionList.get(selectedRow);
-					facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
-					
-					
-				}*/
 			}
 		});
-		btnNewButton.setBounds(549, 406, 140, 25);
+		btnNewButton.setBounds(520, 423, 140, 25);
 		
 		getContentPane().add(btnNewButton);
-		AukeraTextField.setText((String) null);
-		AukeraTextField.setColumns(10);
-		AukeraTextField.setBounds(488, 320, 259, 20);
+		KuotakLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		KuotakLabel.setBounds(374, 234, 195, 13);
 		
-		getContentPane().add(AukeraTextField);
-		
-		
-		
-		frame=this;
-		JButton button = new JButton("<");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				BLFacade facade = MainGUI.getBusinessLogic();
-				JFrame atzekoa = facade.atzeraEgin();
-				frame.setVisible(false);
-				atzekoa.setVisible(true);
-			}
-		});
-		button.setBounds(21, 10, 41, 27);
-		getContentPane().add(button);
+		getContentPane().add(KuotakLabel);
 
 	}
 

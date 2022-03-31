@@ -193,9 +193,9 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override
-	public void emaitzaIpini(Question q, String emaitza){
+	public void emaitzaIpini(Question q, Kuota k, String emaitza){
 		dbManager.open(false);
-		dbManager.emaitzaIpini(q, emaitza);
+		dbManager.emaitzaIpini(q, k, emaitza);
 		dbManager.close();
 		
 	}
