@@ -1,5 +1,7 @@
 package gui;
 
+//kode zuzena scr/main/java/gui/proba.java dago, ahaztu zitzaidan EmaitzakIpiniGUI-ra aldatzera 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
