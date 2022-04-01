@@ -122,19 +122,8 @@ public class ErabiltzaileGUI extends JFrame {
 		btnEmaitzaIpini.setBounds(61, 203, 148, 50);
 		contentPane.add(btnEmaitzaIpini);
 		
-		JButton btnNewButton_1 = new JButton("Proba");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
-				facade.eguneratuHistorala(frame);
-				frame.setVisible(false);
-				proba f = new proba();
-				f.setVisible(true);
-				
-			}
-		});
-		btnNewButton_1.setBounds(245, 203, 148, 50);
-		contentPane.add(btnNewButton_1);
+		
+		
 	}
 }	
 

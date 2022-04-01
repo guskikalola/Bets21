@@ -126,24 +126,24 @@ public class DataAccess  {
 				
 			}
 			
-			
+			Kuota k1;
 			
 			
 			if (Locale.getDefault().equals(new Locale("es"))) {
-				q3.ipiniKuota("Aaukera", 1.0);
-				q3.ipiniKuota("Baukera", 1.1);
+				k1 = q3.ipiniKuota("Aaukera", 1.0);
+				k1= q3.ipiniKuota("Baukera", 1.1);
 				q6.ipiniKuota("1 edo -", 2.0);
 				q6.ipiniKuota("2 edo +", 6.1);
 			}
 			else if (Locale.getDefault().equals(new Locale("en"))) {
-				q3.ipiniKuota("a aukera", 1.0);
-				q3.ipiniKuota("b aukera", 1.1);
+				k1=q3.ipiniKuota("a aukera", 1.0);
+				k1=q3.ipiniKuota("b aukera", 1.1);
 				q6.ipiniKuota("1 edo -", 2.0);
 				q6.ipiniKuota("2 edo +", 6.1);
 			}			
 			else {
-				q3.ipiniKuota("a aukera", 1.0);
-				q3.ipiniKuota("b aukera", 1.1);
+				k1=q3.ipiniKuota("a aukera", 1.0);
+				k1=q3.ipiniKuota("b aukera", 1.1);
 				q6.ipiniKuota("1 edo -", 2.0);
 				q6.ipiniKuota("2 edo +", 6.1);
 			}
