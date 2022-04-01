@@ -410,7 +410,7 @@ public class DataAccess  {
 					er.saldoaAldatu(diruKopurua);
 					Mugimendua g = new Mugimendua(er,diruKopurua,"gertaera_ezabatuta");
 					db.persist(g);
-					er.ezabatuApustua(ap);
+					er.apustuaEzabatuListatik(ap);
 					db.remove(ap);
 				}
 				db.remove(k);
@@ -430,7 +430,7 @@ public class DataAccess  {
 			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
 			if(nahikoa) {
 				erDB.saldoaAldatu((-1)*diruKop);
-				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "Apustua eginda");
+				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "apustua_eginda");
 				db.persist(mugi);
 				erDB.mugimenduaGehitu(mugi);
 				Apustua apustua= new Apustua(erDB, diruKop, kDB);
@@ -459,7 +459,7 @@ public class DataAccess  {
 				Date date= new Date();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
-				Mugimendua m= new Mugimendua(erDB, diruKop, "Apustua Ezabatuta");
+				Mugimendua m= new Mugimendua(erDB, diruKop, "apustua_ezabatuta");
 				db.persist(m);
 				erDB.mugimenduaGehitu(m);
 				erDB.apustuaEzabatuListatik(aDB);

@@ -71,12 +71,12 @@ public class LoginGUI extends JFrame {
 		
 		// TODO : Etiketa ( User )
 		JLabel lblUser = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User")+":"); // "User"
-		lblUser.setBounds(90, 80, 55, 14);
+		lblUser.setBounds(68, 80, 92, 14);
 		contentPane.add(lblUser);
 		
 		// TODO : Etiketa ( Password )
 		JLabel lblPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Password") + ":"); // "Password"
-		lblPassword.setBounds(90, 152, 70, 14);
+		lblPassword.setBounds(68, 152, 92, 14);
 		contentPane.add(lblPassword);
 		
 		JButton btnLogin = new JButton("Login");
@@ -126,7 +126,7 @@ public class LoginGUI extends JFrame {
 				rg.setVisible(true);
 			}
 		});
-		btnRegister.setBounds(321, 48, 98, 24);
+		btnRegister.setBounds(304, 48, 115, 24);
 		contentPane.add(btnRegister);
 		
 		// TODO : Etiketa ( NoAccount )
@@ -145,8 +145,20 @@ public class LoginGUI extends JFrame {
 				fq.setVisible(true);
 			}
 		});
-		btnGuest.setBounds(321, 206, 98, 24);
+		btnGuest.setBounds(304, 206, 115, 24);
 		contentPane.add(btnGuest);
+		
+		JButton atzeraEgin = new JButton("<");
+		atzeraEgin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		atzeraEgin.setBounds(12, 0, 41, 27);
+		contentPane.add(atzeraEgin);
 		
 		lblErrorea = new JLabel();
 		lblErrorea.setBounds(28, 242, 362, 17);

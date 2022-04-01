@@ -28,12 +28,12 @@ public class ApplicationLauncher {
 		System.out.println("Locale: "+Locale.getDefault());
 		
 		MainGUI a=new MainGUI();
-		a.setVisible(false);
+		a.setVisible(true);
 		
 		
 		// TODO : Begiratu
-		LoginGUI lG = new LoginGUI();
-		lG.setVisible(true);
+		//LoginGUI lG = new LoginGUI();
+		//lG.setVisible(true);
 		
 
 

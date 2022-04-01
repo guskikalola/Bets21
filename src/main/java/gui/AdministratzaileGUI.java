@@ -17,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 
@@ -58,54 +59,60 @@ public class AdministratzaileGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Administratzailea");
+		JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("admin"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(25, 24, 180, 36);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnKuotakIpini = new JButton("Kuotak ipini");
+		JButton btnKuotakIpini = new JButton(ResourceBundle.getBundle("Etiquetas").getString("kuota_ipini"));
 		btnKuotakIpini.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
 				KuotakIpiniGUI k = new KuotakIpiniGUI();
 				k.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		btnKuotakIpini.setBounds(25, 85, 111, 60);
+		btnKuotakIpini.setBounds(25, 103, 175, 25);
 		contentPane.add(btnKuotakIpini);
 		
-		JButton btnNewButton = new JButton("Galdera sortu");
+		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
 				CreateQuestionGUI cqGUI = new CreateQuestionGUI(new Vector<Event>());
 				cqGUI.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(158, 85, 118, 60);
+		btnNewButton.setBounds(25, 140, 175, 25);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblZerEginNahi = new JLabel("Zer egin nahi duzu?");
-		lblZerEginNahi.setBounds(35, 59, 111, 14);
+		JLabel lblZerEginNahi = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("what_do_you_want_to_do"));
+		lblZerEginNahi.setBounds(35, 59, 214, 14);
 		contentPane.add(lblZerEginNahi);
 		
-		JButton btnNewButton_1 = new JButton("Gertaera sortu");
+		JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("gertaera_sortu"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				GertaeraSortuGUI ceGUI = new GertaeraSortuGUI();
 				ceGUI.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(298, 85, 111, 60);
+		btnNewButton_1.setBounds(212, 103, 175, 25);
 		contentPane.add(btnNewButton_1);
 		
-		JLabel lblKaixoErabiltzaile = new JLabel("Kaixo, erabiltzaile");
+		JLabel lblKaixoErabiltzaile = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("kaixo") + ", " + this.erabiltzailea.getIzena());
 		lblKaixoErabiltzaile.setBounds(311, 24, 125, 14);
-		lblKaixoErabiltzaile.setText("Kaixo, " + this.erabiltzailea.getIzena());
+		lblKaixoErabiltzaile.setText(ResourceBundle.getBundle("Etiquetas").getString("kaixo") + ", " + this.erabiltzailea.getIzena());
 		contentPane.add(lblKaixoErabiltzaile);
 		
-		JButton btnGertaeraezabatu = new JButton("gertaera_ezabatu");
+		JButton btnGertaeraezabatu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("gertaera_ezabatu"));
 		btnGertaeraezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
@@ -115,7 +122,7 @@ public class AdministratzaileGUI extends JFrame {
 				rg.setVisible(true);
 			}
 		});
-		btnGertaeraezabatu.setBounds(123, 211, 175, 25);
+		btnGertaeraezabatu.setBounds(25, 177, 175, 25);
 		contentPane.add(btnGertaeraezabatu);
 		
 		// Atzera egiteko butoia

@@ -64,7 +64,7 @@ public class GertaeraSortuGUI extends JFrame {
 		hilabetea_model = new DefaultComboBoxModel<String>();
 		eguna_model = new DefaultComboBoxModel<Integer>();
 		
-		
+
 		// Bete urteak
 		for(int i = 2022; i <=2035; i++) {
 			urtea_model.addElement(i);
@@ -95,6 +95,20 @@ public class GertaeraSortuGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		// Atzera egiteko butoia
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		contentPane.add(button);
+		
 		
 		DataLabel = new JLabel("Date:");
 		DataLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));

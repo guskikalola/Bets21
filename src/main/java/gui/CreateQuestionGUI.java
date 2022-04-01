@@ -41,7 +41,8 @@ public class CreateQuestionGUI extends JFrame {
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 	private JLabel jLabelMsg = new JLabel();
 	private JLabel jLabelError = new JLabel();
-	
+	private JFrame frame;
+
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	public CreateQuestionGUI(Vector<domain.Event> v) {
@@ -54,9 +55,24 @@ public class CreateQuestionGUI extends JFrame {
 
 	private void jbInit(Vector<domain.Event> v) throws Exception {
 
+		frame = this;
+
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(604, 370));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+
+		// Atzera egiteko butoia
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		this.getContentPane().add(button);
 
 		jComboBoxEvents.setModel(modelEvents);
 		jComboBoxEvents.setBounds(new Rectangle(275, 47, 250, 20));
@@ -105,19 +121,15 @@ public class CreateQuestionGUI extends JFrame {
 		this.getContentPane().add(jComboBoxEvents, null);
 
 		this.getContentPane().add(jCalendar, null);
-		
-		
+
 		BLFacade facade = MainGUI.getBusinessLogic();
-		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
-		paintDaysWithEvents(jCalendar,datesWithEventsCurrentMonth);
-		
-		
+		datesWithEventsCurrentMonth = facade.getEventsMonth(jCalendar.getDate());
+		paintDaysWithEvents(jCalendar, datesWithEventsCurrentMonth);
 
 		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
-		jLabelEventDate.setBounds(40, 16, 140, 25);
+		jLabelEventDate.setBounds(40, 28, 140, 25);
 		getContentPane().add(jLabelEventDate);
 
-		
 		// Code for JCalendar
 		this.jCalendar.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent propertychangeevent) {
@@ -128,32 +140,32 @@ public class CreateQuestionGUI extends JFrame {
 				} else if (propertychangeevent.getPropertyName().equals("calendar")) {
 					calendarAnt = (Calendar) propertychangeevent.getOldValue();
 					calendarAct = (Calendar) propertychangeevent.getNewValue();
-					System.out.println("calendarAnt: "+calendarAnt.getTime());
-					System.out.println("calendarAct: "+calendarAct.getTime());
+					System.out.println("calendarAnt: " + calendarAnt.getTime());
+					System.out.println("calendarAct: " + calendarAct.getTime());
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar.getLocale());
-					
+
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
 					int monthAct = calendarAct.get(Calendar.MONTH);
-					if (monthAct!=monthAnt) {
-						if (monthAct==monthAnt+2) { 
-							// Si en JCalendar estÃ¡ 30 de enero y se avanza al mes siguiente, devolverÃ­a 2 de marzo (se toma como equivalente a 30 de febrero)
+					if (monthAct != monthAnt) {
+						if (monthAct == monthAnt + 2) {
+							// Si en JCalendar estÃ¡ 30 de enero y se avanza al mes siguiente, devolverÃ­a 2
+							// de marzo (se toma como equivalente a 30 de febrero)
 							// Con este cÃ³digo se dejarÃ¡ como 1 de febrero en el JCalendar
-							calendarAct.set(Calendar.MONTH, monthAnt+1);
+							calendarAct.set(Calendar.MONTH, monthAnt + 1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
 						}
-						
+
 						jCalendar.setCalendar(calendarAct);
-						
+
 						BLFacade facade = MainGUI.getBusinessLogic();
 
-						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
+						datesWithEventsCurrentMonth = facade.getEventsMonth(jCalendar.getDate());
 					}
 
+					paintDaysWithEvents(jCalendar, datesWithEventsCurrentMonth);
 
-
-					paintDaysWithEvents(jCalendar,datesWithEventsCurrentMonth);
-
-					//	Date firstDay = UtilDate.trim(new Date(jCalendar.getCalendar().getTime().getTime()));
+					// Date firstDay = UtilDate.trim(new
+					// Date(jCalendar.getCalendar().getTime().getTime()));
 					Date firstDay = UtilDate.trim(calendarAct.getTime());
 
 					try {
@@ -189,33 +201,29 @@ public class CreateQuestionGUI extends JFrame {
 		});
 	}
 
-	
-public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWithEventsCurrentMonth) {
-		// For each day with events in current month, the background color for that day is changed.
+	public static void paintDaysWithEvents(JCalendar jCalendar, Vector<Date> datesWithEventsCurrentMonth) {
+		// For each day with events in current month, the background color for that day
+		// is changed.
 
-		
 		Calendar calendar = jCalendar.getCalendar();
-		
+
 		int month = calendar.get(Calendar.MONTH);
-		int today=calendar.get(Calendar.DAY_OF_MONTH);
-		int year=calendar.get(Calendar.YEAR);
-		
+		int today = calendar.get(Calendar.DAY_OF_MONTH);
+		int year = calendar.get(Calendar.YEAR);
+
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		int offset = calendar.get(Calendar.DAY_OF_WEEK);
 
 		if (Locale.getDefault().equals(new Locale("es")))
-			offset += 4;
+			offset += 5;
 		else
 			offset += 5;
-		
-		
-	 	for (Date d:datesWithEventsCurrentMonth){
 
-	 		calendar.setTime(d);
-	 		System.out.println(d);
-	 		
+		for (Date d : datesWithEventsCurrentMonth) {
 
-			
+			calendar.setTime(d);
+			System.out.println(d);
+
 			// Obtain the component of the day in the panel of the DayChooser of the
 			// JCalendar.
 			// The component is located after the decorator buttons of "Sun", "Mon",... or
@@ -227,16 +235,14 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 			Component o = (Component) jCalendar.getDayChooser().getDayPanel()
 					.getComponent(calendar.get(Calendar.DAY_OF_MONTH) + offset);
 			o.setBackground(Color.CYAN);
-	 	}
-	 	
- 			calendar.set(Calendar.DAY_OF_MONTH, today);
-	 		calendar.set(Calendar.MONTH, month);
-	 		calendar.set(Calendar.YEAR, year);
+		}
 
-	 	
+		calendar.set(Calendar.DAY_OF_MONTH, today);
+		calendar.set(Calendar.MONTH, month);
+		calendar.set(Calendar.YEAR, year);
+
 	}
-	
-	 
+
 	private void jButtonCreate_actionPerformed(ActionEvent e) {
 		domain.Event event = ((domain.Event) jComboBoxEvents.getSelectedItem());
 

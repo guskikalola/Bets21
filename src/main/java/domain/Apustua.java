@@ -69,6 +69,7 @@ public class Apustua {
 		Calendar gaur = Calendar.getInstance();
 		Date gaurkoData = gaur.getTime();
 		Event gertaera = this.kuota.getQuestion().getEvent();
+		System.out.println(this.kuota.getQuestion());
 		Date gertaeraData = gertaera.getEventDate();
 		
 		// Soilik ezabatu daiteke gaur gertaera data baino lehen bada

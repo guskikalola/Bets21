@@ -58,16 +58,8 @@ public class Erabiltzailea extends Pertsona {
 		this.apustuaLista = apustuak;
 	}
 
-	public void saldoaAldatu(Double kantitatea) {
-		this.saldoa += kantitatea;
-	}
-
-	public void mugimenduaGehitu(Mugimendua m) {
-		this.mugimenduak.add(m);
-	}
-
-	public boolean ezabatuApustua(Apustua ap) {
-		Iterator<Apustua> it = this.apustuak.iterator();
+	public boolean apustuaEzabatuListatik(Apustua ap) {
+		Iterator<Apustua> it = this.apustuaLista.iterator();
 		boolean ezabatuta = false;
 		while(it.hasNext() && !ezabatuta) {
 			Apustua a = it.next();
@@ -101,16 +93,6 @@ public class Erabiltzailea extends Pertsona {
 		this.apustuaLista.add(a);
 	}
 	
-	public void apustuaEzabatuListatik(Apustua a) {
-
-		Iterator<Apustua> it = this.apustuaLista.iterator();
-		while(it.hasNext()) {
-			Apustua ap= it.next();
-			if(ap.equals(a)) {
-				it.remove();
-			}
-		}
-	}
 }
 	
 	

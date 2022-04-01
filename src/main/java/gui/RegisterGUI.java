@@ -64,6 +64,7 @@ public class RegisterGUI extends JFrame {
 
 		frame = this;
 		
+	
 		urtea_model = new DefaultComboBoxModel<Integer>();
 		hilabetea_model = new DefaultComboBoxModel<String>();
 		eguna_model = new DefaultComboBoxModel<Integer>();
@@ -88,9 +89,23 @@ public class RegisterGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// Atzera egiteko butoia
+		frame = this;
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		this.getContentPane().add(button);
+		
 		JLabel lblRegister = new JLabel("Register");
 		lblRegister.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblRegister.setBounds(12, 12, 136, 15);
+		lblRegister.setBounds(12, 30, 136, 15);
 		contentPane.add(lblRegister);
 
 		JLabel lblUser = new JLabel("User:");

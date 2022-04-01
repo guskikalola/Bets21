@@ -28,8 +28,8 @@ public class MainGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
-	private JButton jButtonCreateQuery = null;
-	private JButton jButtonQueryQueries = null;
+	
+	private JFrame frame;
 
     private static BLFacade appFacadeInterface;
 	
@@ -46,12 +46,15 @@ public class MainGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnAurrera;
 	
 	/**
 	 * This is the default constructor
 	 */
 	public MainGUI() {
 		super();
+		
+		frame = this;
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -92,59 +95,19 @@ public class MainGUI extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
-			jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
+			jContentPane.setLayout(null);
 			jContentPane.add(getLblNewLabel());
-			jContentPane.add(getBoton3());
-			jContentPane.add(getBoton2());
 			jContentPane.add(getPanel());
+			jContentPane.add(getBtnAurrera());
 		}
 		return jContentPane;
-	}
-
-
-	/**
-	 * This method initializes boton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBoton2() {
-		if (jButtonCreateQuery == null) {
-			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
-			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-					a.setVisible(true);
-				}
-			});
-		}
-		return jButtonCreateQuery;
-	}
-	
-	/**
-	 * This method initializes boton2
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBoton3() {
-		if (jButtonQueryQueries == null) {
-			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
-			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new FindQuestionsGUI();
-
-					a.setVisible(true);
-				}
-			});
-		}
-		return jButtonQueryQueries;
 	}
 	
 
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
 			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
+			jLabelSelectOption.setBounds(0, 0, 487, 65);
 			jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
 			jLabelSelectOption.setForeground(Color.BLACK);
 			jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
@@ -194,6 +157,7 @@ public class MainGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
+			panel.setBounds(0, 84, 487, 65);
 			panel.add(getRdbtnNewRadioButton_1());
 			panel.add(getRdbtnNewRadioButton_2());
 			panel.add(getRdbtnNewRadioButton());
@@ -203,10 +167,25 @@ public class MainGUI extends JFrame {
 	
 	private void redibujar() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
-		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
-		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		btnAurrera.setText(ResourceBundle.getBundle("Etiquetas").getString("Accept"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 	
+	private JButton getBtnAurrera() {
+		if (btnAurrera == null) {
+			btnAurrera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Accept")); //$NON-NLS-1$ //$NON-NLS-2$
+			btnAurrera.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BLFacade facade = MainGUI.getBusinessLogic();
+					facade.eguneratuHistorala(frame);
+					frame.setVisible(false);
+					LoginGUI rg = new LoginGUI();
+					rg.setVisible(true);
+				}
+			});
+			btnAurrera.setBounds(194, 161, 105, 27);
+		}
+		return btnAurrera;
+	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

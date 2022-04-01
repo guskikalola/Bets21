@@ -87,6 +87,8 @@ public class KuotakIpiniGUI extends JFrame {
 	private ArrayList<Question> questionList = new ArrayList<Question>();
 	private Question selectedQuestion;
 
+	private KuotakIpiniGUI frame;
+
 	public KuotakIpiniGUI()
 	{
 		try
@@ -107,7 +109,21 @@ public class KuotakIpiniGUI extends JFrame {
 		this.setSize(new Dimension(827, 518));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 
-		jLabelEventDate.setBounds(new Rectangle(40, 15, 140, 25));
+		// Atzera egiteko butoia
+		frame = this;
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		this.getContentPane().add(button);
+		
+		jLabelEventDate.setBounds(new Rectangle(40, 28, 140, 25));
 		jLabelQueries.setBounds(40, 249, 359, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
