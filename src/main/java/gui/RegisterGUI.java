@@ -23,6 +23,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 
 public class RegisterGUI extends JFrame {
@@ -37,6 +38,7 @@ public class RegisterGUI extends JFrame {
 	private DefaultComboBoxModel<String> hilabetea_model;
 	private JComboBox eguna_comboBox;
 	private DefaultComboBoxModel<Integer> eguna_model;
+	private JLabel lblErrorea;
 	public static JFrame frame;
 
 	/**
@@ -111,6 +113,7 @@ public class RegisterGUI extends JFrame {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblErrorea.setText("");
 				String izena = user.getText();
 				String pasahitza = password.getText();
 				String pasahitzaErrepikatu = confirm_passwordField.getText();
@@ -123,10 +126,11 @@ public class RegisterGUI extends JFrame {
 
 				if (!pasahitza.equals(pasahitzaErrepikatu)) {
 					System.out.println("Errorea: Pasahitzak ez dira berdinak");
+					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_pasahitza_ez_zuzena"));
 				} else {
 
 					Pertsona er = facade.erregistratu(izena, pasahitza, jaiotzeData);
-
+					facade.setLoginErabiltzailea(er);
 					if (er != null) {
 						System.out.println(e);
 						if (er instanceof Erabiltzailea) {
@@ -194,5 +198,9 @@ public class RegisterGUI extends JFrame {
 		user.setBounds(185, 55, 237, 19);
 		contentPane.add(user);
 		user.setColumns(10);
+		
+		lblErrorea = new JLabel();
+		lblErrorea.setBounds(28, 242, 362, 17);
+		contentPane.add(lblErrorea);
 	}
 }

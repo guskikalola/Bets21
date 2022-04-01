@@ -26,6 +26,7 @@ public class LoginGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JLabel lblErrorea;
 	private static LoginGUI frame;
 
 	/**
@@ -49,7 +50,7 @@ public class LoginGUI extends JFrame {
 	 */
 	public LoginGUI() {
 		
-		frame =this; 
+		frame = this; 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -81,6 +82,7 @@ public class LoginGUI extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lblErrorea.setText("");
 				String izena = textField.getText();
 				String pasahitza = passwordField.getText();
 				BLFacade facade = MainGUI.getBusinessLogic();
@@ -101,12 +103,12 @@ public class LoginGUI extends JFrame {
 						adm.setVisible(true);
 					}
 				} else {
-					System.out.println("Errorea");
+					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_pasahitza_ez_zuzena"));
 				}
 				
 			}
 		});
-		btnLogin.setBounds(163, 222, 114, 24);
+		btnLogin.setBounds(163, 206, 114, 24);
 		contentPane.add(btnLogin);
 		
 		passwordField = new JPasswordField();
@@ -143,7 +145,11 @@ public class LoginGUI extends JFrame {
 				fq.setVisible(true);
 			}
 		});
-		btnGuest.setBounds(321, 222, 98, 24);
+		btnGuest.setBounds(321, 206, 98, 24);
 		contentPane.add(btnGuest);
+		
+		lblErrorea = new JLabel();
+		lblErrorea.setBounds(28, 242, 362, 17);
+		contentPane.add(lblErrorea);
 	}
 }

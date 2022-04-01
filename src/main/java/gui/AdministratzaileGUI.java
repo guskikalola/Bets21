@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import businessLogic.BLFacade;
 import domain.Admin;
 import domain.Erabiltzailea;
 import domain.Event;
@@ -59,7 +60,7 @@ public class AdministratzaileGUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Administratzailea");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setBounds(25, 11, 180, 36);
+		lblNewLabel.setBounds(25, 24, 180, 36);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnKuotakIpini = new JButton("Kuotak ipini");
@@ -103,6 +104,32 @@ public class AdministratzaileGUI extends JFrame {
 		lblKaixoErabiltzaile.setBounds(311, 24, 125, 14);
 		lblKaixoErabiltzaile.setText("Kaixo, " + this.erabiltzailea.getIzena());
 		contentPane.add(lblKaixoErabiltzaile);
+		
+		JButton btnGertaeraezabatu = new JButton("gertaera_ezabatu");
+		btnGertaeraezabatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				BLFacade facade = MainGUI.getBusinessLogic();
+				facade.eguneratuHistorala(frame);
+				GertaeraEzabatuGUI rg = new GertaeraEzabatuGUI();
+				rg.setVisible(true);
+			}
+		});
+		btnGertaeraezabatu.setBounds(123, 211, 175, 25);
+		contentPane.add(btnGertaeraezabatu);
+		
+		// Atzera egiteko butoia
+		JButton button = new JButton("<");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BLFacade facade = MainGUI.getBusinessLogic();
+				JFrame atzekoa = facade.atzeraEgin();
+				frame.setVisible(false);
+				atzekoa.setVisible(true);
+			}
+		});
+		button.setBounds(12, 0, 41, 27);
+		contentPane.add(button);
 	}
 }
 

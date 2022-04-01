@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -53,6 +54,28 @@ public class Erabiltzailea extends Pertsona {
 
 	public void setApustuak(List<Apustua> apustuak) {
 		this.apustuak = apustuak;
+	}
+
+	public void saldoaAldatu(Double kantitatea) {
+		this.saldoa += kantitatea;
+	}
+
+	public void mugimenduaGehitu(Mugimendua m) {
+		this.mugimenduak.add(m);
+	}
+
+	public boolean ezabatuApustua(Apustua ap) {
+		Iterator<Apustua> it = this.apustuak.iterator();
+		boolean ezabatuta = false;
+		while(it.hasNext() && !ezabatuta) {
+			Apustua a = it.next();
+			if(a.getApustuZenbakia() == ap.getApustuZenbakia()) {
+				ezabatuta = true;
+				it.remove();
+			}
+		}
+		return ezabatuta;
+		
 	}
 	
 }

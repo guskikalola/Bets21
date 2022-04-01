@@ -10,18 +10,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
+import domain.Erabiltzailea;
+import domain.Pertsona;
 
 public class DiruaSartuGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame frame;
 	private JTextField diruKopInput;
-	private JTextField pasInput;
-		
+	private JPasswordField pasInput;
+	private JLabel lblErrorea ;	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -47,11 +51,11 @@ public class DiruaSartuGUI extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.setBounds(100, 100, 450, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(null);
+		getContentPane().setLayout(null);
+		contentPane.setLayout(null);
 
 		JLabel lbldirukop = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop"));// new
 																									// JLabel("%diru_kop%");
@@ -68,7 +72,7 @@ public class DiruaSartuGUI extends JFrame {
 		contentPane.add(diruKopInput);
 		diruKopInput.setColumns(10);
 
-		pasInput = new JTextField();
+		pasInput = new JPasswordField();
 		pasInput.setBounds(177, 132, 114, 21);
 		contentPane.add(pasInput);
 		pasInput.setColumns(10);
@@ -91,8 +95,35 @@ public class DiruaSartuGUI extends JFrame {
 		contentPane.add(atzeraEgin);
 
 		JButton btnSartu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("sartu")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnSartu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblErrorea.setText("");
+				BLFacade facade = MainGUI.getBusinessLogic();
+				// Aztertu uneko erabiltzailearen pasahitza zuzena den
+				Pertsona er = facade.getLoginErabiltzailea();
+				String pass = pasInput.getText();
+				try {
+					Double kantitatea = Double.parseDouble(diruKopInput.getText());		
+					if(kantitatea <= 0) {
+						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
+					} else if(er instanceof Erabiltzailea) {
+						boolean em = facade.diruaSartu((Erabiltzailea)er, pass, kantitatea);
+						if(!em) {
+							lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_pasahitza_ez_zuzena"));
+						}
+					} else {
+						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_erabiltzailea"));
+					}
+				} catch (NumberFormatException  err) {
+					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
+				}
+			}
+		});
 		btnSartu.setBounds(177, 200, 105, 27);
 		contentPane.add(btnSartu);
+		
+		lblErrorea = new JLabel();
+		lblErrorea.setBounds(28, 242, 362, 17);
+		contentPane.add(lblErrorea);
 	}
-
 }

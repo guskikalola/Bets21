@@ -1,6 +1,7 @@
 package businessLogic;
 //hola
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.Vector;
@@ -15,6 +16,7 @@ import domain.Question;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -174,7 +176,10 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	@Override
 	public Pertsona getLoginErabiltzailea() {
-		return this.loginErabiltzailea;
+		dbManager.open(false);
+		Pertsona er = dbManager.getErabiltzailea(this.loginErabiltzailea.getIzena());
+		dbManager.close();
+		return er;
 	}
 	
 	public void setLoginErabiltzailea(Pertsona er) {
@@ -189,6 +194,30 @@ public class BLFacadeImplementation  implements BLFacade {
 	
 	public void eguneratuHistorala(JFrame frame) {
 		this.historiala.push(frame);
+	}
+
+	@Override
+	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea) {
+		dbManager.open(false);
+		boolean em = dbManager.diruaSartu(erabiltzaile, pasahitza, kantitatea);
+		dbManager.close();
+		return em;
+	}
+
+	@Override
+	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er) {
+		dbManager.open(false);
+		List<Mugimendua> m = dbManager.mugimenduakIkusi(er);
+		dbManager.close();
+		return m;
+	}
+
+	@Override
+	public boolean removeEvent(Event ev) {
+		dbManager.open(false);
+		boolean ezabatuta = dbManager.removeEvent(ev);
+		dbManager.close();
+		return ezabatuta;
 	}
 
 }
