@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
 import domain.Erabiltzailea;
+import domain.Pertsona;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,6 +24,7 @@ public class ErabiltzaileGUI extends JFrame {
 	private JPanel contentPane;
 	private static ErabiltzaileGUI frame;
 	private Erabiltzailea erabiltzailea;
+	private JLabel lblSaldoa;
 
 	/**
 	 * Launch the application.
@@ -60,10 +62,10 @@ public class ErabiltzaileGUI extends JFrame {
 		lblNewLabel.setBounds(35, 37, 158, 14);
 		contentPane.add(lblNewLabel);
 
+		BLFacade facade = MainGUI.getBusinessLogic();
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				FindQuestionsGUI f = new FindQuestionsGUI();
@@ -88,7 +90,6 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton button = new JButton("<");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				JFrame atzekoa = facade.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
@@ -100,7 +101,6 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnDiruaSartu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("dirua_sartu"));
 		btnDiruaSartu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				DiruaSartuGUI f = new DiruaSartuGUI();
@@ -113,7 +113,6 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnMugimenduakikusi = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
 		btnMugimenduakikusi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				MugimenduakIkusiGUI f = new MugimenduakIkusiGUI();
@@ -128,7 +127,6 @@ public class ErabiltzaileGUI extends JFrame {
 		contentPane.add(btnApustuaegin);
 		btnApustuaegin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				ApustuakEginGUI apustua = new ApustuakEginGUI();
@@ -140,14 +138,26 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnApustuaezabatu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("EzabatuApustua")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnApustuaezabatu.setBounds(228, 144, 184, 36);
 		contentPane.add(btnApustuaezabatu);
+		
+		lblSaldoa = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop") + ": " + 0); //$NON-NLS-1$ //$NON-NLS-2$
+		lblSaldoa.setBounds(22, 240, 194, 17);
+		contentPane.add(lblSaldoa);
 		btnApustuaezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				ApustuakEzabatuGUI apustu = new ApustuakEzabatuGUI();
 				apustu.setVisible(true);
 			}
 		});
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		BLFacade facade = MainGUI.getBusinessLogic();
+		Pertsona er = facade.getLoginErabiltzailea();
+		System.out.println(((Erabiltzailea)er).getSaldoa());
+		if(visible && er instanceof Erabiltzailea) this.lblSaldoa.setText(ResourceBundle.getBundle("Etiquetas").getString("diru_kop") + ": " + ((Erabiltzailea)er).getSaldoa());
 	}
 }

@@ -409,6 +409,7 @@ public class DataAccess  {
 					double diruKopurua = ap.getDiruKop();
 					er.saldoaAldatu(diruKopurua);
 					Mugimendua g = new Mugimendua(er,diruKopurua,"gertaera_ezabatuta");
+					er.mugimenduaGehitu(g);
 					db.persist(g);
 					er.apustuaEzabatuListatik(ap);
 					db.remove(ap);
@@ -428,7 +429,8 @@ public class DataAccess  {
 		Kuota kDB=db.find(Kuota.class, ki.getKuotaZenbakia());
 		if(erDB!=null) {
 			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
-			if(nahikoa) {
+			Boolean minimoaGaindtu = diruKop >= ki.getQuestion().getBetMinimum();
+			if(nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1)*diruKop);
 				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "apustua_eginda");
 				db.persist(mugi);
