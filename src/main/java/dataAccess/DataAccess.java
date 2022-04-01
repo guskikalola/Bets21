@@ -421,4 +421,56 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return true;
 	}
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+		db.getTransaction().begin();
+		String izena= er.getIzena();
+		Erabiltzailea erDB= db.find(Erabiltzailea.class, izena);
+		Kuota kDB=db.find(Kuota.class, ki.getKuotaZenbakia());
+		if(erDB!=null) {
+			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
+			if(nahikoa) {
+				erDB.saldoaAldatu((-1)*diruKop);
+				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "Apustua eginda");
+				db.persist(mugi);
+				erDB.mugimenduaGehitu(mugi);
+				Apustua apustua= new Apustua(erDB, diruKop, kDB);
+				db.persist(apustua);
+				kDB.apustuaGehitu(apustua);
+				erDB.apustuaGehitu(apustua);
+				db.getTransaction().commit();
+				return apustua;
+			}
+			return null;
+		}else {
+			db.getTransaction().commit();
+			return null;
+		}
+	}
+	
+	public boolean apustuaEzabatu(Apustua a) {
+		db.getTransaction().begin();
+		Apustua aDB= db.find(Apustua.class, a.getApustuZenbakia());
+		if(aDB!=null) {
+			if(aDB.ezabatuDaiteke()) {
+				Erabiltzailea erDB= aDB.getErabiltzailea();
+				Kuota kDB = aDB.getKuota();
+				Question qDB= kDB.getQuestion();
+				Event eDB= qDB.getEvent();
+				Date date= new Date();
+				Double diruKop = aDB.getDiruKop();
+				erDB.saldoaAldatu(diruKop);
+				Mugimendua m= new Mugimendua(erDB, diruKop, "Apustua Ezabatuta");
+				db.persist(m);
+				erDB.mugimenduaGehitu(m);
+				erDB.apustuaEzabatuListatik(aDB);
+				kDB.apustuaEzabatuListatik(aDB);
+				db.remove(aDB);
+				db.getTransaction().commit();
+				return true;
+			}
+			
+		}
+		db.getTransaction().commit();
+		return false;
+	}
 }

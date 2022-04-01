@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -67,5 +68,20 @@ public class Kuota {
 
 	public void setApustuak(List<Apustua> apustuak) {
 		this.apustuak = apustuak;
+	}
+	
+	public void apustuaGehitu(Apustua a) {
+		this.apustuak.add(a);
+	}
+	
+	public void apustuaEzabatuListatik(Apustua a) {
+
+		Iterator<Apustua> it = this.apustuak.iterator();
+		while(it.hasNext()) {
+			Apustua ap= it.next();
+			if(ap.equals(a)) {
+				it.remove();
+			}
+		}
 	}
 }

@@ -67,7 +67,7 @@ public class ErabiltzaileGUI extends JFrame {
 				FindQuestionsGUI f= new FindQuestionsGUI();
 				f.setVisible(true);
 		}});
-		btnNewButton.setBounds(61, 124, 148, 50);
+		btnNewButton.setBounds(22, 96, 148, 50);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("what_do_you_want_to_do"));
@@ -103,7 +103,7 @@ public class ErabiltzaileGUI extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnDiruaSartu.setBounds(245, 123, 148, 51);
+		btnDiruaSartu.setBounds(248, 96, 148, 51);
 		contentPane.add(btnDiruaSartu);
 		
 		JButton btnMugimenduakikusi = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
