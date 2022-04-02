@@ -1,14 +1,18 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
 
-@Entity
-public class Pertsona {
-	@Id
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
+public class Pertsona implements Serializable {
+	@Id @XmlID
 	private String izena;
 	private String pasahitza;
 	private int adina;

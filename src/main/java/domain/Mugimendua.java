@@ -1,21 +1,32 @@
 package domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@Entity
-public class Mugimendua {
-	@Id 
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
+public class Mugimendua implements Serializable {
+	@Id @XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@GeneratedValue
-	private int mugimenduZbkia;
+	private Integer mugimenduZbkia;
 	private double kantitatea;
 	private String arrazoia;
 	@XmlIDREF
 	private Erabiltzailea erabiltzailea;
+	
+	public Mugimendua() {
+		this.erabiltzailea = null;
+		this.kantitatea = 0;
+		this.arrazoia = null;
+	}
 	
 	public Mugimendua(Erabiltzailea erabiltzailea, double kantitatea, String arrazoia) {
 		this.erabiltzailea = erabiltzailea;

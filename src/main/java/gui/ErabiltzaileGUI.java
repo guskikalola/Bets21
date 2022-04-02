@@ -66,7 +66,7 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				FindQuestionsGUI f = new FindQuestionsGUI();
 				f.setVisible(true);
@@ -90,7 +90,7 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton button = new JButton("<");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame atzekoa = facade.atzeraEgin();
+				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}
@@ -101,7 +101,7 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnDiruaSartu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("dirua_sartu"));
 		btnDiruaSartu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				DiruaSartuGUI f = new DiruaSartuGUI();
 				f.setVisible(true);
@@ -113,7 +113,7 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnMugimenduakikusi = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
 		btnMugimenduakikusi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				MugimenduakIkusiGUI f = new MugimenduakIkusiGUI();
 				f.setVisible(true);
@@ -127,7 +127,7 @@ public class ErabiltzaileGUI extends JFrame {
 		contentPane.add(btnApustuaegin);
 		btnApustuaegin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				ApustuakEginGUI apustua = new ApustuakEginGUI();
 				apustua.setVisible(true);
@@ -144,7 +144,7 @@ public class ErabiltzaileGUI extends JFrame {
 		contentPane.add(lblSaldoa);
 		btnApustuaezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				ApustuakEzabatuGUI apustu = new ApustuakEzabatuGUI();
 				apustu.setVisible(true);

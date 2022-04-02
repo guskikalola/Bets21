@@ -92,7 +92,7 @@ public class LoginGUI extends JFrame {
 				
 				if(e != null) {
 					facade.setLoginErabiltzailea(e);
-					facade.eguneratuHistorala(frame);
+					MainGUI.eguneratuHistorala(frame);
 					System.out.println(e);
 					if(e instanceof Erabiltzailea) {
 						frame.setVisible(false);
@@ -121,8 +121,7 @@ public class LoginGUI extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				BLFacade facade = MainGUI.getBusinessLogic();
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				RegisterGUI rg = new RegisterGUI();
 				rg.setVisible(true);
 			}
@@ -140,8 +139,7 @@ public class LoginGUI extends JFrame {
 		btnGuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				BLFacade facade = MainGUI.getBusinessLogic();
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				FindQuestionsGUI fq = new FindQuestionsGUI();
 				fq.setVisible(true);
 			}
@@ -152,8 +150,7 @@ public class LoginGUI extends JFrame {
 		JButton atzeraEgin = new JButton("<");
 		atzeraEgin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
-				JFrame atzekoa = facade.atzeraEgin();
+				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}

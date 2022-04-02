@@ -61,28 +61,26 @@ public interface BLFacade  {
 	 */	
 	@WebMethod public void initializeBD();
 	
-	public Pertsona existitzenDa(String izena, String pasahitza);
+	@WebMethod public Pertsona existitzenDa(String izena, String pasahitza);
 	
-	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData);
+	@WebMethod public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData);
 	
-	public Event sortuGertaera(Date data, String deskribapena);
+	@WebMethod public Event sortuGertaera(Date data, String deskribapena);
 	
-	public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
+	@WebMethod public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
 	
-	public Pertsona getLoginErabiltzailea();
-	public void setLoginErabiltzailea(Pertsona er);
-	public JFrame atzeraEgin();
-	public void eguneratuHistorala(JFrame frame);
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop);
-	public boolean apustuaEzabatu(Apustua a);
+	@WebMethod public Pertsona getLoginErabiltzailea();
+	@WebMethod public void setLoginErabiltzailea(Pertsona er);
+	@WebMethod public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop);
+	@WebMethod public boolean apustuaEzabatu(Apustua a);
 	
-	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
+	@WebMethod public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
 
 
-	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er);
+	@WebMethod public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er);
 
 
-	public boolean removeEvent(Event ev);
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k );
+	@WebMethod public boolean removeEvent(Event ev);
+	@WebMethod public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k );
 	
 }

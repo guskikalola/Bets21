@@ -488,9 +488,6 @@ public class DataAccess  {
 			if(aDB.ezabatuDaiteke()) {
 				Erabiltzailea erDB= aDB.getErabiltzailea();
 				Kuota kDB = aDB.getKuota();
-				Question qDB= kDB.getQuestion();
-				Event eDB= qDB.getEvent();
-				Date date= new Date();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
 				Mugimendua m= new Mugimendua(erDB, diruKop, "apustua_ezabatuta");
