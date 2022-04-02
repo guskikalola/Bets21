@@ -59,6 +59,8 @@ public class AdministratzaileGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		BLFacade facade = MainGUI.getBusinessLogic();
+		
 		JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("admin"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(25, 24, 180, 36);
@@ -67,7 +69,6 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnKuotakIpini = new JButton(ResourceBundle.getBundle("Etiquetas").getString("kuota_ipini"));
 		btnKuotakIpini.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				KuotakIpiniGUI k = new KuotakIpiniGUI();
 				k.setVisible(true);
@@ -80,7 +81,6 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				CreateQuestionGUI cqGUI = new CreateQuestionGUI(new Vector<Event>());
 				cqGUI.setVisible(true);
@@ -97,7 +97,6 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("gertaera_sortu"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				GertaeraSortuGUI ceGUI = new GertaeraSortuGUI();
@@ -116,7 +115,6 @@ public class AdministratzaileGUI extends JFrame {
 		btnGertaeraezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				BLFacade facade = MainGUI.getBusinessLogic();
 				facade.eguneratuHistorala(frame);
 				GertaeraEzabatuGUI rg = new GertaeraEzabatuGUI();
 				rg.setVisible(true);
@@ -129,7 +127,7 @@ public class AdministratzaileGUI extends JFrame {
 		JButton button = new JButton("<");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BLFacade facade = MainGUI.getBusinessLogic();
+				
 				JFrame atzekoa = facade.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
@@ -137,6 +135,19 @@ public class AdministratzaileGUI extends JFrame {
 		});
 		button.setBounds(12, 0, 41, 27);
 		contentPane.add(button);
+		
+		JButton btnEmaitzaipin = new JButton(ResourceBundle.getBundle("Etiquetas").getString("emaitza_ipini")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnEmaitzaipin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				facade.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				EmaitzakIpiniGUI em = new EmaitzakIpiniGUI();
+				em.setVisible(true);
+				
+			}
+		});
+		btnEmaitzaipin.setBounds(212, 139, 175, 27);
+		contentPane.add(btnEmaitzaipin);
 	}
 }
 

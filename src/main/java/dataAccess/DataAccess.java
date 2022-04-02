@@ -507,31 +507,36 @@ public class DataAccess  {
 		return false;
 	}
 	
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k, String emaitza){
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
 		db.getTransaction().begin();
 		Integer questionNumber = q.getQuestionNumber();
-		List<Erabiltzailea> erlist = new <Erabiltzailea>ArrayList(); 
-		
-		if(db.find(Question.class, questionNumber) != null){
+		List<Erabiltzailea> erlist = new ArrayList<Erabiltzailea>(); 
+		Question qDB = db.find(Question.class, questionNumber);
+		if(qDB != null && qDB.getResult() == null){
 			String aukera = k.getAukera();
-			if(k != null) {
-				q.setResult(aukera);
-				double kuotaBalioa = k.getKantitatea();
-				List<Apustua> alist = k.getApustuak();
+			Kuota kuota = qDB.getAukeraDuenKuota(aukera);
+			if(kuota != null) {
+				qDB.setResult(aukera);
+				double kuotaBalioa = kuota.getKantitatea();
+				List<Apustua> alist = kuota.getApustuak();
 				
-				for(int i = 0; i < alist.size(); i++) {
-					Erabiltzailea erab = alist.get(i).getErabiltzailea();
-					double diruKop = alist.get(i).getDiruKop();
+				for(Apustua ap : alist) {
+					Erabiltzailea erab = ap.getErabiltzailea();
+					double diruKop = ap.getDiruKop();
 					double irabaziDirua = diruKop*kuotaBalioa;
 					erab.saldoaAldatu(irabaziDirua);
-					Mugimendua m = new Mugimendua(erab, irabaziDirua , "Apustua Irabazi du" );
+					Mugimendua m = new Mugimendua(erab, irabaziDirua , "apustua_irabazi" );
 					erab.gehituMugimendua(m);
 					db.persist(m);
 					
 					erlist.add(erab);
 				}
+			} else {
+				return null;
 			}
 			
+		} else {
+			return null;
 		}
 		db.getTransaction().commit();
 		return erlist;

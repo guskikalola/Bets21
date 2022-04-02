@@ -240,10 +240,11 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override
-	public void emaitzaIpini(Question q, Kuota k, String emaitza){
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
 		dbManager.open(false);
-		dbManager.emaitzaIpini(q, k, emaitza);
+		List<Erabiltzailea> er = dbManager.emaitzaIpini(q, k);
 		dbManager.close();
+		return er;
 		
 	}
 }

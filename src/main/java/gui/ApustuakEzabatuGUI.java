@@ -119,7 +119,7 @@ public class ApustuakEzabatuGUI extends JFrame {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(827, 518));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("EzabatuApustua"));
 
 		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
 		jLabelQueries.setBounds(40, 210, 359, 14);
@@ -270,6 +270,9 @@ public class ApustuakEzabatuGUI extends JFrame {
 				domain.Question qu=(domain.Question)tableModelQueries.getValueAt(i,2); // obtain ev object
 				Vector<Kuota> kuotak=qu.getKuotak();
 
+				
+				tableModelApustuak.setDataVector(null, columnNamesApustua);
+				
 				if (kuotak.isEmpty())
 					jLabelApustuak.setText(ResourceBundle.getBundle("Etiquetas").getString("NoApustu"));
 				else 

@@ -83,6 +83,6 @@ public interface BLFacade  {
 
 
 	public boolean removeEvent(Event ev);
-	public void emaitzaIpini(Question q, Kuota k ,String emaitza);
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k );
 	
 }

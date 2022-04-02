@@ -83,7 +83,7 @@ public class LoginGUI extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lblErrorea.setText("");
+				lblErrorea.setText(" ");
 				String izena = textField.getText();
 				String pasahitza = passwordField.getText();
 				BLFacade facade = MainGUI.getBusinessLogic();
@@ -164,5 +164,10 @@ public class LoginGUI extends JFrame {
 		lblErrorea = new JLabel();
 		lblErrorea.setBounds(28, 242, 362, 17);
 		contentPane.add(lblErrorea);
+	}
+	@Override
+	public void setVisible(boolean a) {
+		super.setVisible(a);
+		lblErrorea.setText("");
 	}
 }

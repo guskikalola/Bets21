@@ -186,6 +186,13 @@ public class Question implements Serializable {
 		return this.kuotak;
 	}
 
+	public Kuota getAukeraDuenKuota(String aukera) {
+		for(Kuota k : this.kuotak) {
+			if(k.getAukera().equals(aukera)) return k;
+		}
+		return null;
+	}
+
 
 	
 }

@@ -72,7 +72,7 @@ public class Apustua {
 		System.out.println(this.kuota.getQuestion());
 		Date gertaeraData = gertaera.getEventDate();
 		
-		// Soilik ezabatu daiteke gaur gertaera data baino lehen bada
-		return gaurkoData.compareTo(gertaeraData) < 0;
+		// Soilik ezabatu daiteke gaur gertaera data baino lehen bada eta emaitza ez bada jarri
+		return gaurkoData.compareTo(gertaeraData) < 0 && this.kuota.getQuestion().getResult() == null;
 	}
 }

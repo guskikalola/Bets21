@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -30,6 +31,7 @@ import com.toedter.calendar.JCalendar;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
+import domain.Erabiltzailea;
 import domain.Kuota;
 import domain.Question;
 import javax.swing.ScrollPaneConstants;
@@ -82,18 +84,19 @@ public class EmaitzakIpiniGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("Kuota")
 
 	};
-	private final JTextField EmaitzaTextField = new JTextField();
-	private final JLabel lblFee = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Result")); //$NON-NLS-1$ //$NON-NLS-2$
 	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Put")); //$NON-NLS-1$ //$NON-NLS-2$
 	
-	private String aukera;
 	//private double kantitatea;
+	private int selectedQ;
 	private int selectedRow;
 	private ArrayList<Question> questionList = new ArrayList<Question>();
 	private ArrayList<Kuota> kuotaList = new ArrayList<Kuota>();
 	private Question selectedQuestion;
 	private Kuota selectedKuota;
 	private final JLabel KuotakLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Kuota")); //$NON-NLS-1$ //$NON-NLS-2$
+
+
+	private JLabel lblErrorea;
 
 	
 	
@@ -115,7 +118,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(827, 518));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("emaitza_ipini"));
 
 		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
 		jLabelQueries.setBounds(21, 233, 264, 14);
@@ -169,8 +172,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 					
 					if (monthAct!=monthAnt) {
 						if (monthAct==monthAnt+2) {
-							// Si en JCalendar está 30 de enero y se avanza al mes siguiente, devolvería 2 de marzo (se toma como equivalente a 30 de febrero)
-							// Con este código se dejará como 1 de febrero en el JCalendar
+							// Si en JCalendar estï¿½ 30 de enero y se avanza al mes siguiente, devolverï¿½a 2 de marzo (se toma como equivalente a 30 de febrero)
+							// Con este cï¿½digo se dejarï¿½ como 1 de febrero en el JCalendar
 							calendarAct.set(Calendar.MONTH, monthAnt+1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
 						}						
@@ -268,6 +271,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 				domain.Question q=(domain.Question)tableModelQueries.getValueAt(i,2); // obtain qi object
 				Vector<Kuota> kuotak=q.getKuotak();
 				
+				tableModelKuotak.setDataVector(null, columnNamesKuota);
 				
 				if (kuotak.isEmpty())
 					jLabelKuota.setText(ResourceBundle.getBundle("Etiquetas").getString("NoKuota"));
@@ -331,23 +335,21 @@ public class EmaitzakIpiniGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);
 		this.getContentPane().add(scrollPaneKuota, null);
-		EmaitzaTextField.setText((String) null);
-		EmaitzaTextField.setColumns(10);
-		EmaitzaTextField.setBounds(437, 393, 259, 20);
-		
-		getContentPane().add(EmaitzaTextField);
-		lblFee.setBounds(442, 369, 112, 14);
-		
-		getContentPane().add(lblFee);
 		btnNewButton.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
+				lblErrorea.setText(" ");
 				selectedRow = tableKuota.getSelectedRow();
-				aukera = EmaitzaTextField.getText();
+				selectedQ = tableQueries.getSelectedRow();
 				
-				if(selectedRow != -1) {
+				if(selectedRow != -1 && selectedQ != -1) {
 					selectedKuota = kuotaList.get(selectedRow);
-					selectedQuestion = questionList.get(selectedRow);
-					facade.emaitzaIpini(selectedQuestion, selectedKuota, aukera);
+					selectedQuestion = questionList.get(selectedQ);
+					List<Erabiltzailea> er = facade.emaitzaIpini(selectedQuestion, selectedKuota);
+					if(er == null) {
+						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_emaitza_ipini"));
+					}
 				}
 
 					
@@ -361,6 +363,10 @@ public class EmaitzakIpiniGUI extends JFrame {
 		KuotakLabel.setBounds(374, 234, 195, 13);
 		
 		getContentPane().add(KuotakLabel);
+		
+		lblErrorea = new JLabel(""); //$NON-NLS-1$ //$NON-NLS-2$
+		lblErrorea.setBounds(374, 460, 415, 17);
+		getContentPane().add(lblErrorea);
 
 	}
 

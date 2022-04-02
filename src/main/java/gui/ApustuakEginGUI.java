@@ -124,7 +124,7 @@ public class ApustuakEginGUI extends JFrame {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(827, 518));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("Apustu"));
 
 		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
 		jLabelQueries.setBounds(40, 210, 359, 14);
@@ -277,6 +277,8 @@ public class ApustuakEginGUI extends JFrame {
 				domain.Question qu=(domain.Question)tableModelQueries.getValueAt(i,2); // obtain ev object
 				Vector<Kuota> kuotak=qu.getKuotak();
 
+				tableModelKuotak.setDataVector(null, columnNamesKuota);
+				
 				if (kuotak.isEmpty())
 					jLabelKuota.setText(ResourceBundle.getBundle("Etiquetas").getString("NoKuota"));
 				else 
@@ -339,7 +341,7 @@ public class ApustuakEginGUI extends JFrame {
 		kantitateaTextField.setBounds(327, 393, 259, 20);
 		
 		getContentPane().add(kantitateaTextField);
-		lblFee.setBounds(327, 369, 112, 14);
+		lblFee.setBounds(327, 369, 259, 14);
 		
 		getContentPane().add(lblFee);
 		btnNewButton.addActionListener(new ActionListener() {

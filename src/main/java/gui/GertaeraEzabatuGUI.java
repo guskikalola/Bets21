@@ -75,7 +75,7 @@ public class GertaeraEzabatuGUI extends JFrame {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(700, 500));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("gertaera_ezabatu"));
 
 		jLabelEventDate.setBounds(new Rectangle(40, 33, 140, 25));
 		jLabelEvents.setBounds(292, 42, 259, 16);
