@@ -238,5 +238,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return ezabatuta;
 	}
 
+	
+	@Override
+	public void emaitzaIpini(Question q, Kuota k, String emaitza){
+		dbManager.open(false);
+		dbManager.emaitzaIpini(q, k, emaitza);
+		dbManager.close();
+		
+	}
 }
 

@@ -32,6 +32,8 @@ public class Question implements Serializable {
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private Vector<Kuota> kuotak=new Vector<Kuota>();
+	
+	
 
 	public Question(){
 		super();

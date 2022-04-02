@@ -160,4 +160,5 @@ public class ErabiltzaileGUI extends JFrame {
 		System.out.println(((Erabiltzailea)er).getSaldoa());
 		if(visible && er instanceof Erabiltzailea) this.lblSaldoa.setText(ResourceBundle.getBundle("Etiquetas").getString("diru_kop") + ": " + ((Erabiltzailea)er).getSaldoa());
 	}
-}
+}	
+
