@@ -127,7 +127,7 @@ public class ApustuakEginGUI extends JFrame {
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("Apustu"));
 
 		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
-		jLabelQueries.setBounds(40, 210, 359, 14);
+		jLabelQueries.setBounds(40, 210, 259, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
@@ -369,7 +369,7 @@ public class ApustuakEginGUI extends JFrame {
 		
 		getContentPane().add(btnNewButton);
 		KuotakLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		KuotakLabel.setBounds(330, 211, 89, 13);
+		KuotakLabel.setBounds(330, 211, 41, 13);
 		
 		getContentPane().add(KuotakLabel);
 

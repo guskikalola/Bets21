@@ -39,7 +39,21 @@ public class RegisterGUI extends JFrame {
 	private JComboBox eguna_comboBox;
 	private DefaultComboBoxModel<Integer> eguna_model;
 	private JLabel lblErrorea;
+	
 	public static JFrame frame;
+	
+	private String urtarrila= new String(ResourceBundle.getBundle("Etiquetas").getString("January"));
+	private String otsaila = new String(ResourceBundle.getBundle("Etiquetas").getString("February"));
+	private String martxoa = new String(ResourceBundle.getBundle("Etiquetas").getString("March"));
+	private String apirila = new String(ResourceBundle.getBundle("Etiquetas").getString("April"));
+	private String maiatza = new String(ResourceBundle.getBundle("Etiquetas").getString("May"));
+	private String ekaina = new String(ResourceBundle.getBundle("Etiquetas").getString("June"));
+	private String uztaila = new String(ResourceBundle.getBundle("Etiquetas").getString("July"));
+	private String abuztua = new String(ResourceBundle.getBundle("Etiquetas").getString("August"));
+	private String iraila = new String(ResourceBundle.getBundle("Etiquetas").getString("September"));
+	private String urria = new String(ResourceBundle.getBundle("Etiquetas").getString("October"));
+	private String azaroa = new String(ResourceBundle.getBundle("Etiquetas").getString("November"));
+	private String abendua = new String(ResourceBundle.getBundle("Etiquetas").getString("December"));
 
 	/**
 	 * Launch the application.
@@ -63,6 +77,7 @@ public class RegisterGUI extends JFrame {
 	public RegisterGUI() {
 
 		frame = this;
+	
 		
 	
 		urtea_model = new DefaultComboBoxModel<Integer>();
@@ -74,8 +89,7 @@ public class RegisterGUI extends JFrame {
 			urtea_model.addElement(i);
 		}
 		// Bete hilabeteak
-		// TODO: Bete hilabeteak
-		hilabetea_model.addElement("Urtarrila");
+		
 		
 		// Bete egunak
 		for(int i = 1; i <= 31; i++) {	
@@ -103,29 +117,29 @@ public class RegisterGUI extends JFrame {
 		button.setBounds(12, 0, 41, 27);
 		this.getContentPane().add(button);
 		
-		JLabel lblRegister = new JLabel("Register");
+		JLabel lblRegister = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Register"));
 		lblRegister.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblRegister.setBounds(12, 30, 136, 15);
 		contentPane.add(lblRegister);
 
-		JLabel lblUser = new JLabel("User:");
+		JLabel lblUser = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User"));
 		lblUser.setBounds(35, 57, 73, 15);
 		contentPane.add(lblUser);
 
-		JLabel lblPassword = new JLabel("Password:");
+		JLabel lblPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Password"));
 		lblPassword.setBounds(35, 96, 103, 15);
 		contentPane.add(lblPassword);
 
-		JLabel lblRepitPassword = new JLabel("Confirm Password:");
+		JLabel lblRepitPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ConfirmPassword"));
 		lblRepitPassword.setBounds(34, 130, 146, 15);
 		contentPane.add(lblRepitPassword);
 
-		JLabel lblBirthday = new JLabel("Birthday: ");
+		JLabel lblBirthday = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Birthday"));
 		lblBirthday.setBounds(35, 163, 96, 15);
 		contentPane.add(lblBirthday);
 
 		// regist botoia
-		JButton btnRegister = new JButton("Register");
+		JButton btnRegister = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register"));
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblErrorea.setText("");
@@ -217,5 +231,26 @@ public class RegisterGUI extends JFrame {
 		lblErrorea = new JLabel();
 		lblErrorea.setBounds(28, 242, 362, 17);
 		contentPane.add(lblErrorea);
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		eguneratuHilabeteak();
+	}
+	public void eguneratuHilabeteak() {
+		hilabetea_model.removeAllElements();
+		hilabetea_model.addElement(urtarrila);
+		hilabetea_model.addElement(otsaila);
+		hilabetea_model.addElement(martxoa);
+		hilabetea_model.addElement(apirila);
+		hilabetea_model.addElement(maiatza);
+		hilabetea_model.addElement(ekaina);
+		hilabetea_model.addElement(uztaila);
+		hilabetea_model.addElement(abuztua);
+		hilabetea_model.addElement(iraila);
+		hilabetea_model.addElement(urria);
+		hilabetea_model.addElement(azaroa);
+		hilabetea_model.addElement(abendua);
 	}
 }

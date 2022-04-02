@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 
 public class GertaeraSortuGUI extends JFrame {
@@ -34,6 +35,20 @@ public class GertaeraSortuGUI extends JFrame {
 	private DefaultComboBoxModel<Integer> eguna_model;
 	private JButton CreateNewButton;
 	private JLabel CreateNewEventLabel;
+	
+	private String urtarrila= new String(ResourceBundle.getBundle("Etiquetas").getString("January"));
+	private String otsaila = new String(ResourceBundle.getBundle("Etiquetas").getString("February"));
+	private String martxoa = new String(ResourceBundle.getBundle("Etiquetas").getString("March"));
+	private String apirila = new String(ResourceBundle.getBundle("Etiquetas").getString("April"));
+	private String maiatza = new String(ResourceBundle.getBundle("Etiquetas").getString("May"));
+	private String ekaina = new String(ResourceBundle.getBundle("Etiquetas").getString("June"));
+	private String uztaila = new String(ResourceBundle.getBundle("Etiquetas").getString("July"));
+	private String abuztua = new String(ResourceBundle.getBundle("Etiquetas").getString("August"));
+	private String iraila = new String(ResourceBundle.getBundle("Etiquetas").getString("September"));
+	private String urria = new String(ResourceBundle.getBundle("Etiquetas").getString("October"));
+	private String azaroa = new String(ResourceBundle.getBundle("Etiquetas").getString("November"));
+	private String abendua = new String(ResourceBundle.getBundle("Etiquetas").getString("December"));
+	
 	
 	private static GertaeraSortuGUI frame;
 
@@ -70,19 +85,6 @@ public class GertaeraSortuGUI extends JFrame {
 			urtea_model.addElement(i);
 		}
 		// Bete hilabeteak
-		// TODO: Bete hilabeteak
-		hilabetea_model.addElement("Urtarrila");
-		hilabetea_model.addElement("Otsaila");
-		hilabetea_model.addElement("Martxoa");
-		hilabetea_model.addElement("Apirila");
-		hilabetea_model.addElement("Maiatza");
-		hilabetea_model.addElement("Ekaina");
-		hilabetea_model.addElement("Uztaila");
-		hilabetea_model.addElement("Abuztua");
-		hilabetea_model.addElement("Iraila");
-		hilabetea_model.addElement("Urria");
-		hilabetea_model.addElement("Azaroa");
-		hilabetea_model.addElement("Abendua");
 				
 		// Bete egunak
 		for(int i = 1; i <= 31; i++) {	
@@ -110,29 +112,29 @@ public class GertaeraSortuGUI extends JFrame {
 		contentPane.add(button);
 		
 		
-		DataLabel = new JLabel("Date:");
+		DataLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Date"));
 		DataLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		DataLabel.setBounds(45, 74, 45, 13);
 		contentPane.add(DataLabel);
 		
-		DescriptionLabel = new JLabel("Description:");
+		DescriptionLabel =new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Description"));
 		DescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		DescriptionLabel.setBounds(45, 118, 86, 13);
 		contentPane.add(DescriptionLabel);
 		
 		YearBox = new JComboBox();
 		YearBox.setModel(urtea_model);
-		YearBox.setBounds(130, 72, 65, 21);
+		YearBox.setBounds(130, 72, 83, 21);
 		contentPane.add(YearBox);
 		
 		MonthBox = new JComboBox();
 		MonthBox.setModel(hilabetea_model);
-		MonthBox.setBounds(223, 72, 65, 21);
+		MonthBox.setBounds(223, 72, 81, 21);
 		contentPane.add(MonthBox);
 		
 		DayBox = new JComboBox();
 		DayBox.setModel(eguna_model);
-		DayBox.setBounds(314, 72, 65, 21);
+		DayBox.setBounds(314, 72, 81, 21);
 		contentPane.add(DayBox);
 		
 		textFieldDescription = new JTextField();
@@ -140,7 +142,7 @@ public class GertaeraSortuGUI extends JFrame {
 		contentPane.add(textFieldDescription);
 		textFieldDescription.setColumns(10);
 		
-		CreateNewButton = new JButton("Create");
+		CreateNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Create"));
 		CreateNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -156,6 +158,7 @@ public class GertaeraSortuGUI extends JFrame {
 					FindQuestionsGUI quest= new FindQuestionsGUI();
 					quest.setVisible(true);
 				}else {
+					CreateNewEventLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("EventAlready"));
 					System.out.println("Errorea: Dagoeneko gertaera hori existitzen da egun horretan");
 					// Errorea
 				}
@@ -167,9 +170,30 @@ public class GertaeraSortuGUI extends JFrame {
 		CreateNewButton.setBounds(163, 197, 97, 29);
 		contentPane.add(CreateNewButton);
 		
-		CreateNewEventLabel = new JLabel("Create new event:");
+		CreateNewEventLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateEvent"));
 		CreateNewEventLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CreateNewEventLabel.setBounds(22, 32, 131, 13);
+		CreateNewEventLabel.setBounds(22, 32, 357, 13);
 		contentPane.add(CreateNewEventLabel);
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		eguneratuHilabeteak();
+	}
+	public void eguneratuHilabeteak() {
+		hilabetea_model.removeAllElements();
+		hilabetea_model.addElement(urtarrila);
+		hilabetea_model.addElement(otsaila);
+		hilabetea_model.addElement(martxoa);
+		hilabetea_model.addElement(apirila);
+		hilabetea_model.addElement(maiatza);
+		hilabetea_model.addElement(ekaina);
+		hilabetea_model.addElement(uztaila);
+		hilabetea_model.addElement(abuztua);
+		hilabetea_model.addElement(iraila);
+		hilabetea_model.addElement(urria);
+		hilabetea_model.addElement(azaroa);
+		hilabetea_model.addElement(abendua);
 	}
 }
