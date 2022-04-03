@@ -350,17 +350,21 @@ public class ApustuakEginGUI extends JFrame {
 				if(selectedRow != -1) {
 					selectedKuota = kuotaList.get(selectedRow);
 				}
-
-				double kantitatea= Double.parseDouble(kantitateaTextField.getText());
-				Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
-				if(er!=null) {
-					Apustua apus = facade.apustuaEgin(er, selectedKuota, kantitatea);
-					if(apus==null) {
-						lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("NoMoney"));
-					}else {
-						lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
+				try {
+					double kantitatea= Double.parseDouble(kantitateaTextField.getText());
+					Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
+					if(er!=null) {
+						Apustua apus = facade.apustuaEgin(er, selectedKuota, kantitatea);
+						if(apus==null) {
+							lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("NoMoney"));
+						}else {
+							lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
+						}
 					}
+				} catch (NumberFormatException  err) {
+					lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
 				}
+				
 					
 				
 			}
