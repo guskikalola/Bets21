@@ -187,7 +187,7 @@ public class GertaeraEzabatuGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 
 		lblErrorea = new JLabel(""); //$NON-NLS-1$ //$NON-NLS-2$
-		lblErrorea.setBounds(12, 448, 70, 15);
+		lblErrorea.setBounds(12, 448, 225, 15);
 		getContentPane().add(lblErrorea);
 
 		// Atzera egiteko butoia
@@ -207,6 +207,8 @@ public class GertaeraEzabatuGUI extends JFrame {
 		JButton btnEzabatu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("GertaeraEzabatuGUI.btnEzabatu.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnEzabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					
 				int i = tableEvents.getSelectedRow();
 				domain.Event ev = (domain.Event) tableModelEvents.getValueAt(i, 2); // obtain ev object
 
@@ -218,6 +220,9 @@ public class GertaeraEzabatuGUI extends JFrame {
 					if (!ezabatuta) {
 						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("ez_da_ezabatu_ev"));
 					}
+				}
+				} catch  (ArrayIndexOutOfBoundsException err) {
+					// Ez egiin ezer, hau da ez duelako ezer aukeratu.
 				}
 			}
 		});

@@ -335,6 +335,8 @@ public class ApustuakEzabatuGUI extends JFrame {
 		this.getContentPane().add(scrollPaneApustua, null);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					
 				selectedRow = tableApustua.getSelectedRow();
 				if(selectedRow != -1) {
 					selectedApustua = apustuaList.get(selectedRow);
@@ -350,6 +352,9 @@ public class ApustuakEzabatuGUI extends JFrame {
 					}
 				}
 					
+				} catch ( NullPointerException err) {
+					// Ez egiin ezeer
+				}
 				
 			}
 		});
