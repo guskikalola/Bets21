@@ -89,6 +89,8 @@ public class KuotakIpiniGUI extends JFrame {
 
 	private KuotakIpiniGUI frame;
 
+	private JLabel lblErrorea;
+
 	public KuotakIpiniGUI()
 	{
 		try
@@ -115,7 +117,7 @@ public class KuotakIpiniGUI extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BLFacade facade = MainGUI.getBusinessLogic();
-				JFrame atzekoa = facade.atzeraEgin();
+				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}
@@ -290,13 +292,16 @@ public class KuotakIpiniGUI extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aukera = AukeraTextField.getText();
+				try {
+					
 				kantitatea = Double.parseDouble(kantitateaTextField.getText());
 				selectedRow = tableQueries.getSelectedRow();
 				if(selectedRow != -1) {
 					selectedQuestion = questionList.get(selectedRow);
 					facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
-					
-					
+				}
+				} catch (NumberFormatException err) {
+					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
 				}
 			}
 		});
@@ -308,6 +313,10 @@ public class KuotakIpiniGUI extends JFrame {
 		AukeraTextField.setBounds(487, 274, 259, 20);
 		
 		getContentPane().add(AukeraTextField);
+		
+		lblErrorea = new JLabel(""); //$NON-NLS-1$ //$NON-NLS-2$
+		lblErrorea.setBounds(40, 462, 297, 14);
+		getContentPane().add(lblErrorea);
 
 	}
 

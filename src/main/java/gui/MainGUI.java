@@ -17,6 +17,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.Vector;
 
 import java.awt.event.ActionListener;
@@ -29,9 +30,21 @@ public class MainGUI extends JFrame {
 
 	private JPanel jContentPane = null;
 	
+	private static Stack<JFrame> historiala = new Stack<JFrame>();
+	
 	private JFrame frame;
 
     private static BLFacade appFacadeInterface;
+    
+	public static JFrame atzeraEgin() {
+		if(historiala.isEmpty()) return null;
+		else return historiala.pop();
+	}
+	
+	public static void eguneratuHistorala(JFrame frame) {
+		historiala.push(frame);
+	}
+	
 	
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;
@@ -53,7 +66,7 @@ public class MainGUI extends JFrame {
 	 */
 	public MainGUI() {
 		super();
-		
+				
 		frame = this;
 		
 		addWindowListener(new WindowAdapter() {
@@ -176,8 +189,7 @@ public class MainGUI extends JFrame {
 			btnAurrera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Accept")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnAurrera.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BLFacade facade = MainGUI.getBusinessLogic();
-					facade.eguneratuHistorala(frame);
+					MainGUI.eguneratuHistorala(frame);
 					frame.setVisible(false);
 					LoginGUI rg = new LoginGUI();
 					rg.setVisible(true);

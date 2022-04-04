@@ -69,7 +69,7 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnKuotakIpini = new JButton(ResourceBundle.getBundle("Etiquetas").getString("kuota_ipini"));
 		btnKuotakIpini.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				KuotakIpiniGUI k = new KuotakIpiniGUI();
 				k.setVisible(true);
 				frame.setVisible(false);
@@ -81,7 +81,7 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				CreateQuestionGUI cqGUI = new CreateQuestionGUI(new Vector<Event>());
 				cqGUI.setVisible(true);
 				frame.setVisible(false);
@@ -97,7 +97,7 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnNewButton_1 = new JButton(ResourceBundle.getBundle("Etiquetas").getString("gertaera_sortu"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				GertaeraSortuGUI ceGUI = new GertaeraSortuGUI();
 				ceGUI.setVisible(true);
@@ -115,7 +115,7 @@ public class AdministratzaileGUI extends JFrame {
 		btnGertaeraezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				GertaeraEzabatuGUI rg = new GertaeraEzabatuGUI();
 				rg.setVisible(true);
 			}
@@ -128,7 +128,7 @@ public class AdministratzaileGUI extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JFrame atzekoa = facade.atzeraEgin();
+				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}
@@ -139,7 +139,7 @@ public class AdministratzaileGUI extends JFrame {
 		JButton btnEmaitzaipin = new JButton(ResourceBundle.getBundle("Etiquetas").getString("emaitza_ipini")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnEmaitzaipin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				facade.eguneratuHistorala(frame);
+				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
 				EmaitzakIpiniGUI em = new EmaitzakIpiniGUI();
 				em.setVisible(true);

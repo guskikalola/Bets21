@@ -39,6 +39,8 @@ import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Kuota;
 import domain.Question;
+import exceptions.ApustuaEzDaEgin;
+
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import java.awt.ScrollPane;
@@ -116,7 +118,7 @@ public class ApustuakEginGUI extends JFrame {
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("Apustu"));
 
 		jLabelEventDate.setBounds(new Rectangle(89, 15, 140, 25));
-		jLabelQueries.setBounds(40, 210, 259, 14);
+		jLabelQueries.setBounds(21, 210, 259, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
@@ -283,7 +285,7 @@ public class ApustuakEginGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				BLFacade facade = MainGUI.getBusinessLogic();
-				JFrame atzekoa = facade.atzeraEgin();
+				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);
 			}
@@ -333,19 +335,24 @@ public class ApustuakEginGUI extends JFrame {
 					double kantitatea = Double.parseDouble(kantitateaTextField.getText());
 					Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
 					if (kantitatea <= 0)
-						lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
+						KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
 					else {
 						if (er != null) {
-							Apustua apus = facade.apustuaEgin(er, selectedKuota, kantitatea);
-							if (apus == null) {
-								lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("NoMoney"));
-							} else {
-								lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
+							try {
+								Apustua apus = facade.apustuaEgin(er, selectedKuota, kantitatea);
+								KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
+							} catch (ApustuaEzDaEgin err) {
+								String testua = err.getMessage();
+								if(testua.equals("errorea_minimoa_gainditu")) {
+									KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString(testua) + "(min: " + selectedKuota.getQuestion().getBetMinimum() + ")" );
+								} else {
+									KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString(testua));
+								}
 							}
 						}
 					}
 				} catch (NumberFormatException err) {
-					lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
+					// Ez egin ezer
 				} catch (NullPointerException err) {
 					// Ez egin ezer
 				}
@@ -355,8 +362,8 @@ public class ApustuakEginGUI extends JFrame {
 		btnNewButton.setBounds(381, 423, 140, 25);
 
 		getContentPane().add(btnNewButton);
-		KuotakLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		KuotakLabel.setBounds(330, 211, 41, 13);
+		KuotakLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		KuotakLabel.setBounds(311, 211, 259, 13);
 
 		getContentPane().add(KuotakLabel);
 

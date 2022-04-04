@@ -12,6 +12,7 @@ import domain.Event;
 import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
+import exceptions.ApustuaEzDaEgin;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -71,9 +72,7 @@ public interface BLFacade  {
 	
 	public Pertsona getLoginErabiltzailea();
 	public void setLoginErabiltzailea(Pertsona er);
-	public JFrame atzeraEgin();
-	public void eguneratuHistorala(JFrame frame);
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop);
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin;
 	public boolean apustuaEzabatu(Apustua a);
 	
 	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);

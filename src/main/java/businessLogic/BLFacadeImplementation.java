@@ -19,6 +19,7 @@ import domain.Event;
 import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
+import exceptions.ApustuaEzDaEgin;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -29,7 +30,7 @@ import exceptions.QuestionAlreadyExist;
 public class BLFacadeImplementation  implements BLFacade {
 	DataAccess dbManager;
 	private Pertsona loginErabiltzailea;
-	private Stack<JFrame> historiala;
+	
 
 	public BLFacadeImplementation()  {		
 		System.out.println("Creating BLFacadeImplementation instance");
@@ -57,7 +58,6 @@ public class BLFacadeImplementation  implements BLFacade {
 
 		}
 		
-		historiala = new Stack<JFrame>();
 		
 		dbManager=da;		
 	}
@@ -187,18 +187,9 @@ public class BLFacadeImplementation  implements BLFacade {
 		this.loginErabiltzailea = er;
 	}
 
+
 	@Override
-	public JFrame atzeraEgin() {
-		if(this.historiala.isEmpty()) return null;
-		else return this.historiala.pop();
-	}
-	
-	public void eguneratuHistorala(JFrame frame) {
-		this.historiala.push(frame);
-	}
-	
-	@Override
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin {
 		dbManager.open(false);
 		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
 		dbManager.close();

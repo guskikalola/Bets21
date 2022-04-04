@@ -27,6 +27,7 @@ import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
+import exceptions.ApustuaEzDaEgin;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -454,7 +455,7 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return true;
 	}
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin {
 		db.getTransaction().begin();
 		String izena= er.getIzena();
 		Erabiltzailea erDB= db.find(Erabiltzailea.class, izena);
@@ -473,6 +474,9 @@ public class DataAccess  {
 				erDB.apustuaGehitu(apustua);
 				db.getTransaction().commit();
 				return apustua;
+			} else {
+				if(!nahikoa) throw new ApustuaEzDaEgin("NoMoney");
+				else if(!minimoaGaindtu) throw new ApustuaEzDaEgin("errorea_minimoa_gainditu");
 			}
 			return null;
 		}else {
