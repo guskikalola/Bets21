@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import businessLogic.BLFacade;
 import domain.Erabiltzailea;
 import domain.Mugimendua;
+import domain.MugimenduaContainer;
 
 public class MugimenduakIkusiGUI extends JFrame {
 
@@ -103,20 +104,20 @@ public class MugimenduakIkusiGUI extends JFrame {
 			Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
 			// Bete mugimenduak lista
 			
-			List<Mugimendua> mugList = facade.mugimenduakIkusi(er);
+			List<MugimenduaContainer> mugList = facade.mugimenduakIkusi(er);
 			
 			int mugimenduKopurua = mugList.size();
 			String mugimenduak[][] = new String[mugimenduKopurua][3];
 	
 			int i = 0;
-			for(Mugimendua m : mugList) {
+			for(MugimenduaContainer m : mugList) {
 				
-				int zbkia = m.getMugimenduZbkia();
-				double kantitatea = m.getKantitatea();
+				int zbkia = m.getMugimendua().getMugimenduZbkia();
+				double kantitatea = m.getMugimendua().getKantitatea();
 				
 				mugimenduak[i][0] = Integer.toString(zbkia);
 				mugimenduak[i][1] = Double.toString(kantitatea);
-				mugimenduak[i][2] = ResourceBundle.getBundle("Etiquetas").getString(m.getArrazoia());
+				mugimenduak[i][2] = ResourceBundle.getBundle("Etiquetas").getString(m.getMugimendua().getArrazoia());
 				
 				i++;
 			}

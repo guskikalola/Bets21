@@ -19,14 +19,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
-import domain.Admin;
-import domain.Apustua;
-import domain.Erabiltzailea;
-import domain.Event;
-import domain.Kuota;
-import domain.Mugimendua;
-import domain.Pertsona;
-import domain.Question;
+import domain.*;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -355,9 +348,9 @@ public class DataAccess  {
 		return er;
 	}
 
-	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
+	public Kuota ipiniKuota(QuestionContainer q, String aukera, double kantitatea) {
 		db.getTransaction().begin();
-		Question qDB = db.find(Question.class, q.getQuestionNumber());
+		Question qDB = db.find(Question.class, q.getQuestion().getQuestionNumber());
 		Kuota k = null;
 		if(qDB != null && !qDB.kuotaExistitzenDa(aukera)) {
 			// Kuota ez da existitzen, sortu.
@@ -454,11 +447,11 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return true;
 	}
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+	public Apustua apustuaEgin(Erabiltzailea er, KuotaContainer ki, Double diruKop) {
 		db.getTransaction().begin();
 		String izena= er.getIzena();
 		Erabiltzailea erDB= db.find(Erabiltzailea.class, izena);
-		Kuota kDB=db.find(Kuota.class, ki.getKuotaZenbakia());
+		Kuota kDB=db.find(Kuota.class, ki.getKuota().getKuotaZenbakia());
 		if(erDB!=null) {
 			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
 			Boolean minimoaGaindtu = diruKop >= ki.getQuestion().getBetMinimum();
@@ -481,9 +474,9 @@ public class DataAccess  {
 		}
 	}
 	
-	public boolean apustuaEzabatu(Apustua a) {
+	public boolean apustuaEzabatu(ApustuaContainer a) {
 		db.getTransaction().begin();
-		Apustua aDB= db.find(Apustua.class, a.getApustuZenbakia());
+		Apustua aDB= db.find(Apustua.class, a.getApustua().getApustuZenbakia());
 		if(aDB!=null) {
 			if(aDB.ezabatuDaiteke()) {
 				Erabiltzailea erDB= aDB.getErabiltzailea();
@@ -504,13 +497,13 @@ public class DataAccess  {
 		return false;
 	}
 	
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
+	public List<Erabiltzailea> emaitzaIpini(QuestionContainer q, KuotaContainer k){
 		db.getTransaction().begin();
-		Integer questionNumber = q.getQuestionNumber();
+		Integer questionNumber = q.getQuestion().getQuestionNumber();
 		List<Erabiltzailea> erlist = new ArrayList<Erabiltzailea>(); 
 		Question qDB = db.find(Question.class, questionNumber);
 		if(qDB != null && qDB.getResult() == null){
-			String aukera = k.getAukera();
+			String aukera = k.getKuota().getAukera();
 			Kuota kuota = qDB.getAukeraDuenKuota(aukera);
 			if(kuota != null) {
 				qDB.setResult(aukera);

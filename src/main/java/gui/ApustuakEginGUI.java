@@ -36,8 +36,10 @@ import com.toedter.calendar.JCalendar;
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Apustua;
+import domain.ApustuaContainer;
 import domain.Erabiltzailea;
 import domain.Kuota;
+import domain.KuotaContainer;
 import domain.Question;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -354,7 +356,7 @@ public class ApustuakEginGUI extends JFrame {
 				double kantitatea= Double.parseDouble(kantitateaTextField.getText());
 				Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
 				if(er!=null) {
-					Apustua apus = facade.apustuaEgin(er, selectedKuota, kantitatea);
+					ApustuaContainer apus = facade.apustuaEgin(er, new KuotaContainer(selectedKuota), kantitatea);
 					if(apus==null) {
 						lblFee.setText(ResourceBundle.getBundle("Etiquetas").getString("NoMoney"));
 					}else {

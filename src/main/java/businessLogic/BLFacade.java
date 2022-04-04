@@ -6,11 +6,15 @@ import java.util.List;
 
 //import domain.Booking;
 import domain.Question;
+import domain.QuestionContainer;
 import domain.Apustua;
+import domain.ApustuaContainer;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.KuotaContainer;
 import domain.Mugimendua;
+import domain.MugimenduaContainer;
 import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -67,20 +71,20 @@ public interface BLFacade  {
 	
 	@WebMethod public Event sortuGertaera(Date data, String deskribapena);
 	
-	@WebMethod public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
+	@WebMethod public KuotaContainer ipiniKuota(QuestionContainer q, String aukera, double kantitatea);
 	
 	@WebMethod public Pertsona getLoginErabiltzailea();
 	@WebMethod public void setLoginErabiltzailea(Pertsona er);
-	@WebMethod public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop);
-	@WebMethod public boolean apustuaEzabatu(Apustua a);
+	@WebMethod public ApustuaContainer apustuaEgin(Erabiltzailea er, KuotaContainer ki, Double diruKop);
+	@WebMethod public boolean apustuaEzabatu(ApustuaContainer a);
 	
 	@WebMethod public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
 
 
-	@WebMethod public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er);
+	@WebMethod public List<MugimenduaContainer> mugimenduakIkusi(Erabiltzailea er);
 
 
 	@WebMethod public boolean removeEvent(Event ev);
-	@WebMethod public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k );
+	@WebMethod public List<Erabiltzailea> emaitzaIpini(QuestionContainer q, KuotaContainer k );
 	
 }

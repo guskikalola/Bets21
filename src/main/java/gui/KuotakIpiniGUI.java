@@ -31,6 +31,7 @@ import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Kuota;
 import domain.Question;
+import domain.QuestionContainer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -84,7 +85,7 @@ public class KuotakIpiniGUI extends JFrame {
 	private String aukera;
 	private double kantitatea;
 	private int selectedRow;
-	private ArrayList<Question> questionList = new ArrayList<Question>();
+	private ArrayList<QuestionContainer> questionList = new ArrayList<QuestionContainer>();
 	private Question selectedQuestion;
 
 	private KuotakIpiniGUI frame;
@@ -236,7 +237,7 @@ public class KuotakIpiniGUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int i=tableEvents.getSelectedRow();
 				domain.Event ev=(domain.Event)tableModelEvents.getValueAt(i,2); // obtain ev object
-				Vector<Question> queries=ev.getQuestions();
+				Vector<QuestionContainer> queries=ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
 
@@ -245,12 +246,12 @@ public class KuotakIpiniGUI extends JFrame {
 				else 
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedEvent")+" "+ev.getDescription());
 				
-				questionList = new ArrayList<Question>();
-				for (domain.Question q:queries){
+				questionList = new ArrayList<QuestionContainer>();
+				for (domain.QuestionContainer q:queries){
 					Vector<Object> row = new Vector<Object>();
 
-					row.add(q.getQuestionNumber());
-					row.add(q.getQuestion());
+					row.add(q.getQuestion().getQuestionNumber());
+					row.add(q.getQuestion().getQuestion());
 					tableModelQueries.addRow(row);	
 					questionList.add(q);
 				}
@@ -293,8 +294,8 @@ public class KuotakIpiniGUI extends JFrame {
 				kantitatea = Double.parseDouble(kantitateaTextField.getText());
 				selectedRow = tableQueries.getSelectedRow();
 				if(selectedRow != -1) {
-					selectedQuestion = questionList.get(selectedRow);
-					facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
+					selectedQuestion = questionList.get(selectedRow).getQuestion();
+					facade.ipiniKuota(new QuestionContainer(selectedQuestion), aukera, kantitatea);
 					
 					
 				}

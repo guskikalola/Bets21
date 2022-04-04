@@ -1,4 +1,5 @@
 package businessLogic;
+import java.util.ArrayList;
 //hola
 import java.util.Date;
 import java.util.List;
@@ -13,11 +14,15 @@ import javax.swing.JFrame;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.QuestionContainer;
 import domain.Apustua;
+import domain.ApustuaContainer;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
+import domain.KuotaContainer;
 import domain.Mugimendua;
+import domain.MugimenduaContainer;
 import domain.Pertsona;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -167,11 +172,11 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	@Override @WebMethod
-	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
+	public KuotaContainer ipiniKuota(QuestionContainer q, String aukera, double kantitatea) {
 		dbManager.open(false);
 		Kuota k = dbManager.ipiniKuota(q,aukera,kantitatea);
 		dbManager.close();
-		return k;
+		return new KuotaContainer(k);
 	}
 
 	@Override @WebMethod
@@ -188,15 +193,15 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override @WebMethod
-	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) {
+	public ApustuaContainer apustuaEgin(Erabiltzailea er, KuotaContainer ki, Double diruKop) {
 		dbManager.open(false);
 		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
 		dbManager.close();
-		return a;
+		return new ApustuaContainer(a);
 	}
 	
 	@Override @WebMethod
-	public boolean apustuaEzabatu(Apustua a) {
+	public boolean apustuaEzabatu(ApustuaContainer a) {
 		dbManager.open(false);
 		Boolean bool=dbManager.apustuaEzabatu(a);
 		dbManager.close();
@@ -213,11 +218,15 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	@Override @WebMethod
-	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er) {
+	public List<MugimenduaContainer> mugimenduakIkusi(Erabiltzailea er) {
 		dbManager.open(false);
 		List<Mugimendua> m = dbManager.mugimenduakIkusi(er);
 		dbManager.close();
-		return m;
+		List<MugimenduaContainer> em = new ArrayList<MugimenduaContainer>();
+		for(Mugimendua mug : m) {
+			em.add(new MugimenduaContainer(mug));
+		}
+		return em;
 	}
 
 	@Override @WebMethod
@@ -230,7 +239,7 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
+	public List<Erabiltzailea> emaitzaIpini(QuestionContainer q, KuotaContainer k){
 		dbManager.open(false);
 		List<Erabiltzailea> er = dbManager.emaitzaIpini(q, k);
 		dbManager.close();

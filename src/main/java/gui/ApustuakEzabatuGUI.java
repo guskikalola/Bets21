@@ -34,10 +34,7 @@ import com.toedter.calendar.JCalendar;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
-import domain.Apustua;
-import domain.Erabiltzailea;
-import domain.Kuota;
-import domain.Question;
+import domain.*;
 
 public class ApustuakEzabatuGUI extends JFrame {
 
@@ -92,9 +89,9 @@ public class ApustuakEzabatuGUI extends JFrame {
 	private String aukera;
 	private double kantitatea;
 	private int selectedRow;
-	private ArrayList<Question> questionList = new ArrayList<Question>();
-	private ArrayList<Kuota> kuotaList = new ArrayList<Kuota>();
-	private ArrayList<Apustua> apustuaList = new ArrayList<Apustua>();
+	private ArrayList<QuestionContainer> questionList = new ArrayList<QuestionContainer>();
+	private ArrayList<KuotaContainer> kuotaList = new ArrayList<KuotaContainer>();
+	private ArrayList<ApustuaContainer> apustuaList = new ArrayList<ApustuaContainer>();
 	private Question selectedQuestion;
 	private Apustua selectedApustua;
 	private final JLabel ApustuakLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -235,7 +232,7 @@ public class ApustuakEzabatuGUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int i=tableEvents.getSelectedRow();
 				domain.Event ev=(domain.Event)tableModelEvents.getValueAt(i,2); // obtain ev object
-				Vector<Question> queries=ev.getQuestions();
+				Vector<QuestionContainer> queries=ev.getQuestions();
 
 				tableModelQueries.setDataVector(null, columnNamesQueries);
 				tableModelQueries.setColumnCount(3);
@@ -246,13 +243,13 @@ public class ApustuakEzabatuGUI extends JFrame {
 				
 			
 				
-				questionList = new ArrayList<Question>();
-				for (domain.Question q:queries){
+				questionList = new ArrayList<QuestionContainer>();
+				for (domain.QuestionContainer q:queries){
 					Vector<Object> row = new Vector<Object>();
 
-					row.add(q.getQuestionNumber());
+					row.add(q.getQuestion().getQuestionNumber());
+					row.add(q.getQuestion().getQuestion());
 					row.add(q.getQuestion());
-					row.add(q);
 					tableModelQueries.addRow(row);	
 					questionList.add(q);
 				}
@@ -278,17 +275,17 @@ public class ApustuakEzabatuGUI extends JFrame {
 				else 
 					jLabelApustuak.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedApustu"));
 				
-				kuotaList = new ArrayList<Kuota>();
-				apustuaList= new ArrayList<Apustua>();
+				kuotaList = new ArrayList<KuotaContainer>();
+				apustuaList= new ArrayList<ApustuaContainer>();
 				for (domain.Kuota k:kuotak){
 					for(domain.Apustua a: k.getApustuak()) {
 						Vector<Object> row = new Vector<Object>();
 						row.add(a.getApustuZenbakia());
 						row.add(a.getDiruKop());
 						tableModelApustuak.addRow(row);	
-						apustuaList.add(a);
+						apustuaList.add(new ApustuaContainer(a));
 					}
-					kuotaList.add(k);
+					kuotaList.add(new KuotaContainer(k));
 				}
 			}
 		});
@@ -337,12 +334,12 @@ public class ApustuakEzabatuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				selectedRow = tableApustua.getSelectedRow();
 				if(selectedRow != -1) {
-					selectedApustua = apustuaList.get(selectedRow);
+					selectedApustua = apustuaList.get(selectedRow).getApustua();
 				}
 
 				Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
 				if(er!=null) {
-					Boolean bool=facade.apustuaEzabatu(selectedApustua);
+					Boolean bool=facade.apustuaEzabatu(new ApustuaContainer(selectedApustua));
 					if(bool) {
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
 					}else {

@@ -30,13 +30,13 @@ public class Event implements Serializable {
 	private String description; 
 	private Date eventDate;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Vector<Question> questions=new Vector<Question>();
+	private Vector<QuestionContainer> questions=new Vector<QuestionContainer>();
 
-	public Vector<Question> getQuestions() {
+	public Vector<QuestionContainer> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Vector<Question> questions) {
+	public void setQuestions(Vector<QuestionContainer> questions) {
 		this.questions = questions;
 	}
 
@@ -93,7 +93,7 @@ public class Event implements Serializable {
 	 */
 	public Question addQuestion(String question, float betMinimum)  {
         Question q=new Question(question,betMinimum, this);
-        questions.add(q);
+        questions.add(new QuestionContainer(q));
         return q;
 	}
 
@@ -105,8 +105,8 @@ public class Event implements Serializable {
 	 * @return true if the question exists and false in other case
 	 */
 	public boolean DoesQuestionExists(String question)  {	
-		for (Question q:this.getQuestions()){
-			if (q.getQuestion().compareTo(question)==0)
+		for (QuestionContainer q:this.getQuestions()){
+			if (q.getQuestion().getQuestion().compareTo(question)==0)
 				return true;
 		}
 		return false;

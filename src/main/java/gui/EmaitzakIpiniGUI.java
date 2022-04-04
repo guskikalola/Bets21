@@ -33,7 +33,10 @@ import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Erabiltzailea;
 import domain.Kuota;
+import domain.KuotaContainer;
 import domain.Question;
+import domain.QuestionContainer;
+
 import javax.swing.ScrollPaneConstants;
 
 public class EmaitzakIpiniGUI extends JFrame {
@@ -346,7 +349,7 @@ public class EmaitzakIpiniGUI extends JFrame {
 				if(selectedRow != -1 && selectedQ != -1) {
 					selectedKuota = kuotaList.get(selectedRow);
 					selectedQuestion = questionList.get(selectedQ);
-					List<Erabiltzailea> er = facade.emaitzaIpini(selectedQuestion, selectedKuota);
+					List<Erabiltzailea> er = facade.emaitzaIpini(new QuestionContainer(selectedQuestion), new KuotaContainer(selectedKuota));
 					if(er == null) {
 						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_emaitza_ipini"));
 					}
