@@ -140,7 +140,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 
-	@Override
+	@Override @WebMethod
 	public Pertsona existitzenDa(String izena, String pasahitza) {
 		dbManager.open(false);
 		Pertsona e = dbManager.getErabiltzailea(izena);
@@ -151,7 +151,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return null;
 	}
 
-	@Override
+	@Override @WebMethod
 	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData) {
 		dbManager.open(false);
 		Pertsona e = dbManager.erregistratu(izena,pasahitza,jaiotzeData);
@@ -160,7 +160,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 	
 	
-	@Override
+	@Override @WebMethod
 	public Event sortuGertaera(Date data, String deskribapena) {
 		dbManager.open(false);
 		Event event = dbManager.sortuGertaera(data, deskribapena);
@@ -168,7 +168,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return event;
 	}
 
-	@Override
+	@Override @WebMethod
 	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
 		dbManager.open(false);
 		Kuota k = dbManager.ipiniKuota(q,aukera,kantitatea);
@@ -176,20 +176,20 @@ public class BLFacadeImplementation  implements BLFacade {
 		return k;
 	}
 
-	@Override
+	@Override @WebMethod
 	public Pertsona getLoginErabiltzailea() {
 		dbManager.open(false);
 		Pertsona er = dbManager.getErabiltzailea(this.loginErabiltzailea.getIzena());
 		dbManager.close();
 		return er;
 	}
-	
+	@WebMethod
 	public void setLoginErabiltzailea(Pertsona er) {
 		this.loginErabiltzailea = er;
 	}
 
 
-	@Override
+	@Override @WebMethod
 	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin {
 		dbManager.open(false);
 		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
@@ -197,7 +197,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return a;
 	}
 	
-	@Override 
+	@Override @WebMethod
 	public boolean apustuaEzabatu(Apustua a) {
 		dbManager.open(false);
 		Boolean bool=dbManager.apustuaEzabatu(a);
@@ -206,7 +206,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 	
 
-	@Override
+	@Override @WebMethod
 	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea) {
 		dbManager.open(false);
 		boolean em = dbManager.diruaSartu(erabiltzaile, pasahitza, kantitatea);
@@ -214,7 +214,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return em;
 	}
 
-	@Override
+	@Override @WebMethod
 	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er) {
 		dbManager.open(false);
 		List<Mugimendua> m = dbManager.mugimenduakIkusi(er);
@@ -222,7 +222,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return m;
 	}
 
-	@Override
+	@Override @WebMethod
 	public boolean removeEvent(Event ev) {
 		dbManager.open(false);
 		boolean ezabatuta = dbManager.removeEvent(ev);
@@ -231,7 +231,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	
-	@Override
+	@Override @WebMethod
 	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k) throws EmaitzaEzinIpini{
 		dbManager.open(false);
 		List<Erabiltzailea> er = dbManager.emaitzaIpini(q, k);
