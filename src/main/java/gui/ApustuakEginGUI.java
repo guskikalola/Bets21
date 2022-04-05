@@ -283,8 +283,6 @@ public class ApustuakEginGUI extends JFrame {
 		JButton button = new JButton("<");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				BLFacade facade = MainGUI.getBusinessLogic();
 				JFrame atzekoa = MainGUI.atzeraEgin();
 				frame.setVisible(false);
 				atzekoa.setVisible(true);

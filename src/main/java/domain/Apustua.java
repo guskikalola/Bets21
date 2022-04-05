@@ -6,16 +6,19 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@Entity
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
 public class Apustua {
 	
-	@Id 
+	@Id @XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@GeneratedValue
-	private int apustuZenbakia;
+	private Integer apustuZenbakia;
 	@XmlIDREF
 	private Erabiltzailea erabiltzailea;
 	@XmlIDREF

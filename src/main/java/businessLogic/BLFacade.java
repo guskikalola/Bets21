@@ -13,6 +13,7 @@ import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
+import exceptions.EmaitzaEzinIpini;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -82,6 +83,6 @@ public interface BLFacade  {
 
 
 	public boolean removeEvent(Event ev);
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k );
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k ) throws EmaitzaEzinIpini;
 	
 }
