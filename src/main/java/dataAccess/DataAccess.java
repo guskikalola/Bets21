@@ -28,6 +28,7 @@ import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
 import exceptions.ApustuaEzDaEgin;
+import exceptions.EmaitzaEzinIpini;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -127,29 +128,21 @@ public class DataAccess  {
 				
 			}
 			
-			Kuota k1;
+			Kuota k1,k2;
 			
 			
 			if (Locale.getDefault().equals(new Locale("es"))) {
-				k1 = q3.ipiniKuota("Aaukera", 1.0);
-				k1= q3.ipiniKuota("Baukera", 1.1);
-				q6.ipiniKuota("1 edo -", 2.0);
-				q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q6.ipiniKuota("1 edo -", 2.0);
+				k2 = q6.ipiniKuota("2 edo +", 6.1);
 			}
 			else if (Locale.getDefault().equals(new Locale("en"))) {
-				k1=q3.ipiniKuota("a aukera", 1.0);
-				k1=q3.ipiniKuota("b aukera", 1.1);
-				q6.ipiniKuota("1 edo -", 2.0);
-				q6.ipiniKuota("2 edo +", 6.1);
+				k1 =  q6.ipiniKuota("1 edo -", 2.0);
+				k2 = q6.ipiniKuota("2 edo +", 6.1);
 			}			
 			else {
-				k1=q3.ipiniKuota("a aukera", 1.0);
-				k1=q3.ipiniKuota("b aukera", 1.1);
-				q6.ipiniKuota("1 edo -", 2.0);
-				q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q6.ipiniKuota("1 edo -", 2.0);
+				k2 = q6.ipiniKuota("2 edo +", 6.1);
 			}
-
-			
 			
 			
 			
@@ -162,7 +155,8 @@ public class DataAccess  {
 			db.persist(erab);
 			db.persist(erab1);
 			
-			
+			db.persist(k1);
+			db.persist(k2);
 			
 			db.persist(q1);
 			db.persist(q2);
@@ -170,8 +164,7 @@ public class DataAccess  {
 			db.persist(q4);
 			db.persist(q5);
 			db.persist(q6); 
-	
-	        
+
 			db.persist(ev1);
 			db.persist(ev2);
 			db.persist(ev3);
@@ -439,11 +432,13 @@ public class DataAccess  {
 				List<Apustua> apustuak = k.getApustuak();
 				for(Apustua ap : apustuak) {
 					Erabiltzailea er = ap.getErabiltzailea();
-					double diruKopurua = ap.getDiruKop();
-					er.saldoaAldatu(diruKopurua);
-					Mugimendua g = new Mugimendua(er,diruKopurua,"gertaera_ezabatuta");
-					er.mugimenduaGehitu(g);
-					db.persist(g);
+					if(ap.ezabatuDaiteke()) {
+						double diruKopurua = ap.getDiruKop();
+						er.saldoaAldatu(diruKopurua);
+						Mugimendua g = new Mugimendua(er,diruKopurua,"gertaera_ezabatuta");
+						er.mugimenduaGehitu(g);
+						db.persist(g);
+					}
 					er.apustuaEzabatuListatik(ap);
 					db.remove(ap);
 				}
@@ -462,7 +457,7 @@ public class DataAccess  {
 		Kuota kDB=db.find(Kuota.class, ki.getKuotaZenbakia());
 		if(erDB!=null) {
 			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
-			Boolean minimoaGaindtu = diruKop >= ki.getQuestion().getBetMinimum();
+			Boolean minimoaGaindtu = diruKop >= kDB.getQuestion().getBetMinimum();
 			if(nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1)*diruKop);
 				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "apustua_eginda");
@@ -511,7 +506,7 @@ public class DataAccess  {
 		return false;
 	}
 	
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k) throws EmaitzaEzinIpini {
 		db.getTransaction().begin();
 		Integer questionNumber = q.getQuestionNumber();
 		List<Erabiltzailea> erlist = new ArrayList<Erabiltzailea>(); 
@@ -540,7 +535,7 @@ public class DataAccess  {
 			}
 			
 		} else {
-			return null;
+			throw new EmaitzaEzinIpini("errorea_emaitza_du");
 		}
 		db.getTransaction().commit();
 		return erlist;

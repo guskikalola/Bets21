@@ -9,8 +9,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
-@Entity
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
 public class Erabiltzailea extends Pertsona {
 	
 	private double saldoa;

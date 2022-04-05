@@ -20,6 +20,7 @@ import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
+import exceptions.EmaitzaEzinIpini;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -231,7 +232,7 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	
 	@Override
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k){
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k) throws EmaitzaEzinIpini{
 		dbManager.open(false);
 		List<Erabiltzailea> er = dbManager.emaitzaIpini(q, k);
 		dbManager.close();

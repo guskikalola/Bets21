@@ -3,9 +3,11 @@ package domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 
-@Entity
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
 public class Admin extends Pertsona {
 	
 	public Admin() {

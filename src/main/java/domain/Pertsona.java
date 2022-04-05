@@ -5,10 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
-@Entity
-public class Pertsona {
-	@Id
+@Entity @XmlAccessorType(XmlAccessType.FIELD) @XmlSeeAlso ({Erabiltzailea.class, Admin.class})
+public abstract class Pertsona {
+	@Id @XmlID
 	private String izena;
 	private String pasahitza;
 	private int adina;

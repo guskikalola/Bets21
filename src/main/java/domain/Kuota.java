@@ -10,22 +10,32 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@Entity
+@Entity @XmlAccessorType(XmlAccessType.FIELD)
 public class Kuota {
 	
-	@Id 
+	@Id @XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@GeneratedValue
-	private int kuotaZenbakia;
+	private Integer kuotaZenbakia;
 	private double kantitatea;
 	@XmlIDREF
 	private Question question;
 	private String aukera;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Apustua> apustuak;
+	
+	public Kuota() {
+		this.aukera = null;
+		this.kantitatea = 0;
+		this.apustuak = null;
+		this.question = null;
+	}
 	
 	public Kuota (String aukera, double kantitatea,Question galdera) {
 		this.aukera = aukera;

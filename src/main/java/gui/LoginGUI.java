@@ -93,7 +93,7 @@ public class LoginGUI extends JFrame {
 				if(e != null) {
 					facade.setLoginErabiltzailea(e);
 					MainGUI.eguneratuHistorala(frame);
-					System.out.println(e);
+					System.out.println(e.getClass().getName());
 					if(e instanceof Erabiltzailea) {
 						frame.setVisible(false);
 						ErabiltzaileGUI era= new ErabiltzaileGUI((Erabiltzailea) e);
@@ -116,12 +116,10 @@ public class LoginGUI extends JFrame {
 		passwordField.setBounds(163, 150, 114, 18);
 		contentPane.add(passwordField);
 		
-		// TODO : Etiketa ( Register )
 		JButton btnRegister = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Register")); // "Register"
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				BLFacade facade = MainGUI.getBusinessLogic();
 				MainGUI.eguneratuHistorala(frame);
 				RegisterGUI rg = new RegisterGUI();
 				rg.setVisible(true);
@@ -130,17 +128,14 @@ public class LoginGUI extends JFrame {
 		btnRegister.setBounds(304, 48, 115, 24);
 		contentPane.add(btnRegister);
 		
-		// TODO : Etiketa ( NoAccount )
 		JLabel lblEzDaukazuKonturik = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("NoAccount")); // "No account?"
 		lblEzDaukazuKonturik.setBounds(294, 32, 168, 14);
 		contentPane.add(lblEzDaukazuKonturik);
 		
-		// TODO: Etiketa ( Guest )
 		JButton btnGuest = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Guest")); // "Guest"
 		btnGuest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				BLFacade facade = MainGUI.getBusinessLogic();
 				MainGUI.eguneratuHistorala(frame);
 				FindQuestionsGUI fq = new FindQuestionsGUI();
 				fq.setVisible(true);
