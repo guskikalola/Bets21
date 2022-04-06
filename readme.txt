@@ -11,6 +11,12 @@
 #Scrum Master-a:
 	-> David Pintado
 
+#Internalizazioa inplementatu duzue? 
+	-> Bai
+
+#Web Zerbitzuak inplementatu duzue?
+	-> Bai
+
 #Implementatutako Erabilpen Kasuak:
 	-> Dirua Sartu: Erabiltzailea dirua sartzeko bere kontuan
 	-> Mugimenduak Ikusi: Erabitzaile Bets21 aplikazioan egindako mugimendu guztiak isladatzen dituen lista ikusteko
