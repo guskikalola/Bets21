@@ -71,11 +71,9 @@ public interface BLFacade  {
 	
 	@WebMethod public Kuota ipiniKuota(Question q, String aukera, double kantitatea);
 	
-	@WebMethod public Pertsona getLoginErabiltzailea();
-	@WebMethod public void setLoginErabiltzailea(Pertsona er);
 	@WebMethod public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin;
-	@WebMethod public boolean apustuaEzabatu(Apustua a);
-	
+	@WebMethod public boolean apustuaEzabatu(Apustua a, Erabiltzailea er);
+	@WebMethod public List<Apustua> getApustuakErabiltzailea(Kuota k,Erabiltzailea er);
 	@WebMethod public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
 
 

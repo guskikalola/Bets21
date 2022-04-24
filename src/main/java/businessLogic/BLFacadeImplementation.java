@@ -30,7 +30,6 @@ import exceptions.QuestionAlreadyExist;
 @WebService(endpointInterface = "businessLogic.BLFacade")
 public class BLFacadeImplementation  implements BLFacade {
 	DataAccess dbManager;
-	private Pertsona loginErabiltzailea;
 	
 
 	public BLFacadeImplementation()  {		
@@ -177,19 +176,6 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 
 	@Override @WebMethod
-	public Pertsona getLoginErabiltzailea() {
-		dbManager.open(false);
-		Pertsona er = dbManager.getErabiltzailea(this.loginErabiltzailea.getIzena());
-		dbManager.close();
-		return er;
-	}
-	@WebMethod
-	public void setLoginErabiltzailea(Pertsona er) {
-		this.loginErabiltzailea = er;
-	}
-
-
-	@Override @WebMethod
 	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin {
 		dbManager.open(false);
 		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
@@ -198,9 +184,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 	
 	@Override @WebMethod
-	public boolean apustuaEzabatu(Apustua a) {
+	public boolean apustuaEzabatu(Apustua a, Erabiltzailea er) {
 		dbManager.open(false);
-		Boolean bool=dbManager.apustuaEzabatu(a);
+		Boolean bool=dbManager.apustuaEzabatu(a,er);
 		dbManager.close();
 		return bool;
 	}
@@ -238,6 +224,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return er;
 		
+	}
+
+	@Override @WebMethod
+	public List<Apustua> getApustuakErabiltzailea(Kuota k, Erabiltzailea er) {
+		dbManager.open(false);
+		List<Apustua> em = dbManager.getApustuakErabiltzailea(k, er);
+		dbManager.close();
+		return em;
 	}
 }
 

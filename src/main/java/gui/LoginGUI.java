@@ -91,7 +91,7 @@ public class LoginGUI extends JFrame {
 				Pertsona e = facade.existitzenDa(izena, pasahitza);
 				
 				if(e != null) {
-					facade.setLoginErabiltzailea(e);
+					MainGUI.setLoginErabiltzailea(e);
 					MainGUI.eguneratuHistorala(frame);
 					System.out.println(e.getClass().getName());
 					if(e instanceof Erabiltzailea) {

@@ -480,12 +480,12 @@ public class DataAccess  {
 		}
 	}
 	
-	public boolean apustuaEzabatu(Apustua a) {
+	public boolean apustuaEzabatu(Apustua a, Erabiltzailea er) {
 		db.getTransaction().begin();
 		Apustua aDB= db.find(Apustua.class, a.getApustuZenbakia());
 		if(aDB!=null) {
-			if(aDB.ezabatuDaiteke()) {
-				Erabiltzailea erDB= aDB.getErabiltzailea();
+			Erabiltzailea erDB= aDB.getErabiltzailea();
+			if(erDB.getIzena().equals(er.getIzena()) && aDB.ezabatuDaiteke()) {
 				Kuota kDB = aDB.getKuota();
 				Question qDB= kDB.getQuestion();
 				Event eDB= qDB.getEvent();
@@ -539,5 +539,12 @@ public class DataAccess  {
 		}
 		db.getTransaction().commit();
 		return erlist;
+	}
+
+	public List<Apustua> getApustuakErabiltzailea(Kuota k, Erabiltzailea er) {
+		Kuota kDB = db.find(Kuota.class, k.getKuotaZenbakia());
+		if(kDB != null) return kDB.getApustuak(er);
+		else return null;
+			
 	}
 }

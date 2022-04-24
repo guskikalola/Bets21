@@ -280,8 +280,9 @@ public class ApustuakEzabatuGUI extends JFrame {
 				
 				kuotaList = new ArrayList<Kuota>();
 				apustuaList= new ArrayList<Apustua>();
+				Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
 				for (domain.Kuota k:kuotak){
-					for(domain.Apustua a: k.getApustuak()) {
+					for(domain.Apustua a: facade.getApustuakErabiltzailea(k,er)) {
 						Vector<Object> row = new Vector<Object>();
 						row.add(a.getApustuZenbakia());
 						row.add(a.getDiruKop());
@@ -342,9 +343,9 @@ public class ApustuakEzabatuGUI extends JFrame {
 					selectedApustua = apustuaList.get(selectedRow);
 				}
 
-				Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
+				Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
 				if(er!=null) {
-					Boolean bool=facade.apustuaEzabatu(selectedApustua);
+					Boolean bool=facade.apustuaEzabatu(selectedApustua, er);
 					if(bool) {
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
 					}else {

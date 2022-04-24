@@ -331,7 +331,7 @@ public class ApustuakEginGUI extends JFrame {
 				}
 				try {
 					double kantitatea = Double.parseDouble(kantitateaTextField.getText());
-					Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
+					Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
 					if (kantitatea <= 0)
 						KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
 					else {
