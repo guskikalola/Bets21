@@ -75,6 +75,14 @@ public class Kuota {
 	public List<Apustua> getApustuak() {
 		return apustuak;
 	}
+	
+	public List<Apustua> getApustuak(Erabiltzailea er) {
+		List<Apustua> em = new ArrayList<Apustua>();
+		for(Apustua ap : this.apustuak) {
+			if(ap.getErabiltzailea().getIzena().equals(er.getIzena())) em.add(ap);
+		}
+		return em;
+	}
 
 	public void setApustuak(List<Apustua> apustuak) {
 		this.apustuak = apustuak;

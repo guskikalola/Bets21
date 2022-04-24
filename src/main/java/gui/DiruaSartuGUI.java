@@ -100,7 +100,7 @@ public class DiruaSartuGUI extends JFrame {
 				lblErrorea.setText("");
 				BLFacade facade = MainGUI.getBusinessLogic();
 				// Aztertu uneko erabiltzailearen pasahitza zuzena den
-				Pertsona er = facade.getLoginErabiltzailea();
+				Pertsona er = MainGUI.getLoginErabiltzailea();
 				String pass = pasInput.getText();
 				try {
 					Double kantitatea = Double.parseDouble(diruKopInput.getText());		

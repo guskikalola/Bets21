@@ -99,8 +99,8 @@ public class MugimenduakIkusiGUI extends JFrame {
 				ResourceBundle.getBundle("Etiquetas").getString("Description") };
 
 		BLFacade facade = MainGUI.getBusinessLogic();
-		if (facade.getLoginErabiltzailea() instanceof Erabiltzailea) {
-			Erabiltzailea er = (Erabiltzailea) facade.getLoginErabiltzailea();
+		if (MainGUI.getLoginErabiltzailea() instanceof Erabiltzailea) {
+			Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
 			// Bete mugimenduak lista
 			
 			List<Mugimendua> mugList = facade.mugimenduakIkusi(er);

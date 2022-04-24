@@ -1,5 +1,7 @@
 package gui;
 
+import javax.jws.WebMethod;
+
 /**
  * @author Software Engineering teachers
  */
@@ -8,6 +10,7 @@ package gui;
 import javax.swing.*;
 
 import domain.Event;
+import domain.Pertsona;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
@@ -45,6 +48,15 @@ public class MainGUI extends JFrame {
 		historiala.push(frame);
 	}
 	
+	private static Pertsona loginErabiltzailea;
+	
+	public static Pertsona getLoginErabiltzailea() {
+		Pertsona er = loginErabiltzailea;
+		return er;
+	}
+	public static void setLoginErabiltzailea(Pertsona er) {
+		loginErabiltzailea = er;
+	}
 	
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;

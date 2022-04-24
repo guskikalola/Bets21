@@ -156,7 +156,7 @@ public class ErabiltzaileGUI extends JFrame {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		BLFacade facade = MainGUI.getBusinessLogic();
-		Pertsona er = facade.getLoginErabiltzailea();
+		Pertsona er = MainGUI.getLoginErabiltzailea();
 		System.out.println(((Erabiltzailea)er).getSaldoa());
 		if(visible && er instanceof Erabiltzailea) this.lblSaldoa.setText(ResourceBundle.getBundle("Etiquetas").getString("diru_kop") + ": " + ((Erabiltzailea)er).getSaldoa());
 	}
