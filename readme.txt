@@ -1,6 +1,6 @@
   	SI1 (Software Ingeniaritza 1)
 
-	< Bigarren Iterazioa >
+	< Hirugarren Iterazioa >
 
 #Egileak:
 	-> Juan Alagon
