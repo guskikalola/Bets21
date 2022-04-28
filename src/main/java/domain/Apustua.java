@@ -1,7 +1,9 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,28 +14,37 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@Entity @XmlAccessorType(XmlAccessType.FIELD)
+@Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Apustua {
-	
-	@Id @XmlID
+
+	@Id
+	@XmlID
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@GeneratedValue
 	private Integer apustuZenbakia;
 	@XmlIDREF
 	private Erabiltzailea erabiltzailea;
 	@XmlIDREF
-	private Kuota kuota;
+	private List<Kuota> kuotak;
 	private double diruKop;
-	
+
 	public Apustua() {
 		this.erabiltzailea = null;
-		this.kuota = null;
+		this.kuotak = null;
 	}
-	
+
 	public Apustua(Erabiltzailea er, double diruKop, Kuota kuota) {
 		this.erabiltzailea = er;
 		this.diruKop = diruKop;
-		this.kuota = kuota;
+		this.kuotak = new ArrayList<Kuota>();
+		this.kuotak.add(kuota);
+	}
+	
+	public Apustua(Erabiltzailea er, double diruKop, List<Kuota> kuotak) {
+		this.erabiltzailea = er;
+		this.diruKop = diruKop;
+		this.kuotak = kuotak;
 	}
 
 	public int getApustuZenbakia() {
@@ -52,12 +63,12 @@ public class Apustua {
 		this.erabiltzailea = erabiltzailea;
 	}
 
-	public Kuota getKuota() {
-		return kuota;
+	public List<Kuota> getKuotak() {
+		return kuotak;
 	}
 
-	public void setKuota(Kuota kuota) {
-		this.kuota = kuota;
+	public void setKuota(List<Kuota> kuota) {
+		this.kuotak = kuota;
 	}
 
 	public double getDiruKop() {
@@ -67,15 +78,28 @@ public class Apustua {
 	public void setDiruKop(double diruKop) {
 		this.diruKop = diruKop;
 	}
-	
+
 	public boolean ezabatuDaiteke() {
-		Calendar gaur = Calendar.getInstance();
-		Date gaurkoData = gaur.getTime();
-		Event gertaera = this.kuota.getQuestion().getEvent();
-		System.out.println(this.kuota.getQuestion());
-		Date gertaeraData = gertaera.getEventDate();
-		
-		// Soilik ezabatu daiteke gaur gertaera data baino lehen bada eta emaitza ez bada jarri
-		return gaurkoData.compareTo(gertaeraData) < 0 && this.kuota.getQuestion().getResult() == null;
+		for (Kuota k : this.kuotak) {
+			Calendar gaur = Calendar.getInstance();
+			Date gaurkoData = gaur.getTime();
+			Event gertaera = k.getQuestion().getEvent();
+			Date gertaeraData = gertaera.getEventDate();
+
+			// Soilik ezabatu daiteke gaur gertaera data baino lehen bada eta emaitza ez
+			// bada jarri
+			if (!(gaurkoData.compareTo(gertaeraData) < 0 && k.getQuestion().getResult() == null)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean irabaziDu() {
+		for (Kuota k : this.kuotak) {
+			if (k.getQuestion().getResult() == null || !(k.getAukera().equals(k.getQuestion().getResult())))
+				return false;
+		}
+		return true;
 	}
 }
