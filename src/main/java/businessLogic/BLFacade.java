@@ -1,6 +1,7 @@
 package businessLogic;
 
 import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -82,5 +83,14 @@ public interface BLFacade  {
 
 	@WebMethod public boolean removeEvent(Event ev);
 	@WebMethod public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k ) throws EmaitzaEzinIpini;
+
+
+	@WebMethod List<Erabiltzailea> getErabiltzaileaGuztiak();
+
+
+	boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, int diruMax);
+
+
+	Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin;
 	
 }

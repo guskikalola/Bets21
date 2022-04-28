@@ -59,7 +59,7 @@ public class ErabiltzaileGUI extends JFrame {
 
 		JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("User"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(35, 37, 158, 14);
+		lblNewLabel.setBounds(71, 13, 158, 14);
 		contentPane.add(lblNewLabel);
 
 		BLFacade facade = MainGUI.getBusinessLogic();
@@ -72,15 +72,15 @@ public class ErabiltzaileGUI extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(22, 96, 194, 36);
+		btnNewButton.setBounds(22, 59, 194, 27);
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel_1 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("what_do_you_want_to_do"));
-		lblNewLabel_1.setBounds(22, 70, 194, 14);
+		lblNewLabel_1.setBounds(35, 39, 194, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblKaixoErabiltzailea = new JLabel("Kaixo, erabiltzailea");
-		lblKaixoErabiltzailea.setBounds(292, 38, 120, 14);
+		lblKaixoErabiltzailea.setBounds(292, 14, 120, 14);
 		contentPane.add(lblKaixoErabiltzailea);
 
 		lblKaixoErabiltzailea.setText(
@@ -107,7 +107,7 @@ public class ErabiltzaileGUI extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnDiruaSartu.setBounds(22, 144, 194, 36);
+		btnDiruaSartu.setBounds(22, 98, 194, 27);
 		contentPane.add(btnDiruaSartu);
 
 		JButton btnMugimenduakikusi = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mugimenduak_ikusi"));
@@ -119,11 +119,11 @@ public class ErabiltzaileGUI extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnMugimenduakikusi.setBounds(22, 192, 194, 36);
+		btnMugimenduakikusi.setBounds(22, 137, 194, 27);
 		contentPane.add(btnMugimenduakikusi);
 
 		JButton btnApustuaegin = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnApustuaegin.setBounds(228, 96, 184, 36);
+		btnApustuaegin.setBounds(228, 59, 184, 27);
 		contentPane.add(btnApustuaegin);
 		btnApustuaegin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,12 +136,44 @@ public class ErabiltzaileGUI extends JFrame {
 		});
 
 		JButton btnApustuaezabatu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("EzabatuApustua")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnApustuaezabatu.setBounds(228, 144, 184, 36);
+		btnApustuaezabatu.setBounds(228, 98, 184, 27);
 		contentPane.add(btnApustuaezabatu);
 		
 		lblSaldoa = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop") + ": " + 0); //$NON-NLS-1$ //$NON-NLS-2$
-		lblSaldoa.setBounds(22, 240, 194, 17);
+		lblSaldoa.setBounds(22, 252, 194, 17);
 		contentPane.add(lblSaldoa);
+		
+		JButton btnErabiltzaileajarraitu = new JButton(ResourceBundle.getBundle("Etiquetas").getString("erabiltzailea_jarraitu")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnErabiltzaileajarraitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainGUI.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				JarraituGUI jarraitu = new JarraituGUI();
+				jarraitu.setVisible(true);
+			}
+		});
+		btnErabiltzaileajarraitu.setBounds(228, 137, 184, 27);
+		contentPane.add(btnErabiltzaileajarraitu);
+		
+		JButton btnApustuanizkoitza = new JButton(ResourceBundle.getBundle("Etiquetas").getString("apustu_anizkoitza")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnApustuanizkoitza.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainGUI.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				ApustuAnizkoitzaGUI apustua = new ApustuAnizkoitzaGUI();
+				apustua.setVisible(true);
+			}
+		});
+		btnApustuanizkoitza.setBounds(22, 176, 194, 27);
+		contentPane.add(btnApustuanizkoitza);
+		
+		JButton btnMezuabidali = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mezua_bidali")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnMezuabidali.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnMezuabidali.setBounds(228, 176, 184, 27);
+		contentPane.add(btnMezuabidali);
 		btnApustuaezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainGUI.eguneratuHistorala(frame);

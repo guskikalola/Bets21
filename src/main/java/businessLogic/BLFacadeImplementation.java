@@ -1,4 +1,5 @@
 package businessLogic;
+
 //hola
 import java.util.Date;
 import java.util.List;
@@ -28,138 +29,138 @@ import exceptions.QuestionAlreadyExist;
  * It implements the business logic as a web service.
  */
 @WebService(endpointInterface = "businessLogic.BLFacade")
-public class BLFacadeImplementation  implements BLFacade {
+public class BLFacadeImplementation implements BLFacade {
 	DataAccess dbManager;
-	
 
-	public BLFacadeImplementation()  {		
+	public BLFacadeImplementation() {
 		System.out.println("Creating BLFacadeImplementation instance");
-		ConfigXML c=ConfigXML.getInstance();
-		
+		ConfigXML c = ConfigXML.getInstance();
+
 		if (c.getDataBaseOpenMode().equals("initialize")) {
-		    dbManager=new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
-		    dbManager.initializeDB();
-		    } else
-		     dbManager=new DataAccess();
+			dbManager = new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
+			dbManager.initializeDB();
+		} else
+			dbManager = new DataAccess();
 		dbManager.close();
 
-		
 	}
-	
-    public BLFacadeImplementation(DataAccess da)  {
-		
+
+	public BLFacadeImplementation(DataAccess da) {
+
 		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
-		ConfigXML c=ConfigXML.getInstance();
-		
+		ConfigXML c = ConfigXML.getInstance();
+
 		if (c.getDataBaseOpenMode().equals("initialize")) {
 			da.open(true);
 			da.initializeDB();
 			da.close();
 
 		}
-		
-		
-		dbManager=da;		
+
+		dbManager = da;
 	}
-	
 
 	/**
-	 * This method creates a question for an event, with a question text and the minimum bet
+	 * This method creates a question for an event, with a question text and the
+	 * minimum bet
 	 * 
-	 * @param event to which question is added
-	 * @param question text of the question
+	 * @param event      to which question is added
+	 * @param question   text of the question
 	 * @param betMinimum minimum quantity of the bet
 	 * @return the created question, or null, or an exception
-	 * @throws EventFinished if current data is after data of the event
- 	 * @throws QuestionAlreadyExist if the same question already exists for the event
+	 * @throws EventFinished        if current data is after data of the event
+	 * @throws QuestionAlreadyExist if the same question already exists for the
+	 *                              event
 	 */
-   @WebMethod
-   public Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist{
-	   
-	    //The minimum bed must be greater than 0
+	@WebMethod
+	public Question createQuestion(Event event, String question, float betMinimum)
+			throws EventFinished, QuestionAlreadyExist {
+
+		// The minimum bed must be greater than 0
 		dbManager.open(false);
-		Question qry=null;
-		
-	    
-		if(new Date().compareTo(event.getEventDate())>0)
+		Question qry = null;
+
+		if (new Date().compareTo(event.getEventDate()) > 0)
 			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
-				
-		
-		 qry=dbManager.createQuestion(event,question,betMinimum);		
+
+		qry = dbManager.createQuestion(event, question, betMinimum);
 
 		dbManager.close();
-		
+
 		return qry;
-   };
-	
+	};
+
 	/**
-	 * This method invokes the data access to retrieve the events of a given date 
+	 * This method invokes the data access to retrieve the events of a given date
 	 * 
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-    @WebMethod	
-	public Vector<Event> getEvents(Date date)  {
+	@WebMethod
+	public Vector<Event> getEvents(Date date) {
 		dbManager.open(false);
-		Vector<Event>  events=dbManager.getEvents(date);
+		Vector<Event> events = dbManager.getEvents(date);
 		dbManager.close();
 		return events;
 	}
 
-    
 	/**
-	 * This method invokes the data access to retrieve the dates a month for which there are events
+	 * This method invokes the data access to retrieve the dates a month for which
+	 * there are events
 	 * 
-	 * @param date of the month for which days with events want to be retrieved 
+	 * @param date of the month for which days with events want to be retrieved
 	 * @return collection of dates
 	 */
-	@WebMethod public Vector<Date> getEventsMonth(Date date) {
+	@WebMethod
+	public Vector<Date> getEventsMonth(Date date) {
 		dbManager.open(false);
-		Vector<Date>  dates=dbManager.getEventsMonth(date);
+		Vector<Date> dates = dbManager.getEventsMonth(date);
 		dbManager.close();
 		return dates;
 	}
-	
-	
+
 	public void close() {
-		DataAccess dB4oManager=new DataAccess(false);
+		DataAccess dB4oManager = new DataAccess(false);
 
 		dB4oManager.close();
 
 	}
 
 	/**
-	 * This method invokes the data access to initialize the database with some events and questions.
-	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
-	 */	
-    @WebMethod	
-	 public void initializeBD(){
-    	dbManager.open(false);
+	 * This method invokes the data access to initialize the database with some
+	 * events and questions. It is invoked only when the option "initialize" is
+	 * declared in the tag dataBaseOpenMode of resources/config.xml file
+	 */
+	@WebMethod
+	public void initializeBD() {
+		dbManager.open(false);
 		dbManager.initializeDB();
 		dbManager.close();
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public Pertsona existitzenDa(String izena, String pasahitza) {
 		dbManager.open(false);
 		Pertsona e = dbManager.getErabiltzailea(izena);
 		dbManager.close();
-		if(e != null && e.getPasahitza().equals(pasahitza)) {
+		if (e != null && e.getPasahitza().equals(pasahitza)) {
 			return e;
-		} 
+		}
 		return null;
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public Pertsona erregistratu(String izena, String pasahitza, Date jaiotzeData) {
 		dbManager.open(false);
-		Pertsona e = dbManager.erregistratu(izena,pasahitza,jaiotzeData);
+		Pertsona e = dbManager.erregistratu(izena, pasahitza, jaiotzeData);
 		dbManager.close();
 		return e;
 	}
-	
-	
-	@Override @WebMethod
+
+	@Override
+	@WebMethod
 	public Event sortuGertaera(Date data, String deskribapena) {
 		dbManager.open(false);
 		Event event = dbManager.sortuGertaera(data, deskribapena);
@@ -167,32 +168,35 @@ public class BLFacadeImplementation  implements BLFacade {
 		return event;
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public Kuota ipiniKuota(Question q, String aukera, double kantitatea) {
 		dbManager.open(false);
-		Kuota k = dbManager.ipiniKuota(q,aukera,kantitatea);
+		Kuota k = dbManager.ipiniKuota(q, aukera, kantitatea);
 		dbManager.close();
 		return k;
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin {
 		dbManager.open(false);
 		Apustua a = dbManager.apustuaEgin(er, ki, diruKop);
 		dbManager.close();
 		return a;
 	}
-	
-	@Override @WebMethod
+
+	@Override
+	@WebMethod
 	public boolean apustuaEzabatu(Apustua a, Erabiltzailea er) {
 		dbManager.open(false);
-		Boolean bool=dbManager.apustuaEzabatu(a,er);
+		Boolean bool = dbManager.apustuaEzabatu(a, er);
 		dbManager.close();
 		return bool;
 	}
-	
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea) {
 		dbManager.open(false);
 		boolean em = dbManager.diruaSartu(erabiltzaile, pasahitza, kantitatea);
@@ -200,7 +204,8 @@ public class BLFacadeImplementation  implements BLFacade {
 		return em;
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public List<Mugimendua> mugimenduakIkusi(Erabiltzailea er) {
 		dbManager.open(false);
 		List<Mugimendua> m = dbManager.mugimenduakIkusi(er);
@@ -208,7 +213,8 @@ public class BLFacadeImplementation  implements BLFacade {
 		return m;
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public boolean removeEvent(Event ev) {
 		dbManager.open(false);
 		boolean ezabatuta = dbManager.removeEvent(ev);
@@ -216,22 +222,47 @@ public class BLFacadeImplementation  implements BLFacade {
 		return ezabatuta;
 	}
 
-	
-	@Override @WebMethod
-	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k) throws EmaitzaEzinIpini{
+	@Override
+	@WebMethod
+	public List<Erabiltzailea> emaitzaIpini(Question q, Kuota k) throws EmaitzaEzinIpini {
 		dbManager.open(false);
 		List<Erabiltzailea> er = dbManager.emaitzaIpini(q, k);
 		dbManager.close();
 		return er;
-		
+
 	}
 
-	@Override @WebMethod
+	@Override
+	@WebMethod
 	public List<Apustua> getApustuakErabiltzailea(Kuota k, Erabiltzailea er) {
 		dbManager.open(false);
 		List<Apustua> em = dbManager.getApustuakErabiltzailea(k, er);
 		dbManager.close();
 		return em;
 	}
-}
 
+	@Override
+	@WebMethod
+	public List<Erabiltzailea> getErabiltzaileaGuztiak() {
+		dbManager.open(false);
+		List<Erabiltzailea> er = dbManager.getErabiltzaileaGuztiak();
+		dbManager.close();
+		return er;
+	}
+
+	@Override
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,int diruMax) {
+		dbManager.open(false);
+		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea,diruMax);
+		dbManager.close();
+		return em;
+	}
+
+	@Override
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin {
+		dbManager.open(false);
+		Apustua em = dbManager.apustuAnizkoitzaEgin(er,kuotaLista,diruKop);
+		dbManager.close();
+		return em;
+	}
+}

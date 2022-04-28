@@ -23,6 +23,7 @@ import domain.Admin;
 import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Jarraitzen;
 import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
@@ -486,17 +487,16 @@ public class DataAccess  {
 		if(aDB!=null) {
 			Erabiltzailea erDB= aDB.getErabiltzailea();
 			if(erDB.getIzena().equals(er.getIzena()) && aDB.ezabatuDaiteke()) {
-				Kuota kDB = aDB.getKuota();
-				Question qDB= kDB.getQuestion();
-				Event eDB= qDB.getEvent();
-				Date date= new Date();
+				List<Kuota> kDBLista = aDB.getKuotak();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
 				Mugimendua m= new Mugimendua(erDB, diruKop, "apustua_ezabatuta");
 				db.persist(m);
 				erDB.mugimenduaGehitu(m);
 				erDB.apustuaEzabatuListatik(aDB);
-				kDB.apustuaEzabatuListatik(aDB);
+				for(Kuota kiDB : kDBLista ) {
+					kiDB.apustuaEzabatuListatik(aDB);
+				}
 				db.remove(aDB);
 				db.getTransaction().commit();
 				return true;
@@ -546,5 +546,80 @@ public class DataAccess  {
 		if(kDB != null) return kDB.getApustuak(er);
 		else return null;
 			
+	}
+
+	public List<Erabiltzailea> getErabiltzaileaGuztiak() {
+		
+		TypedQuery<Erabiltzailea> q = db.createQuery("SELECT er FROM Erabiltzailea er", Erabiltzailea.class);
+		return q.getResultList();
+	}
+
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, int diruMax) {
+		db.getTransaction().begin();
+		Erabiltzailea unErDB = db.find(Erabiltzailea.class, unekoErab.getIzena());
+		Erabiltzailea erDB = db.find(Erabiltzailea.class, aukeratutakoErabiltzailea.getIzena());
+		if(unErDB == null || erDB == null) {
+			return false;
+		} else {
+			Jarraitzen bJarraitu = unErDB.jarraitzenDu(erDB);
+			if(bJarraitu != null) { // Jarraizten utzi
+				unErDB.ezabatuJarraitzenListatik(bJarraitu);
+				erDB.ezabatuJarraitzaileakListatik(unErDB);
+				db.remove(bJarraitu);
+			} else {
+				Jarraitzen jB = new Jarraitzen(erDB, diruMax);
+				db.persist(jB);
+				unErDB.gehituJarraitzenListara(jB);
+				erDB.gehituJarraitzaileakListara(unErDB);
+			}
+		}
+		db.getTransaction().commit();
+		
+		return true;
+	}
+
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin {
+		db.getTransaction().begin();
+		String izena= er.getIzena();
+		Erabiltzailea erDB= db.find(Erabiltzailea.class, izena);
+		List<Kuota> kDBLista = new ArrayList<Kuota>();
+		
+		double minBet = 0;
+		
+		for(Kuota ki : kuotaLista) {
+			Kuota kiDB = db.find(Kuota.class, ki.getKuotaZenbakia());
+			if(kiDB == null) return null;
+			else {
+				kDBLista.add(kiDB);
+				minBet += kiDB.getQuestion().getBetMinimum();
+			}
+		}
+		
+		if(erDB!=null) {
+			Boolean nahikoa=erDB.diruaNahikoa(diruKop);
+			Boolean minimoaGaindtu = diruKop >= minBet;
+			if(nahikoa && minimoaGaindtu) {
+				erDB.saldoaAldatu((-1)*diruKop);
+				Mugimendua mugi= new Mugimendua(erDB, (-1)*diruKop, "apustua_eginda");
+				db.persist(mugi);
+				erDB.mugimenduaGehitu(mugi);
+				Apustua apustua= new Apustua(erDB, diruKop, kDBLista);
+				db.persist(apustua);
+				erDB.apustuaGehitu(apustua);
+				for(Kuota kDB : kDBLista) {
+					kDB.apustuaGehitu(apustua);
+				}
+				db.getTransaction().commit();
+				return apustua;
+			} else {
+				if(!nahikoa) throw new ApustuaEzDaEgin("NoMoney");
+				else if(!minimoaGaindtu) throw new ApustuaEzDaEgin("errorea_minimoa_gainditu");
+			}
+			return null;
+		}else {
+			db.getTransaction().commit();
+			return null;
+		} 
+		
 	}
 }
