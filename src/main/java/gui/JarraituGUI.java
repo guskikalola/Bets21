@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import businessLogic.BLFacade;
 import domain.Erabiltzailea;
 import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 import domain.Pertsona;
 
 import javax.swing.JTable;
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 public class JarraituGUI extends JFrame {
 
@@ -49,7 +51,8 @@ public class JarraituGUI extends JFrame {
 	private Erabiltzailea aukeratutakoErabiltzailea;
 	private JLabel lblConditions;
 	private JLabel lblDiruMax;
-	private JTextField textField;
+	private JTextField txtFieldDirua;
+	private JLabel lblErrorea;
 
 	/**
 	 * Launch the application.
@@ -122,39 +125,47 @@ public class JarraituGUI extends JFrame {
 		bGehituJarraitu.addActionListener(new ActionListener() {
 			@SuppressWarnings("unused")
 			public void actionPerformed(ActionEvent e) {
+				lblErrorea.setText("");
 				int i = tableEzJarraitzen.getSelectedRow();
-				aukeratutakoErabiltzailea = (Erabiltzailea) tableEzJarraitzen.getValueAt(i, 2);
-				try
-				{
-				String diruMaxTxt = lblDiruMax.getText();
-				int diruMax = 0;
-				
-				if(diruMaxTxt != null) diruMax = Integer.parseInt(diruMaxTxt);
-				
-				if (!(unekoErab instanceof Erabiltzailea)) {
-					// Ez da erabiltzailea
-				} else if (diruMax < 0) {
-					// Balioa ez da zuzena
-				}
-				else if (aukeratutakoErabiltzailea == null) {
-					// Aukeratu erabiltzaile bat
-				} else if (unekoErab == null) {
-					// Ez zaude logeatua
-					
-				// }
-				// else if(unekoErab.getBlokeoa() != null) {
-				//	blokeatuta zaude
-				// }
-					
-				} else {
-					boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea)unekoErab, aukeratutakoErabiltzailea, diruMax);
+				try {
+					aukeratutakoErabiltzailea = (Erabiltzailea) tableEzJarraitzen.getModel().getValueAt(i, 2);
+					String diruMaxTxt = txtFieldDirua.getText();
+					float diruMax = 0;
 
-					// Ezabatu ez jarraitzen taulatik errrenkada eta gehitu jarraitzen taulara
-					jarraitzenModel.addRow(ezJarraitzenModel.getDataVector().elementAt(i));
-					ezJarraitzenModel.removeRow(i);
-				}
+					System.out.println(diruMaxTxt);
+					if (diruMaxTxt != null && diruMaxTxt.length() > 0)
+						diruMax = Float.parseFloat(diruMaxTxt);
+
+					if (!(unekoErab instanceof Erabiltzailea)) {
+						// Ez da erabiltzailea
+					} else if (diruMax < 0) {
+						// Balioa ez da zuzena
+						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
+					} else if (aukeratutakoErabiltzailea == null) {
+						// Aukeratu erabiltzaile bat
+					} else if (unekoErab == null) {
+						// Ez zaude logeatua
+
+						// }
+						// else if(unekoErab.getBlokeoa() != null) {
+						// blokeatuta zaude
+						// }
+
+					} else {
+						boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea,
+								diruMax);
+						// Ezabatu ez jarraitzen taulatik errrenkada eta gehitu jarraitzen taulara
+						if (em) {
+							jarraitzenModel.addRow(ezJarraitzenModel.getDataVector().elementAt(i));
+							ezJarraitzenModel.removeRow(i);
+						}
+					}
 				} catch (NumberFormatException err) {
 					// Sartutako balioa ez da zenbaki osoa
+					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
+
+				} catch (java.lang.ArrayIndexOutOfBoundsException err) {
+					// ez da ezer aukeratu, ez egin ezer
 				}
 			}
 		});
@@ -164,12 +175,22 @@ public class JarraituGUI extends JFrame {
 		bEzabatuJarraitu = new JButton(">");
 		bEzabatuJarraitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblErrorea.setText("");
 				int i = tableJarraitzen.getSelectedRow();
-				aukeratutakoErabiltzailea = (Erabiltzailea) tableJarraitzen.getValueAt(i, 2);
+				try {
 
-				// Ezabatu jarraitzen taulatik errrenkada eta gehitu ez jarraitzen taulara
-				ezJarraitzenModel.addRow(ezJarraitzenModel.getDataVector().elementAt(i));
-				jarraitzenModel.removeRow(i);
+					aukeratutakoErabiltzailea = (Erabiltzailea) tableJarraitzen.getModel().getValueAt(i, 2);
+
+					// Ezabatu jarraitzen taulatik errrenkada eta gehitu ez jarraitzen taulara
+					boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea, 0);
+					if (em) {
+						ezJarraitzenModel.addRow(jarraitzenModel.getDataVector().elementAt(i));
+						jarraitzenModel.removeRow(i);
+					}
+				} catch (java.lang.ArrayIndexOutOfBoundsException err) {
+					// Ez da ezer aukeratu, ez egiin ezer
+				}
+
 			}
 		});
 		bEzabatuJarraitu.setBounds(198, 178, 51, 27);
@@ -184,20 +205,26 @@ public class JarraituGUI extends JFrame {
 		lblEzJarraitzen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEzJarraitzen.setBounds(261, 27, 134, 17);
 		contentPane.add(lblEzJarraitzen);
-		
+
 		lblConditions = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("baldintzak")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblConditions.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConditions.setBounds(12, 236, 418, 17);
 		contentPane.add(lblConditions);
-		
+
 		lblDiruMax = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop")); //$NON-NLS-1$ //$NON-NLS-2$
 		lblDiruMax.setBounds(12, 265, 134, 17);
 		contentPane.add(lblDiruMax);
-		
-		textField = new JTextField();
-		textField.setBounds(174, 265, 221, 21);
-		contentPane.add(textField);
-		textField.setColumns(10);
+
+		txtFieldDirua = new JTextField();
+		txtFieldDirua.setBounds(174, 265, 221, 21);
+		contentPane.add(txtFieldDirua);
+		txtFieldDirua.setColumns(10);
+
+		lblErrorea = new JLabel(); // $NON-NLS-1$ //$NON-NLS-2$
+		lblErrorea.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblErrorea.setHorizontalAlignment(SwingConstants.LEFT);
+		lblErrorea.setBounds(12, 353, 418, 17);
+		contentPane.add(lblErrorea);
 	}
 
 	@Override
@@ -216,37 +243,38 @@ public class JarraituGUI extends JFrame {
 
 		jarraitzenModel.setDataVector(null, zutabeIzenak);
 		jarraitzenModel.setColumnCount(3);
-		
+
 		if (MainGUI.getLoginErabiltzailea() instanceof Erabiltzailea) {
 			Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
-			List<Jarraitzen> jarraitzenLista = er.getJarraitzen();
+			List<JarraitzenContainer> jarraitzenLista = facade.getJarraitzen(er);
 			List<Erabiltzailea> erabiltzaileakLista = facade.getErabiltzaileaGuztiak();
-
 			// Tratatu jarraitzen ditugun erabiltzaileak
-			for (Jarraitzen j : jarraitzenLista) {
-				Erabiltzailea nori = j.getNori();
+			for (JarraitzenContainer jC : jarraitzenLista) {
+				Erabiltzailea nori = jC.getNori();
 				Vector<Object> row = new Vector<Object>();
 				row.add(nori.getIzena());
-				row.add(nori.getApustuakIrabazitak());
+				row.add(facade.getApustuakIrabazitak(nori));
 				row.add(nori);
+				jarraitzenModel.addRow(row);
 			}
 
 			tableJarraitzen.getColumnModel().getColumn(0).setPreferredWidth(268);
-			tableJarraitzen.getColumnModel().getColumn(1).setPreferredWidth(25);
+			tableJarraitzen.getColumnModel().getColumn(1).setPreferredWidth(268);
 			tableJarraitzen.getColumnModel().removeColumn(tableJarraitzen.getColumnModel().getColumn(2));
 
 			// Tratatu jarraitzen ez ditugun erabiltzaileak
 			for (Erabiltzailea nori : erabiltzaileakLista) {
-				if (er.jarraitzenDu(nori) == null) { // ez badu jarraitzen
+				if (facade.jarraitzenDu(er, nori) == null) { // ez badu jarraitzen
 					Vector<Object> row = new Vector<Object>();
 					row.add(nori.getIzena());
-					row.add(nori.getApustuakIrabazitak());
+					row.add(facade.getApustuakIrabazitak(nori));
 					row.add(nori);
+					ezJarraitzenModel.addRow(row);
 				}
 			}
 
 			tableEzJarraitzen.getColumnModel().getColumn(0).setPreferredWidth(268);
-			tableEzJarraitzen.getColumnModel().getColumn(1).setPreferredWidth(25);
+			tableEzJarraitzen.getColumnModel().getColumn(1).setPreferredWidth(268);
 			tableEzJarraitzen.getColumnModel().removeColumn(tableEzJarraitzen.getColumnModel().getColumn(2));
 
 		}

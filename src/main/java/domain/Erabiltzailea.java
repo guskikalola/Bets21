@@ -30,10 +30,10 @@ public class Erabiltzailea extends Pertsona {
 	
 	public Erabiltzailea() {
 		super();
-		this.mugimenduak = null;
+		this.mugimenduak = new ArrayList<Mugimendua>();
 		this.apustuaLista= new ArrayList<Apustua>();
-		this.jarraitzen = null;
-		this.jarraitzaileak = null;
+		this.jarraitzen = new ArrayList<Jarraitzen>();
+		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 	}
 	

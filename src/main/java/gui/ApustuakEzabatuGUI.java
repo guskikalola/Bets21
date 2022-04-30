@@ -84,7 +84,8 @@ public class ApustuakEzabatuGUI extends JFrame {
 	};
 	private String[] columnNamesApustua = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("ApustuN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Apustu")
+			ResourceBundle.getBundle("Etiquetas").getString("Apustu"),
+			ResourceBundle.getBundle("Etiquetas").getString("apustu_anizkoitza")
 
 	};
 	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Remove")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -282,10 +283,12 @@ public class ApustuakEzabatuGUI extends JFrame {
 				apustuaList= new ArrayList<Apustua>();
 				Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
 				for (domain.Kuota k:kuotak){
-					for(domain.Apustua a: facade.getApustuakErabiltzailea(k,er)) {
+					for(domain.ApustuaContainer aC: facade.getApustuakErabiltzailea(k,er)) {
+						Apustua a = aC.getApustua();
 						Vector<Object> row = new Vector<Object>();
 						row.add(a.getApustuZenbakia());
 						row.add(a.getDiruKop());
+						row.add(aC.getKuotak().size() > 1 ? true : false);
 						tableModelApustuak.addRow(row);	
 						apustuaList.add(a);
 					}
@@ -347,6 +350,7 @@ public class ApustuakEzabatuGUI extends JFrame {
 				if(er!=null) {
 					Boolean bool=facade.apustuaEzabatu(selectedApustua, er);
 					if(bool) {
+						tableModelApustuak.removeRow(selectedRow);
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
 					}else {
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("NoDeleteApustu")); //$NON-NLS-1$ //$NON-NLS-2$

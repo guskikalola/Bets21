@@ -57,4 +57,8 @@ public class Jarraitzen {
 	public void setJarraitzenZenbakia(int jarraitzenZenbakia) {
 		this.jarraitzenZenbakia = jarraitzenZenbakia;
 	}
+
+	public void setJarraitzenZenbakia(Integer jarraitzenZenbakia) {
+		this.jarraitzenZenbakia = jarraitzenZenbakia;
+	}
 }

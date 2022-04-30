@@ -8,8 +8,11 @@ import java.util.List;
 //import domain.Booking;
 import domain.Question;
 import domain.Apustua;
+import domain.ApustuaContainer;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
@@ -74,7 +77,7 @@ public interface BLFacade  {
 	
 	@WebMethod public Apustua apustuaEgin(Erabiltzailea er, Kuota ki, Double diruKop) throws ApustuaEzDaEgin;
 	@WebMethod public boolean apustuaEzabatu(Apustua a, Erabiltzailea er);
-	@WebMethod public List<Apustua> getApustuakErabiltzailea(Kuota k,Erabiltzailea er);
+	@WebMethod public List<ApustuaContainer> getApustuakErabiltzailea(Kuota k,Erabiltzailea er);
 	@WebMethod public boolean diruaSartu(Erabiltzailea erabiltzaile, String pasahitza, Double kantitatea);
 
 
@@ -88,9 +91,16 @@ public interface BLFacade  {
 	@WebMethod List<Erabiltzailea> getErabiltzaileaGuztiak();
 
 
-	boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, int diruMax);
+	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax);
 
 
-	Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin;
+	@WebMethod Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin;
+
+
+	// Web zerbitzaria dela eta, container ordez eskatu DB-tik datuak eskuratzea. DB-ak erreferentziak izango dituelako
+	@WebMethod public Pertsona getPertsona(String izena);
+	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
+	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
+	@WebMethod int getApustuakIrabazitak(Erabiltzailea nori);
 	
 }

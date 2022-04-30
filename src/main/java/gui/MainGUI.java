@@ -51,8 +51,9 @@ public class MainGUI extends JFrame {
 	private static Pertsona loginErabiltzailea;
 	
 	public static Pertsona getLoginErabiltzailea() {
-		Pertsona er = loginErabiltzailea;
-		return er;
+		if(getBusinessLogic() == null || loginErabiltzailea == null) return null;
+		Pertsona p = getBusinessLogic().getPertsona(loginErabiltzailea.getIzena());
+		return p;
 	}
 	public static void setLoginErabiltzailea(Pertsona er) {
 		loginErabiltzailea = er;

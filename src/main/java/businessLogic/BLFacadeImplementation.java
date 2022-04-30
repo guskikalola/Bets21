@@ -1,5 +1,6 @@
 package businessLogic;
 
+import java.util.ArrayList;
 //hola
 import java.util.Date;
 import java.util.List;
@@ -15,8 +16,11 @@ import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
 import domain.Apustua;
+import domain.ApustuaContainer;
 import domain.Erabiltzailea;
 import domain.Event;
+import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mugimendua;
 import domain.Pertsona;
@@ -234,11 +238,17 @@ public class BLFacadeImplementation implements BLFacade {
 
 	@Override
 	@WebMethod
-	public List<Apustua> getApustuakErabiltzailea(Kuota k, Erabiltzailea er) {
+	public List<ApustuaContainer> getApustuakErabiltzailea(Kuota k, Erabiltzailea er) {
 		dbManager.open(false);
 		List<Apustua> em = dbManager.getApustuakErabiltzailea(k, er);
+		List<ApustuaContainer> emC = new ArrayList<ApustuaContainer>();
+		if (em != null) {
+			for (Apustua ap : em) {
+				emC.add(new ApustuaContainer(ap));
+			}
+		}
 		dbManager.close();
-		return em;
+		return em != null ? emC : null;
 	}
 
 	@Override
@@ -251,18 +261,63 @@ public class BLFacadeImplementation implements BLFacade {
 	}
 
 	@Override
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,int diruMax) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
+			float diruMax) {
 		dbManager.open(false);
-		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea,diruMax);
+		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea, diruMax);
 		dbManager.close();
 		return em;
 	}
 
 	@Override
-	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin {
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop)
+			throws ApustuaEzDaEgin {
 		dbManager.open(false);
-		Apustua em = dbManager.apustuAnizkoitzaEgin(er,kuotaLista,diruKop);
+		Apustua em = dbManager.apustuAnizkoitzaEgin(er, kuotaLista, diruKop);
 		dbManager.close();
 		return em;
+	}
+
+	@Override
+	public JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori) {
+		dbManager.open(false);
+		JarraitzenContainer em = null;
+		Erabiltzailea er1 = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
+		Jarraitzen j = er1.jarraitzenDu(nori);
+		if (j != null)
+			em = new JarraitzenContainer(j);
+		dbManager.close();
+		return em;
+	}
+
+	@Override
+	public List<JarraitzenContainer> getJarraitzen(Erabiltzailea er) {
+		dbManager.open(false);
+		List<JarraitzenContainer> em = new ArrayList<JarraitzenContainer>();
+		Erabiltzailea erDB = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
+		for (Jarraitzen j : erDB.getJarraitzen()) {
+			em.add(new JarraitzenContainer(j));
+		}
+		dbManager.close();
+		return em;
+	}
+
+	@Override
+	public Pertsona getPertsona(String izena) {
+		dbManager.open(false);
+		Pertsona p = dbManager.getErabiltzailea(izena);
+		dbManager.close();
+		return p;
+	}
+
+	@Override
+	public int getApustuakIrabazitak(Erabiltzailea er) {
+		dbManager.open(false);
+		int kop = 0;
+		Pertsona p = dbManager.getErabiltzailea(er.getIzena());
+		if (p instanceof Erabiltzailea)
+			kop = ((Erabiltzailea) p).getApustuakIrabazitak();
+		dbManager.close();
+		return kop;
 	}
 }

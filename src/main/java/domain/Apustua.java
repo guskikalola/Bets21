@@ -5,11 +5,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -25,7 +29,7 @@ public class Apustua {
 	private Integer apustuZenbakia;
 	@XmlIDREF
 	private Erabiltzailea erabiltzailea;
-	@XmlIDREF
+	@XmlIDREF @OneToMany(fetch=FetchType.EAGER)
 	private List<Kuota> kuotak;
 	private double diruKop;
 
@@ -73,6 +77,14 @@ public class Apustua {
 
 	public double getDiruKop() {
 		return diruKop;
+	}
+	
+	public double getIrabazia() {
+		double biderK = 0;
+		for(Kuota k : this.kuotak) {
+			biderK += k.getKantitatea();
+		}
+		return biderK * this.diruKop;
 	}
 
 	public void setDiruKop(double diruKop) {
