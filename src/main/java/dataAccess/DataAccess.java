@@ -477,6 +477,7 @@ public class DataAccess {
 				db.persist(apustua);
 				kDB.apustuaGehitu(apustua);
 				erDB.apustuaGehitu(apustua);
+				this.apustuaJarraitu(apustua);
 				db.getTransaction().commit();
 				return apustua;
 			} else {
@@ -629,6 +630,7 @@ public class DataAccess {
 				for (Kuota kDB : kDBLista) {
 					kDB.apustuaGehitu(apustua);
 				}
+				this.apustuaJarraitu(apustua);
 				db.getTransaction().commit();
 				return apustua;
 			} else {
@@ -643,5 +645,26 @@ public class DataAccess {
 			return null;
 		}
 
+	}
+
+	// TODO : Sekuentzian adierazi
+	private void apustuaJarraitu(Apustua apustua) {
+		Erabiltzailea egilea = apustua.getErabiltzailea();
+		List<Erabiltzailea> jarraitzaileak = egilea.getJarraitzaileak();
+		for(Erabiltzailea jarraitzailea : jarraitzaileak) {
+			Jarraitzen baldintzak = jarraitzailea.jarraitzenDu(egilea);
+			if(baldintzak != null) {
+				try {
+					// Aztertu baldintzak
+					
+					if(apustua.getDiruKop() <= baldintzak.getDiruKop()) {
+						this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop());
+					}
+					
+				} catch (ApustuaEzDaEgin e) {
+					// ? Ez tratatu momentuz, agian mezua bidali
+				}
+			}
+		}
 	}
 }
