@@ -264,7 +264,7 @@ public class JarraituGUI extends JFrame {
 
 			// Tratatu jarraitzen ez ditugun erabiltzaileak
 			for (Erabiltzailea nori : erabiltzaileakLista) {
-				if (facade.jarraitzenDu(er, nori) == null) { // ez badu jarraitzen
+				if (facade.jarraitzenDu(er, nori) == null && !nori.getIzena().equals(er.getIzena())) { // ez badu jarraitzen
 					Vector<Object> row = new Vector<Object>();
 					row.add(nori.getIzena());
 					row.add(facade.getApustuakIrabazitak(nori));

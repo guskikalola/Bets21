@@ -350,7 +350,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 								ArrayList<Kuota> kuotaLista = new ArrayList<Kuota>();
 
 								// Bete kuotaList
-								
+
 								for (int i = 0; i < kuotaKopurua; i++) {
 									kuotaLista.add((Kuota) tableModelAukerak.getValueAt(i, 2));
 								}
@@ -359,7 +359,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 									// ez ditu kuotarik aukeratu, ez egin ezer
 								} else {
 									Apustua apus = facade.apustuAnizkoitzaEgin(er, kuotaLista, kantitatea);
-									if(apus != null) {
+									if (apus != null) {
 										tableModelAukerak.setDataVector(null, columnNamesAukerak);
 										KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
 										System.out.println("Apustua eginda");
@@ -397,8 +397,6 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 
 		tableModelAukerak = new DefaultTableModel(null, columnNamesAukerak);
 
-		
-		
 		tableAukerak.setCellSelectionEnabled(false);
 		tableAukerak.setModel(tableModelAukerak);
 		tableAukerak.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -410,6 +408,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		btnGehituKuota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
 				selectedRow = tableKuota.getSelectedRow();
 				if (selectedRow != -1) {
 					selectedKuota = kuotaList.get(selectedRow);
@@ -419,8 +418,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 					// Kuota aukeratu behar da
 					System.out.println("Kuota ez da aukeratu");
 				} else {
-					
-					
+
 					// Ezin dira bitan kuotak berdinak aukeratu
 					boolean errepikatuta = false;
 					int i = 0;
@@ -431,13 +429,17 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 						i++;
 					}
 					if (!errepikatuta) {
-						tableModelAukerak.setColumnCount(3);
-						Vector<Object> row = new Vector<Object>();
-						row.add(selectedKuota.getKuotaZenbakia());
-						row.add(selectedKuota.getAukera());
-						row.add(selectedKuota);
-						tableModelAukerak.addRow(row);
-						tableAukerak.getColumnModel().removeColumn(tableAukerak.getColumnModel().getColumn(2));
+						if (selectedKuota.galderaEmaitzaDu()) {
+							KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("galdera_emaitza_du"));
+						} else {
+							tableModelAukerak.setColumnCount(3);
+							Vector<Object> row = new Vector<Object>();
+							row.add(selectedKuota.getKuotaZenbakia());
+							row.add(selectedKuota.getAukera());
+							row.add(selectedKuota);
+							tableModelAukerak.addRow(row);
+							tableAukerak.getColumnModel().removeColumn(tableAukerak.getColumnModel().getColumn(2));
+						}
 					}
 				}
 			}
