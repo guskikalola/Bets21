@@ -473,13 +473,11 @@ public class DataAccess {
 			}
 			else if (nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1) * diruKop);
-				Mugimendua mugi = new Mugimendua(erDB, (-1) * diruKop, "apustua_eginda");
+				Mugimendua mugi = erDB.mugimenduaSortu((-1) * diruKop, "apustua_eginda");
 				db.persist(mugi);
-				erDB.mugimenduaGehitu(mugi);
-				Apustua apustua = new Apustua(erDB, diruKop, kDB);
+				Apustua apustua = erDB.apustuaSortu(diruKop, kDB);
 				db.persist(apustua);
 				kDB.apustuaGehitu(apustua);
-				erDB.apustuaGehitu(apustua);
 				db.getTransaction().commit();
 				this.apustuaJarraitu(apustua);
 				return apustua;
@@ -505,9 +503,8 @@ public class DataAccess {
 				List<Kuota> kDBLista = aDB.getKuotak();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
-				Mugimendua m = new Mugimendua(erDB, diruKop, "apustua_ezabatuta");
+				Mugimendua m = erDB.mugimenduaSortu(diruKop, "apustua_ezabatuta");
 				db.persist(m);
-				erDB.mugimenduaGehitu(m);
 				erDB.apustuaEzabatuListatik(aDB);
 				for (Kuota kiDB : kDBLista) {
 					kiDB.apustuaEzabatuListatik(aDB);
@@ -539,10 +536,8 @@ public class DataAccess {
 					if (ap.irabaziDu()) {
 						double irabaziDirua = ap.getIrabazia();
 						erab.saldoaAldatu(irabaziDirua);
-						Mugimendua m = new Mugimendua(erab, irabaziDirua, "apustua_irabazi");
-						erab.gehituMugimendua(m);
+						Mugimendua m = erab.mugimenduaSortu(irabaziDirua, "apustua_irabazi");
 						db.persist(m);
-
 						erlist.add(erab);
 					}
 				}
@@ -574,7 +569,7 @@ public class DataAccess {
 
 	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
 			float diruMax) {
-		if(unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.getIzena().equals(aukeratutakoErabiltzailea.getIzena())) {
+		if(unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
 			return false; // ezin duzu zure burua jarraitu 
 		}
 		db.getTransaction().begin();
@@ -589,10 +584,9 @@ public class DataAccess {
 				erDB.ezabatuJarraitzaileakListatik(unErDB);
 				db.remove(bJarraitu);
 			} else {
-				Jarraitzen jB = new Jarraitzen(erDB, diruMax);
-				db.persist(jB);
-				unErDB.gehituJarraitzenListara(jB);
+				Jarraitzen jB = unErDB.jarraitu(erDB,diruMax);
 				erDB.gehituJarraitzaileakListara(unErDB);
+				db.persist(jB);
 			}
 		}
 		db.getTransaction().commit();
@@ -632,12 +626,10 @@ public class DataAccess {
 			Boolean minimoaGaindtu = diruKop >= minBet;
 			if (nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1) * diruKop);
-				Mugimendua mugi = new Mugimendua(erDB, (-1) * diruKop, "apustua_eginda");
+				Mugimendua mugi = erDB.mugimenduaSortu((-1) * diruKop, "apustua_eginda");
 				db.persist(mugi);
-				erDB.mugimenduaGehitu(mugi);
-				Apustua apustua = new Apustua(erDB, diruKop, kDBLista);
+				Apustua apustua = erDB.apustuaSortu(diruKop, kDBLista);
 				db.persist(apustua);
-				erDB.apustuaGehitu(apustua);
 				for (Kuota kDB : kDBLista) {
 					kDB.apustuaGehitu(apustua);
 				}

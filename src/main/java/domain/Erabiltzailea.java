@@ -188,6 +188,42 @@ public class Erabiltzailea extends Pertsona {
 	public void gehituJarraitzaileakListara(Erabiltzailea nor) {
 		this.jarraitzaileak.add(nor);
 	}
+
+	public Mugimendua mugimenduaSortu(double d, String string) {
+		Mugimendua m = new Mugimendua(this, (-1) * d, "apustua_eginda");
+		this.mugimenduaGehitu(m);
+		return m;
+	}
+
+	public Apustua apustuaSortu(Double diruKop, Kuota kDB) {
+		Apustua ap = new Apustua(this, diruKop, kDB);
+		this.apustuaGehitu(ap);
+		return ap;
+	}
+	
+	public Apustua apustuaSortu(double diruKop, List<Kuota> kDBLista) {
+		Apustua apAnizkoitza = new Apustua(this, diruKop, kDBLista);
+		this.apustuaGehitu(apAnizkoitza);
+		return apAnizkoitza;
+	}
+
+	public Jarraitzen jarraitu(Erabiltzailea erDB, float diruMax) {
+		Jarraitzen j = new Jarraitzen(erDB, diruMax);
+		this.gehituJarraitzenListara(j);		
+		return j;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(other == null) return false;
+		else if(!(other instanceof Erabiltzailea)) return false;
+		else {
+			Erabiltzailea oEr = (Erabiltzailea) other;
+			return (this.getIzena().equals(oEr.getIzena()));
+		}
+	}
+
+
 }
 	
 	
