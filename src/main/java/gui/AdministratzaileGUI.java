@@ -148,6 +148,18 @@ public class AdministratzaileGUI extends JFrame {
 		});
 		btnEmaitzaipin.setBounds(212, 139, 175, 27);
 		contentPane.add(btnEmaitzaipin);
+		
+		JButton MezuakBidaliButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("AdministratzaileGUI.btnNewButton_2.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		MezuakBidaliButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainGUI.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				MezuakBidaliGUI mb = new MezuakBidaliGUI();
+				mb.setVisible(true);
+			}
+		});
+		MezuakBidaliButton.setBounds(212, 177, 175, 25);
+		contentPane.add(MezuakBidaliButton);
 	}
 }
 

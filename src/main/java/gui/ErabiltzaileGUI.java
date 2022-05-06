@@ -170,10 +170,15 @@ public class ErabiltzaileGUI extends JFrame {
 		JButton btnMezuabidali = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mezua_bidali")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnMezuabidali.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MainGUI.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				MezuakBidaliGUI mezu = new MezuakBidaliGUI();
+				mezu.setVisible(true);
 			}
 		});
 		btnMezuabidali.setBounds(228, 176, 184, 27);
 		contentPane.add(btnMezuabidali);
+
 		btnApustuaezabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainGUI.eguneratuHistorala(frame);

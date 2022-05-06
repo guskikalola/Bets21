@@ -14,6 +14,7 @@ import domain.Event;
 import domain.Jarraitzen;
 import domain.JarraitzenContainer;
 import domain.Kuota;
+import domain.Mezua;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
@@ -89,6 +90,7 @@ public interface BLFacade  {
 
 
 	@WebMethod List<Erabiltzailea> getErabiltzaileaGuztiak();
+	@WebMethod List<Pertsona> getPertsonaGuztiak();
 
 
 	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax);
@@ -102,5 +104,7 @@ public interface BLFacade  {
 	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
 	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
 	@WebMethod int getApustuakIrabazitak(Erabiltzailea nori);
+	@WebMethod public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori);
+	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua);
 	
 }

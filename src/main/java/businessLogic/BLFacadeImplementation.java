@@ -22,6 +22,7 @@ import domain.Event;
 import domain.Jarraitzen;
 import domain.JarraitzenContainer;
 import domain.Kuota;
+import domain.Mezua;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
@@ -259,6 +260,15 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return er;
 	}
+	
+	@Override
+	@WebMethod
+	public List<Pertsona> getPertsonaGuztiak() {
+		dbManager.open(false);
+		List<Pertsona> er = dbManager.getPertsonaGuztiak();
+		dbManager.close();
+		return er;
+	}
 
 	@Override
 	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
@@ -319,5 +329,21 @@ public class BLFacadeImplementation implements BLFacade {
 			kop = ((Erabiltzailea) p).getApustuakIrabazitak();
 		dbManager.close();
 		return kop;
+	}
+	
+	@Override
+	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
+		dbManager.open(false);
+		List<Mezua> mezu= dbManager.getMezuGuztiak(m, nori);
+		dbManager.close();
+		return mezu;
+	}
+
+	@Override
+	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) {
+		dbManager.open(false);
+		Mezua mezu= dbManager.mezuaBidali(m, nori, mezua);
+		dbManager.close();
+		return mezu;
 	}
 }
