@@ -19,7 +19,7 @@ public class Mezua {
 	@GeneratedValue
 	private Integer MezuaZenbakia;
 
-	public static final int MEZUAMIN=10;
+	public static final int MEZUAMIN=2;
 	public static final int MEZUAMAX=150;
 	
 	@XmlIDREF

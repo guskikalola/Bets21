@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
 import domain.Admin;
+import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Pertsona;
 
@@ -95,9 +96,18 @@ public class LoginGUI extends JFrame {
 					MainGUI.eguneratuHistorala(frame);
 					System.out.println(e.getClass().getName());
 					if(e instanceof Erabiltzailea) {
-						frame.setVisible(false);
-						ErabiltzaileGUI era= new ErabiltzaileGUI((Erabiltzailea) e);
-						era.setVisible(true);
+						Erabiltzailea erabil= facade.getErabiltzailea(e.getIzena());
+						if(erabil.getBlokeoa()!=null) {
+							Blokeoa bl= erabil.getBlokeoa();
+							Admin admin= bl.getNor();
+							frame.setVisible(false);
+							ChatGUI chat= new ChatGUI(admin);
+							chat.setVisible(true);
+						}else {
+							frame.setVisible(false);
+							ErabiltzaileGUI era= new ErabiltzaileGUI((Erabiltzailea) e);
+							era.setVisible(true);
+						}
 					}else if(e instanceof Admin) {
 						frame.setVisible(false);
 						AdministratzaileGUI adm= new AdministratzaileGUI((Admin) e);

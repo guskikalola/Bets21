@@ -320,6 +320,10 @@ public class DataAccess {
 	public Pertsona getErabiltzailea(String izena) {
 		return db.find(Pertsona.class, izena);
 	}
+	
+	public Erabiltzailea getErabiltzaileaIzenarekin(String izena) {
+		return db.find(Erabiltzailea.class, izena);
+	}
 
 	private boolean adinaDu(Date jaiotzeData) {
 		Calendar gaur = Calendar.getInstance();
@@ -581,16 +585,13 @@ public class DataAccess {
 	
 	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
 		Pertsona mezulari= db.find(Pertsona.class, m.getIzena());
-		List<Mezua> mezuBidali= null;
 		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		HashMap<String, ArrayList<Mezua>> hm= mezulari.getBidalitakoMezuak();
-		if(hm!=null) {
-			mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
-			List<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
-			for(Mezua me: mezuJaso) {
-				mezuBidali.add(me);
-			}	
+		ArrayList<Mezua> mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
+		ArrayList<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
+		for(Mezua me: mezuJaso) {
+			mezuBidali.add(me);
 		}
+			
 		return mezuBidali;
 	}
 
@@ -701,11 +702,13 @@ public class DataAccess {
 		Boolean zuzena= Mezua.mezuaZuzenaDa(mezua);
 		if(zuzena) {
 			mez= new Mezua(mezulariDB, noriDB, mezua);
-			mezulariDB.gehituBidaliLista(mez, nori);
-			noriDB.gehituJasotakoLista(mez, m);
+			mezulariDB.gehituBidaliLista(mez);
+			noriDB.gehituJasotakoLista(mez);
 			db.persist(mez);
 		}
 		db.getTransaction().commit();
 		return mez;
 	}
+
+	
 }

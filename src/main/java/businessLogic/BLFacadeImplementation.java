@@ -319,6 +319,14 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return p;
 	}
+	
+	@Override
+	public Erabiltzailea getErabiltzailea(String izena) {
+		dbManager.open(false);
+		Erabiltzailea e = dbManager.getErabiltzaileaIzenarekin(izena);
+		dbManager.close();
+		return e;
+	}
 
 	@Override
 	public int getApustuakIrabazitak(Erabiltzailea er) {

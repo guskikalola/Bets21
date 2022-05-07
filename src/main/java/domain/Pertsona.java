@@ -23,40 +23,40 @@ public abstract class Pertsona {
 	private String pasahitza;
 	private int adina;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private HashMap<String, ArrayList<Mezua>> jasotakoMezuak;
+	private ArrayList<Mezua> jasotakoMezuak;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private HashMap<String, ArrayList<Mezua>> bidalitakoMezuak;
+	private ArrayList<Mezua> bidalitakoMezuak;
 
 	public Pertsona() {
 		this.pasahitza = null;
 		this.izena = null;
 		this.adina = -1;
-		this.jasotakoMezuak= new HashMap<String, ArrayList<Mezua>>();
-		this.bidalitakoMezuak= new HashMap<String, ArrayList<Mezua>>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
+		this.bidalitakoMezuak= new ArrayList<Mezua>();
 	}
 
 	public Pertsona(String izena, String pasahitza, int adina) {
 		this.izena = izena; 
 		this.pasahitza = pasahitza;
 		this.adina = adina;
-		this.jasotakoMezuak= new HashMap<String, ArrayList<Mezua>>();
-		this.bidalitakoMezuak= new HashMap<String, ArrayList<Mezua>>();
+		this.jasotakoMezuak= new ArrayList<Mezua>();
+		this.bidalitakoMezuak= new ArrayList<Mezua>();
 	}
 
-	public HashMap<String, ArrayList<Mezua>> getJasotakoMezuak() {
+	public ArrayList<Mezua> getJasotakoMezuak() {
 		return jasotakoMezuak;
 	}
 
-	public void setJasotakoMezuak(HashMap<String, ArrayList<Mezua>> jasotakoMezuak) {
+	public void setJasotakoMezuak(ArrayList<Mezua> jasotakoMezuak) {
 		this.jasotakoMezuak = jasotakoMezuak;
 	}
 
-	public HashMap<String, ArrayList<Mezua>> getBidalitakoMezuak() {
+	public ArrayList<Mezua> getBidalitakoMezuak() {
 		return bidalitakoMezuak;
 	}
 
-	public void setBidalitakoMezuak(HashMap<String, ArrayList<Mezua>> bidalitakoMezuak) {
+	public void setBidalitakoMezuak(ArrayList<Mezua> bidalitakoMezuak) {
 		this.bidalitakoMezuak = bidalitakoMezuak;
 	}
 
@@ -108,40 +108,36 @@ public abstract class Pertsona {
 		return (pasahitza.equals(this.pasahitza));
 	}
 	
-	public void gehituBidaliLista(Mezua me, Pertsona p) {
-		ArrayList<Mezua> mezuList=null;
-		if(!bidalitakoMezuak.containsKey(p.getIzena())) {
-			mezuList.add(me);
-			this.bidalitakoMezuak.put(this.getIzena(), mezuList);
-		}else {
-			mezuList= this.bidalitakoMezuak.get(p.getIzena());
-			mezuList.add(me);
-			this.bidalitakoMezuak.put(this.getIzena(), mezuList);
+	public void gehituBidaliLista(Mezua me) {
+		this.bidalitakoMezuak.add(me);
+	}
+	
+	public void gehituJasotakoLista(Mezua me) {
+		this.jasotakoMezuak.add(me);
+	}
+	
+	public ArrayList<Mezua> jasotakoMezuakEskuratu(Pertsona norengandik) {
+		ArrayList<Mezua> mezuList= null;
+		if(this.jasotakoMezuak!=null) {
+			for(Mezua m: this.jasotakoMezuak) {
+				if(m.getNor().getIzena().equals(norengandik.getIzena())) {
+					mezuList.add(m);
+				}
+			}
 		}
+		return mezuList;
 	}
 	
-	public void gehituJasotakoLista(Mezua me, Pertsona p) {
-		ArrayList<Mezua> mezuList=null;
-		if(!jasotakoMezuak.containsKey(p.getIzena())) {
-			mezuList.add(me);
-			this.jasotakoMezuak.put(this.getIzena(), mezuList);
-		}else {
-			mezuList= this.jasotakoMezuak.get(p.getIzena());
-			mezuList.add(me);
-			this.jasotakoMezuak.put(this.getIzena(), mezuList);
+	public ArrayList<Mezua> BidalitakoMezuakEskuratu(Pertsona nori) {
+		ArrayList<Mezua> mezuList= null;
+		if(this.bidalitakoMezuak!=null) {
+			for(Mezua m: this.bidalitakoMezuak) {
+				if(m.getNor().getIzena().equals(nori.getIzena())) {
+					mezuList.add(m);
+				}
+			}
 		}
-		
-		
-	}
-	
-	public List<Mezua> jasotakoMezuakEskuratu(Pertsona norengandik) {
-		List<Mezua> jasotakoMezuList= this.bidalitakoMezuak.get(norengandik.getIzena());
-		return jasotakoMezuList;
-	}
-	
-	public List<Mezua> BidalitakoMezuakEskuratu(Pertsona nori) {
-		List<Mezua> bidalitakoMezuList= this.bidalitakoMezuak.get(nori.getIzena());
-		return bidalitakoMezuList;
+		return mezuList;
 	}
 
 }

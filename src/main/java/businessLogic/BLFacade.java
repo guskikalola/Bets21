@@ -101,6 +101,7 @@ public interface BLFacade  {
 
 	// Web zerbitzaria dela eta, container ordez eskatu DB-tik datuak eskuratzea. DB-ak erreferentziak izango dituelako
 	@WebMethod public Pertsona getPertsona(String izena);
+	@WebMethod public Erabiltzailea getErabiltzailea(String izena);
 	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
 	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
 	@WebMethod int getApustuakIrabazitak(Erabiltzailea nori);
