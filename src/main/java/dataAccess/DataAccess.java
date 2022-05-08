@@ -23,7 +23,6 @@ import domain.Admin;
 import domain.Apustua;
 import domain.Erabiltzailea;
 import domain.Event;
-import domain.Jarraitzen;
 import domain.Kuota;
 import domain.Mezua;
 import domain.Mugimendua;
@@ -148,7 +147,7 @@ public class DataAccess {
 			Admin admin2 = new Admin("admin2", "pass", new Date());
 			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
 			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
-			Erabiltzailea erab2= new Erabiltzailea("e", "e", new Date());
+			Erabiltzailea erab2 = new Erabiltzailea("e", "e", new Date());
 
 			db.persist(admin);
 			db.persist(admin2);
@@ -320,7 +319,7 @@ public class DataAccess {
 	public Pertsona getErabiltzailea(String izena) {
 		return db.find(Pertsona.class, izena);
 	}
-	
+
 	public Erabiltzailea getErabiltzaileaIzenarekin(String izena) {
 		return db.find(Erabiltzailea.class, izena);
 	}
@@ -479,8 +478,7 @@ public class DataAccess {
 			Boolean minimoaGaindtu = diruKop >= kDB.getQuestion().getBetMinimum();
 			if (kDB.galderaEmaitzaDu()) {
 				throw new ApustuaEzDaEgin("galdera_emaitza_du");
-			}
-			else if (nahikoa && minimoaGaindtu) {
+			} else if (nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1) * diruKop);
 				Mugimendua mugi = erDB.mugimenduaSortu((-1) * diruKop, "apustua_eginda");
 				db.persist(mugi);
@@ -574,28 +572,27 @@ public class DataAccess {
 		TypedQuery<Erabiltzailea> q = db.createQuery("SELECT er FROM Erabiltzailea er", Erabiltzailea.class);
 		return q.getResultList();
 	}
-	
+
 	public List<Pertsona> getPertsonaGuztiak() {
 		TypedQuery<Pertsona> p = db.createQuery("SELECT p FROM Pertsona p", Pertsona.class);
 		return p.getResultList();
 	}
-	
+
 	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
-		Pertsona mezulari= db.find(Pertsona.class, m.getIzena());
-		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		ArrayList<Mezua> mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
-		ArrayList<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
-		for(Mezua me: mezuJaso) {
+		Pertsona mezulari = db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB = db.find(Pertsona.class, nori.getIzena());
+		ArrayList<Mezua> mezuBidali = mezulari.BidalitakoMezuakEskuratu(noriDB);
+		ArrayList<Mezua> mezuJaso = mezulari.jasotakoMezuakEskuratu(noriDB);
+		for (Mezua me : mezuJaso) {
 			mezuBidali.add(me);
 		}
-			
+
 		return mezuBidali;
 	}
 
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
-			float diruMax) {
-		if(unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
-			return false; // ezin duzu zure burua jarraitu 
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {
+		if (unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
+			return false; // ezin duzu zure burua jarraitu
 		}
 		db.getTransaction().begin();
 		Erabiltzailea unErDB = db.find(Erabiltzailea.class, unekoErab.getIzena());
@@ -603,15 +600,13 @@ public class DataAccess {
 		if (unErDB == null || erDB == null) {
 			return false;
 		} else {
-			Jarraitzen bJarraitu = unErDB.jarraitzenDu(erDB);
-			if (bJarraitu != null) { // Jarraizten utzi
-				unErDB.ezabatuJarraitzenListatik(bJarraitu);
+			boolean bJarraitu = unErDB.jarraitzenDu(erDB);
+			if (bJarraitu) { // Jarraizten utzi
+				unErDB.ezabatuJarraitzenListatik(erDB);
 				erDB.ezabatuJarraitzaileakListatik(unErDB);
-				db.remove(bJarraitu);
 			} else {
-				Jarraitzen jB = unErDB.jarraitu(erDB,diruMax);
+				unErDB.gehituJarraitzenListara(erDB);
 				erDB.gehituJarraitzaileakListara(unErDB);
-				db.persist(jB);
 			}
 		}
 		db.getTransaction().commit();
@@ -619,8 +614,8 @@ public class DataAccess {
 		return true;
 	}
 
-	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop, boolean apustuaJarraitu)
-			throws ApustuaEzDaEgin {
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop,
+			boolean apustuaJarraitu) throws ApustuaEzDaEgin {
 		db.getTransaction().begin();
 		String izena = er.getIzena();
 		Erabiltzailea erDB = db.find(Erabiltzailea.class, izena);
@@ -633,11 +628,11 @@ public class DataAccess {
 
 		for (Kuota ki : kuotaLista) {
 			Kuota kiDB = db.find(Kuota.class, ki.getKuotaZenbakia());
-			
-			if(kiDB.galderaEmaitzaDu()) {
+
+			if (kiDB.galderaEmaitzaDu()) {
 				throw new ApustuaEzDaEgin("galdera_emaitza_du");
 			}
-			
+
 			if (kiDB == null)
 				return null;
 			else {
@@ -659,7 +654,8 @@ public class DataAccess {
 					kDB.apustuaGehitu(apustua);
 				}
 				db.getTransaction().commit();
-				if(apustuaJarraitu) this.apustuaJarraitu(apustua);
+				if (apustuaJarraitu)
+					this.apustuaJarraitu(apustua);
 				return apustua;
 			} else {
 				if (!nahikoa)
@@ -674,7 +670,7 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop)
 			throws ApustuaEzDaEgin {
 		return this.apustuAnizkoitzaEgin(er, kuotaLista, diruKop, true);
@@ -684,31 +680,27 @@ public class DataAccess {
 	private void apustuaJarraitu(Apustua apustua) {
 		Erabiltzailea egilea = apustua.getErabiltzailea();
 		List<Erabiltzailea> jarraitzaileak = egilea.getJarraitzaileak();
-		for(Erabiltzailea jarraitzailea : jarraitzaileak) {
-			Jarraitzen baldintzak = jarraitzailea.jarraitzenDu(egilea);
-			if(baldintzak != null) {
+		for (Erabiltzailea jarraitzailea : jarraitzaileak) {
+			boolean jarraitzen = jarraitzailea.jarraitzenDu(egilea);
+			if (jarraitzen) {
 				try {
 					// Aztertu baldintzak
-					
-					if(apustua.getDiruKop() <= baldintzak.getDiruKop()) {
-						this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
-					}
-					
+					this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
 				} catch (ApustuaEzDaEgin e) {
 					// ? Ez tratatu momentuz, agian mezua bidali
 				}
 			}
 		}
 	}
-	
+
 	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) {
 		db.getTransaction().begin();
-		Mezua mez= null;
-		Pertsona mezulariDB= db.find(Pertsona.class, m.getIzena());
-		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		Boolean zuzena= Mezua.mezuaZuzenaDa(mezua);
-		if(zuzena) {
-			mez= new Mezua(mezulariDB, noriDB, mezua);
+		Mezua mez = null;
+		Pertsona mezulariDB = db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB = db.find(Pertsona.class, nori.getIzena());
+		Boolean zuzena = Mezua.mezuaZuzenaDa(mezua);
+		if (zuzena) {
+			mez = new Mezua(mezulariDB, noriDB, mezua);
 			mezulariDB.gehituBidaliLista(mez);
 			noriDB.gehituJasotakoLista(mez);
 			db.persist(mez);
@@ -717,5 +709,4 @@ public class DataAccess {
 		return mez;
 	}
 
-	
 }
