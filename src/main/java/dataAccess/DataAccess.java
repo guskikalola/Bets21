@@ -133,14 +133,14 @@ public class DataAccess {
 			Kuota k1, k2;
 
 			if (Locale.getDefault().equals(new Locale("es"))) {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			} else if (Locale.getDefault().equals(new Locale("en"))) {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			} else {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			}
 
 			// TODO: Ezabatu ( Probako login )
@@ -537,7 +537,6 @@ public class DataAccess {
 			Kuota kuota = qDB.getAukeraDuenKuota(aukera);
 			if (kuota != null) {
 				qDB.setResult(aukera);
-				double kuotaBalioa = kuota.getKantitatea();
 				List<Apustua> alist = kuota.getApustuak();
 
 				for (Apustua ap : alist) {

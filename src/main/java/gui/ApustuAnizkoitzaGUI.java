@@ -331,7 +331,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		lblFee.setBounds(327, 369, 259, 14);
 
 		getContentPane().add(lblFee);
-		btnNewButton.setBounds(380, 452, 140, 25);
+		btnNewButton.setBounds(337, 452, 233, 25);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int kuotaKopurua = tableModelAukerak.getDataVector().size();
@@ -393,6 +393,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		getContentPane().add(KuotakLabel);
 
 		aukerakPane.setBounds(716, 50, 251, 398);
+		tableAukerak.setEnabled(false);
 		aukerakPane.setViewportView(tableAukerak);
 
 		tableModelAukerak = new DefaultTableModel(null, columnNamesAukerak);
@@ -444,9 +445,21 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 				}
 			}
 		});
-		btnGehituKuota.setBounds(380, 422, 140, 27);
+		btnGehituKuota.setBounds(337, 422, 233, 27);
 
 		getContentPane().add(btnGehituKuota);
+		
+		JButton btnEzabatuazkena = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ezabatu_azkena")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnEzabatuazkena.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tableModelAukerak.getRowCount() > 0)
+				{
+					tableModelAukerak.removeRow(tableModelAukerak.getRowCount() - 1);					
+				}
+			}
+		});
+		btnEzabatuazkena.setBounds(716, 451, 251, 27);
+		getContentPane().add(btnEzabatuazkena);
 
 	}
 

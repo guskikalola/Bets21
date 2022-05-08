@@ -205,8 +205,8 @@ public class Erabiltzailea extends Pertsona {
 		this.jarraitzaileak.add(nor);
 	}
 
-	public Mugimendua mugimenduaSortu(double d, String string) {
-		Mugimendua m = new Mugimendua(this, (-1) * d, "apustua_eginda");
+	public Mugimendua mugimenduaSortu(double d, String str) {
+		Mugimendua m = new Mugimendua(this, d, str);
 		this.mugimenduaGehitu(m);
 		return m;
 	}
