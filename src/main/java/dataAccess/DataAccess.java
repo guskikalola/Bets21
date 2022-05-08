@@ -25,6 +25,7 @@ import domain.Erabiltzailea;
 import domain.Event;
 import domain.Jarraitzen;
 import domain.Kuota;
+import domain.Mezua;
 import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
@@ -144,12 +145,16 @@ public class DataAccess {
 
 			// TODO: Ezabatu ( Probako login )
 			Admin admin = new Admin("admin", "pass", new Date());
+			Admin admin2 = new Admin("admin2", "pass", new Date());
 			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
 			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
+			Erabiltzailea erab2= new Erabiltzailea("e", "e", new Date());
 
 			db.persist(admin);
+			db.persist(admin2);
 			db.persist(erab);
 			db.persist(erab1);
+			db.persist(erab2);
 
 			db.persist(k1);
 			db.persist(k2);
@@ -314,6 +319,10 @@ public class DataAccess {
 
 	public Pertsona getErabiltzailea(String izena) {
 		return db.find(Pertsona.class, izena);
+	}
+	
+	public Erabiltzailea getErabiltzaileaIzenarekin(String izena) {
+		return db.find(Erabiltzailea.class, izena);
 	}
 
 	private boolean adinaDu(Date jaiotzeData) {
@@ -566,6 +575,23 @@ public class DataAccess {
 		TypedQuery<Erabiltzailea> q = db.createQuery("SELECT er FROM Erabiltzailea er", Erabiltzailea.class);
 		return q.getResultList();
 	}
+	
+	public List<Pertsona> getPertsonaGuztiak() {
+		TypedQuery<Pertsona> p = db.createQuery("SELECT p FROM Pertsona p", Pertsona.class);
+		return p.getResultList();
+	}
+	
+	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
+		Pertsona mezulari= db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
+		ArrayList<Mezua> mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
+		ArrayList<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
+		for(Mezua me: mezuJaso) {
+			mezuBidali.add(me);
+		}
+			
+		return mezuBidali;
+	}
 
 	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
 			float diruMax) {
@@ -675,4 +701,22 @@ public class DataAccess {
 			}
 		}
 	}
+	
+	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) {
+		db.getTransaction().begin();
+		Mezua mez= null;
+		Pertsona mezulariDB= db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
+		Boolean zuzena= Mezua.mezuaZuzenaDa(mezua);
+		if(zuzena) {
+			mez= new Mezua(mezulariDB, noriDB, mezua);
+			mezulariDB.gehituBidaliLista(mez);
+			noriDB.gehituJasotakoLista(mez);
+			db.persist(mez);
+		}
+		db.getTransaction().commit();
+		return mez;
+	}
+
+	
 }

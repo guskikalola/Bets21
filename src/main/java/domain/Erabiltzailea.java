@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -17,13 +18,15 @@ import javax.xml.bind.annotation.XmlIDREF;
 public class Erabiltzailea extends Pertsona {
 	
 	private double saldoa;
+	@XmlIDREF
+	private Blokeoa blokeoa;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Mugimendua> mugimenduak;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Apustua> apustuaLista;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+//	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Jarraitzen> jarraitzen;
 	@XmlIDREF 
 	private List<Erabiltzailea> jarraitzaileak;
@@ -35,6 +38,7 @@ public class Erabiltzailea extends Pertsona {
 		this.jarraitzen = new ArrayList<Jarraitzen>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
+		this.blokeoa=null;
 	}
 	
 	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
@@ -44,6 +48,18 @@ public class Erabiltzailea extends Pertsona {
 		this.jarraitzen = new ArrayList<Jarraitzen>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
+	}
+
+	public Blokeoa getBlokeoa() {
+		return blokeoa;
+	}
+
+	public void blokeoaGehitu(Blokeoa blokeoa) {
+		this.blokeoa = blokeoa;
+	}
+	
+	public void blokeoaEzabatu() {
+		this.blokeoa= null;
 	}
 
 	public double getSaldoa() {
