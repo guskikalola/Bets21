@@ -48,6 +48,11 @@ public class MainGUI extends JFrame {
 		historiala.push(frame);
 	}
 	
+//	public static JFrame eguneratuGertaeraBikoiztuGUI() {
+//		JFrame frame = new GertaeraBikoiztuGUI();
+//		return frame;
+//	}
+	
 	private static Pertsona loginErabiltzailea;
 	
 	public static Pertsona getLoginErabiltzailea() {

@@ -105,5 +105,8 @@ public interface BLFacade  {
 	
 	@WebMethod public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori);
 	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua);
+
+
+	boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent);
 	
 }
