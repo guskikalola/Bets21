@@ -709,6 +709,40 @@ public class DataAccess {
 		return mez;
 	}
 
+	public boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent) {
+		db.getTransaction().begin();
+		boolean emaitza = true;
+		Event evDB = db.find(Event.class, oldEvent.getEventNumber());
+		List<Question> qlist = evDB.getQuestions();
+		Event newEvent = new Event(deskribapena, data);
+
+		for(Question q:qlist ) {
+			List<Kuota> klist = q.getKuotak();
+			String ques = q.getQuestion();
+			float betMin = q.getBetMinimum();
+			Question qnew = new Question(ques, betMin, newEvent);
+
+			for(Kuota k:klist) {
+				String auk = k.getAukera();
+				double kant = k.getKantitatea();
+				Kuota knew = new Kuota(auk, kant, qnew);
+				qnew.getKuotak().add(knew);
+				db.persist(knew);
+			}
+			db.persist(qnew);
+			newEvent.getQuestions().add(qnew);
+		}
+		try {
+			db.persist(newEvent);
+		}catch(IndexOutOfBoundsException e) {
+			emaitza = false;
+		}
+
+
+
+		db.getTransaction().commit();
+		return emaitza;
+	}
 
 
 }
