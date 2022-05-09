@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlIDREF;
 public class Erabiltzailea extends Pertsona {
 	
 	private double saldoa;
-	@XmlIDREF
 	private Blokeoa blokeoa;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
@@ -39,6 +38,8 @@ public class Erabiltzailea extends Pertsona {
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 		this.blokeoa=null;
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
 	}
 	
 	public Erabiltzailea(String izena, String pasahitza, Date jaiotzeData) {
@@ -48,6 +49,9 @@ public class Erabiltzailea extends Pertsona {
 		this.jarraitzen = new ArrayList<Jarraitzen>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
+		this.blokeoa= null;
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
 	}
 
 	public Blokeoa getBlokeoa() {

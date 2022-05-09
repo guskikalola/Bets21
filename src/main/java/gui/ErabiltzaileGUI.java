@@ -167,7 +167,7 @@ public class ErabiltzaileGUI extends JFrame {
 		btnApustuanizkoitza.setBounds(22, 176, 194, 27);
 		contentPane.add(btnApustuanizkoitza);
 		
-		JButton btnMezuabidali = new JButton(ResourceBundle.getBundle("Etiquetas").getString("mezua_bidali")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton btnMezuabidali = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Send_Messages")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnMezuabidali.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainGUI.eguneratuHistorala(frame);

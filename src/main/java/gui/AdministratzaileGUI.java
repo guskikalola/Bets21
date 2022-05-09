@@ -27,6 +27,7 @@ public class AdministratzaileGUI extends JFrame {
 	private JPanel contentPane;
 	private static AdministratzaileGUI frame;
 	private Admin erabiltzailea;
+	private JButton blockUsersButton;
 
 	/**
 	 * Launch the application.
@@ -149,7 +150,7 @@ public class AdministratzaileGUI extends JFrame {
 		btnEmaitzaipin.setBounds(212, 139, 175, 27);
 		contentPane.add(btnEmaitzaipin);
 		
-		JButton MezuakBidaliButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("AdministratzaileGUI.btnNewButton_2.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		JButton MezuakBidaliButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Send_Messages")); 
 		MezuakBidaliButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainGUI.eguneratuHistorala(frame);
@@ -160,6 +161,18 @@ public class AdministratzaileGUI extends JFrame {
 		});
 		MezuakBidaliButton.setBounds(212, 177, 175, 25);
 		contentPane.add(MezuakBidaliButton);
+		
+		blockUsersButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Block_user")); 
+		blockUsersButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainGUI.eguneratuHistorala(frame);
+				frame.setVisible(false);
+				ErabiltzaileaBlokeatuGUI eb = new ErabiltzaileaBlokeatuGUI();
+				eb.setVisible(true);
+			}
+		});
+		blockUsersButton.setBounds(25, 212, 175, 25);
+		contentPane.add(blockUsersButton);
 	}
 }
 

@@ -23,10 +23,10 @@ public abstract class Pertsona {
 	private String pasahitza;
 	private int adina;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private ArrayList<Mezua> jasotakoMezuak;
+	protected ArrayList<Mezua> jasotakoMezuak;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private ArrayList<Mezua> bidalitakoMezuak;
+	protected ArrayList<Mezua> bidalitakoMezuak;
 
 	public Pertsona() {
 		this.pasahitza = null;
@@ -117,7 +117,7 @@ public abstract class Pertsona {
 	}
 	
 	public ArrayList<Mezua> jasotakoMezuakEskuratu(Pertsona norengandik) {
-		ArrayList<Mezua> mezuList= null;
+		ArrayList<Mezua> mezuList= new  ArrayList<Mezua>();
 		if(this.jasotakoMezuak!=null) {
 			for(Mezua m: this.jasotakoMezuak) {
 				if(m.getNor().getIzena().equals(norengandik.getIzena())) {
@@ -129,10 +129,10 @@ public abstract class Pertsona {
 	}
 	
 	public ArrayList<Mezua> BidalitakoMezuakEskuratu(Pertsona nori) {
-		ArrayList<Mezua> mezuList= null;
+		ArrayList<Mezua> mezuList= new  ArrayList<Mezua>();
 		if(this.bidalitakoMezuak!=null) {
 			for(Mezua m: this.bidalitakoMezuak) {
-				if(m.getNor().getIzena().equals(nori.getIzena())) {
+				if(m.getNori().getIzena().equals(nori.getIzena())) {
 					mezuList.add(m);
 				}
 			}

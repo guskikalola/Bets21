@@ -15,19 +15,24 @@ import javax.swing.JFrame;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.Admin;
 import domain.Apustua;
 import domain.ApustuaContainer;
+import domain.BlokeoContainer;
+import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Jarraitzen;
 import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mezua;
+import domain.MezuaContainer;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
 import exceptions.EmaitzaEzinIpini;
 import exceptions.EventFinished;
+import exceptions.MezuaEzDaZuzena;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -346,12 +351,50 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return mezu;
 	}
+	
+	@Override
+	public List<MezuaContainer> getMezuGuztiakContainer(Pertsona m, Pertsona nori) {
+		dbManager.open(false);
+		List<MezuaContainer> mezuList = new ArrayList<MezuaContainer>();
+		List<Mezua> me=  dbManager.getMezuGuztiak(m, nori);
+		for(Mezua mez: me) {
+			MezuaContainer mezuC= new MezuaContainer();
+			mezuC.setM(mez);
+			mezuC.setNor(mez.getNor());
+			mezuC.setNori(mez.getNori());
+			mezuList.add(mezuC);
+		}
+		dbManager.close();
+		return mezuList;
+	}
 
 	@Override
-	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) {
+	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena {
 		dbManager.open(false);
 		Mezua mezu= dbManager.mezuaBidali(m, nori, mezua);
 		dbManager.close();
 		return mezu;
+	}
+	
+	@Override
+	public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena {
+		dbManager.open(false);
+		Blokeoa bl= dbManager.erabiltzaileaBlokeatu(a, ei, arrazoia);
+		dbManager.close();
+		return bl;
+	}
+	
+	@Override 
+	public BlokeoContainer getBlokeoContainer(Erabiltzailea e) {
+		dbManager.open(false);
+		BlokeoContainer blC= new BlokeoContainer();
+		Blokeoa blokeo=  dbManager.getBlokeoContainer(e);
+		if(blC!=null) {
+			blC.setBl(blokeo);
+			blC.setNor(blokeo.getNor());
+			blC.setNori(blokeo.getNori());
+		}
+		dbManager.close();
+		return blC;
 	}
 }

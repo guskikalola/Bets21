@@ -21,6 +21,8 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Admin;
 import domain.Apustua;
+import domain.BlokeoContainer;
+import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Jarraitzen;
@@ -31,6 +33,7 @@ import domain.Pertsona;
 import domain.Question;
 import exceptions.ApustuaEzDaEgin;
 import exceptions.EmaitzaEzinIpini;
+import exceptions.MezuaEzDaZuzena;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -583,15 +586,27 @@ public class DataAccess {
 		return p.getResultList();
 	}
 	
+	public Blokeoa getBlokeoContainer(Erabiltzailea e) {
+		Erabiltzailea eDB = db.find(Erabiltzailea.class, e.getIzena());
+		Query query = db.createQuery("SELECT bl FROM Blokeoa bl WHERE bl.Nori=?1");
+		query.setParameter(1, eDB);
+		Blokeoa blokeo = (Blokeoa) query.getResultList().get(0);
+		return blokeo;
+	}
+	
 	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
+		db.getTransaction().begin();
 		Pertsona mezulari= db.find(Pertsona.class, m.getIzena());
 		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
 		ArrayList<Mezua> mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
 		ArrayList<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
-		for(Mezua me: mezuJaso) {
-			mezuBidali.add(me);
+		if(mezuJaso!=null) {
+			for(Mezua me: mezuJaso) {
+				me.setIrakurrita(true);
+				mezuBidali.add(me);
+			}
 		}
-			
+		db.getTransaction().commit();
 		return mezuBidali;
 	}
 
@@ -694,21 +709,66 @@ public class DataAccess {
 		}
 	}
 	
-	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) {
+	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena {
 		db.getTransaction().begin();
 		Mezua mez= null;
 		Pertsona mezulariDB= db.find(Pertsona.class, m.getIzena());
 		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		Boolean zuzena= Mezua.mezuaZuzenaDa(mezua);
-		if(zuzena) {
+		Boolean zuzenaMIN= Mezua.mezuaZuzenaDaMIN(mezua);
+		Boolean zuzenaMAX= Mezua.mezuaZuzenaDaMAX(mezua);
+		if(zuzenaMIN && zuzenaMAX) {
 			mez= new Mezua(mezulariDB, noriDB, mezua);
 			mezulariDB.gehituBidaliLista(mez);
 			noriDB.gehituJasotakoLista(mez);
 			db.persist(mez);
+		}else {
+			if(!zuzenaMIN) {
+				throw new MezuaEzDaZuzena("Short_message");
+			}else if(!zuzenaMAX) {
+				throw new MezuaEzDaZuzena("Long_message");
+			}
 		}
 		db.getTransaction().commit();
 		return mez;
 	}
+	
+	public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena {
+		db.getTransaction().begin();
+		Blokeoa bl= null;
+		Admin aDB= db.find(Admin.class, a.getIzena());
+		Boolean zuzenaMIN=false;
+		Boolean zuzenaMAX=false;
+		Erabiltzailea eDB= db.find(Erabiltzailea.class, ei.getIzena());
+		if(arrazoia==null) {
+			zuzenaMIN=true;
+			zuzenaMAX=true;
+		}else {
+			zuzenaMIN= Mezua.mezuaZuzenaDaMIN(arrazoia);
+			zuzenaMAX= Mezua.mezuaZuzenaDaMAX(arrazoia);
+		}
+		if(zuzenaMIN && zuzenaMAX ) {
+			if(eDB.getBlokeoa()==null) {
+				bl= new Blokeoa(aDB, eDB, arrazoia);
+				aDB.blokeoaGehituListan(bl);
+				eDB.blokeoaGehitu(bl);
+				db.persist(bl);
+			}else {
+				bl= eDB.getBlokeoa();
+				aDB.blokeoaEzabatuListatik(bl);
+				eDB.blokeoaEzabatu();
+				db.remove(bl);
+			}
+		}else {
+			if(!zuzenaMIN) {
+				throw new MezuaEzDaZuzena("Short_reason");
+			}else if(!zuzenaMAX) {
+				throw new MezuaEzDaZuzena("Long_reason");
+			}
+		}
+		db.getTransaction().commit();
+		return bl;
+	}
+	
 
 	
 }

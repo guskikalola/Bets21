@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,10 +21,14 @@ import javax.swing.table.DefaultTableModel;
 import businessLogic.BLFacade;
 import domain.Admin;
 import domain.Mezua;
+import domain.MezuaContainer;
 import domain.Pertsona;
+import exceptions.MezuaEzDaZuzena;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class ChatGUI extends JFrame {
 
@@ -39,6 +44,7 @@ public class ChatGUI extends JFrame {
 	private JTextField mezuTextField;
 	private JLabel ChatLabel;
 	private JLabel sartuTestuaLabel;
+	private JLabel izenakLabel;
 
 	/**
 	 * Launch the application.
@@ -82,7 +88,7 @@ public class ChatGUI extends JFrame {
 		mezuakModel = new DefaultTableModel(null, zutabeIzenakMezua);
 		
 		scrollPaneMezu = new JScrollPane(tableMezua);
-		scrollPaneMezu.setBounds(103, 38, 219, 135);
+		scrollPaneMezu.setBounds(96, 38, 318, 156);
 		contentPane.add(scrollPaneMezu);
 		
 		tableMezua = new JTable();
@@ -107,16 +113,30 @@ public class ChatGUI extends JFrame {
 				BLFacade facade = MainGUI.getBusinessLogic();
 				Pertsona m= MainGUI.getLoginErabiltzailea();
 				Pertsona nori= ChatGUI.aukeratutakoPertsona;
-				String mezua= sartuTestuaLabel.getText();
-				Mezua mezu= facade.mezuaBidali(m, nori, mezua);
-				if(mezu==null) {
-					System.out.println("Mezua ez da sortu, mezua zuzena ez delako"+ mezua);
-				}else {
-					System.out.println("Mezua zuzen sortu da" + mezu.getMezua());
+				String mezua= mezuTextField.getText();
+				try {
+					Mezua mezu= facade.mezuaBidali(m, nori, mezua);
+					Vector<Object> row = new Vector<Object>();
+					String bidalitakoMezua = mezu.getMezua();
+					Integer zenbaki= mezu.getMezuaZenbakia();
+					Date data= mezu.getData();	
+					row.add(">>");
+					row.add(zenbaki);
+					row.add(bidalitakoMezua);
+					row.add(data);
+					mezuakModel.addRow(row);
+					sartuTestuaLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("writeMessage")); 
+				}catch (MezuaEzDaZuzena err) {
+					String testua = err.getMessage();
+					if(testua.equals("Short_message")) {
+						sartuTestuaLabel.setText(ResourceBundle.getBundle("Etiquetas").getString(testua) + " (min: " + Mezua.MEZUAMIN + ")" );
+					} else {
+						sartuTestuaLabel.setText(ResourceBundle.getBundle("Etiquetas").getString(testua) + " (max: " + Mezua.MEZUAMAX + ")" );
+					}
 				}
 			}
 		});
-		mezuaBidaliButton.setBounds(302, 220, 112, 33);
+		mezuaBidaliButton.setBounds(280, 220, 134, 33);
 		contentPane.add(mezuaBidaliButton);
 		
 		ChatLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Chat")); 
@@ -125,13 +145,21 @@ public class ChatGUI extends JFrame {
 		contentPane.add(ChatLabel);
 		
 		sartuTestuaLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("writeMessage")); 
-		sartuTestuaLabel.setBounds(10, 182, 95, 13);
+		sartuTestuaLabel.setBounds(10, 204, 260, 13);
 		contentPane.add(sartuTestuaLabel);
 		
 		mezuTextField = new JTextField();
-		mezuTextField.setBounds(9, 205, 260, 19);
+		mezuTextField.setBounds(10, 227, 260, 19);
 		contentPane.add(mezuTextField);
 		mezuTextField.setColumns(10);
+		
+		Pertsona m= MainGUI.getLoginErabiltzailea();
+		
+		izenakLabel = new JLabel(m.getIzena() + " - " + ChatGUI.aukeratutakoPertsona.getIzena());
+		izenakLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		izenakLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		izenakLabel.setBounds(123, 10, 267, 18);
+		contentPane.add(izenakLabel);
 	}
 	
 	
@@ -154,12 +182,14 @@ public class ChatGUI extends JFrame {
 		mezuakModel.setDataVector(null, zutabeIzenakMezua);
 		mezuakModel.setColumnCount(4);
 
-	    List<Mezua> mezuList = facade.getMezuGuztiak(m, ChatGUI.aukeratutakoPertsona);
-		for(Mezua mez : mezuList) {
+	    List<MezuaContainer> mezuList = facade.getMezuGuztiakContainer(m, ChatGUI.aukeratutakoPertsona);
+	    Collections.sort(mezuList);
+		for(MezuaContainer mez : mezuList) {
 				Vector<Object> row = new Vector<Object>();
-				String bidalitakoMezua = mez.getMezua();
-				Integer zenbaki= mez.getMezuaZenbakia();
-				Date data= mez.getData();	
+				Mezua mezuDB= mez.getM();
+				String bidalitakoMezua = mezuDB.getMezua();
+				Integer zenbaki= mezuDB.getMezuaZenbakia();
+				Date data= mezuDB.getData();	
 				if(mez.getNor().getIzena().equals(m.getIzena())) {
 					row.add(bidalketa);
 				}else {

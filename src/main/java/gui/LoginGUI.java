@@ -98,11 +98,9 @@ public class LoginGUI extends JFrame {
 					if(e instanceof Erabiltzailea) {
 						Erabiltzailea erabil= facade.getErabiltzailea(e.getIzena());
 						if(erabil.getBlokeoa()!=null) {
-							Blokeoa bl= erabil.getBlokeoa();
-							Admin admin= bl.getNor();
 							frame.setVisible(false);
-							ChatGUI chat= new ChatGUI(admin);
-							chat.setVisible(true);
+							BlokeoGUI bl= new BlokeoGUI();
+							bl.setVisible(true);
 						}else {
 							frame.setVisible(false);
 							ErabiltzaileGUI era= new ErabiltzaileGUI((Erabiltzailea) e);

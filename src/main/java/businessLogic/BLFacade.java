@@ -7,19 +7,24 @@ import java.util.List;
 
 //import domain.Booking;
 import domain.Question;
+import domain.Admin;
 import domain.Apustua;
 import domain.ApustuaContainer;
+import domain.BlokeoContainer;
+import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
 import domain.Jarraitzen;
 import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mezua;
+import domain.MezuaContainer;
 import domain.Mugimendua;
 import domain.Pertsona;
 import exceptions.ApustuaEzDaEgin;
 import exceptions.EmaitzaEzinIpini;
 import exceptions.EventFinished;
+import exceptions.MezuaEzDaZuzena;
 import exceptions.QuestionAlreadyExist;
 
 import javax.jws.WebMethod;
@@ -103,9 +108,12 @@ public interface BLFacade  {
 	@WebMethod public Pertsona getPertsona(String izena);
 	@WebMethod public Erabiltzailea getErabiltzailea(String izena);
 	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
+	@WebMethod List<MezuaContainer> getMezuGuztiakContainer(Pertsona nor, Pertsona nori);
 	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
 	@WebMethod int getApustuakIrabazitak(Erabiltzailea nori);
 	@WebMethod public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori);
-	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua);
+	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena;
+	@WebMethod public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena;
+	@WebMethod public BlokeoContainer getBlokeoContainer(Erabiltzailea e);
 	
 }

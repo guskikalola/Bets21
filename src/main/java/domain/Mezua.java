@@ -20,7 +20,7 @@ public class Mezua {
 	private Integer MezuaZenbakia;
 
 	public static final int MEZUAMIN=2;
-	public static final int MEZUAMAX=150;
+	public static final int MEZUAMAX=100;
 	
 	@XmlIDREF
 	private Pertsona Nor;
@@ -45,19 +45,19 @@ public class Mezua {
 	}
 
 	public Pertsona getNor() {
-		return Nor;
+		return this.Nor;
 	}
 
 	public void setNor(Pertsona nor) {
-		Nor = nor;
+		this.Nor = nor;
 	}
 
 	public Pertsona getNori() {
-		return Nori;
+		return this.Nori;
 	}
 
 	public void setNori(Pertsona nori) {
-		Nori = nori;
+		this.Nori = nori;
 	}
 
 	public String getMezua() {
@@ -100,8 +100,14 @@ public class Mezua {
 		return MEZUAMAX;
 	}
 	
-	public static boolean mezuaZuzenaDa(String mezua) {
-		if(mezua.length()>=MEZUAMIN && mezua.length()<=MEZUAMAX){
+	public static boolean mezuaZuzenaDaMIN(String mezua) {
+		if(mezua.length()>=MEZUAMIN){
+			return true;
+		}
+		return false;
+	}
+	public static boolean mezuaZuzenaDaMAX(String mezua) {
+		if(mezua.length()<=MEZUAMAX) {
 			return true;
 		}
 		return false;

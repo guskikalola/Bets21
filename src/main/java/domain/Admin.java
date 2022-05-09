@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -20,20 +21,30 @@ public class Admin extends Pertsona {
 	
 	public Admin() {
 		super();
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
+		this.blokeoak= new ArrayList<Blokeoa>();
 	}
 	
 	public Admin(String izena, String pasahitza, Date jaiotzeData) {
 		super(izena,pasahitza,jaiotzeData);
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
+		this.blokeoak= new ArrayList<Blokeoa>();
 	}
 	
 	public Admin(String izena, String pasahitza, Date jaiotzeData, Blokeoa bl) {
 		super(izena,pasahitza,jaiotzeData);
 		this.blokeoak.add(bl);
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
 	}
 	
 	public Admin(String izena, String pasahitza, Date jaiotzeData, List<Blokeoa> blList) {
 		super(izena,pasahitza,jaiotzeData);
 		this.blokeoak= blList;
+		this.bidalitakoMezuak= new  ArrayList<Mezua>();
+		this.jasotakoMezuak= new  ArrayList<Mezua>();
 	}
 
 	public List<Blokeoa> getBlokeoak() {
