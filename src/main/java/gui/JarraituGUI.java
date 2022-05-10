@@ -101,11 +101,18 @@ public class JarraituGUI extends JFrame {
 		ezJarraitzenModel = new DefaultTableModel(null, zutabeIzenak);
 
 		jarraitzenPane = new JScrollPane();
+
 		jarraitzenPane.setBounds(52, 56, 134, 168);
 		contentPane.add(jarraitzenPane);
 
 		tableJarraitzen = new JTable();
 		jarraitzenPane.setViewportView(tableJarraitzen);
+		tableJarraitzen.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableEzJarraitzen.clearSelection();
+			}
+		});
 		tableJarraitzen.setModel(jarraitzenModel);
 
 		ezJarraitzenPane = new JScrollPane();
@@ -114,6 +121,12 @@ public class JarraituGUI extends JFrame {
 
 		tableEzJarraitzen = new JTable();
 		ezJarraitzenPane.setViewportView(tableEzJarraitzen);
+		tableEzJarraitzen.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableJarraitzen.clearSelection();
+			}
+		});
 		tableEzJarraitzen.setModel(ezJarraitzenModel);
 
 		bGehituJarraitu = new JButton("<");
