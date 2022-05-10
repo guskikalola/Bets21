@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -32,6 +34,7 @@ public class MezuakBidaliGUI extends JFrame {
 
 	private JPanel contentPane;
 	private static MezuakBidaliGUI frame;
+	private static String izena=null;
 	private DefaultTableModel administratzaileakModel;
 	private DefaultTableModel erabiltzaileakModel;
 	private String zutabeIzenakE[];
@@ -125,6 +128,20 @@ public class MezuakBidaliGUI extends JFrame {
 		scrollPaneAdm.setViewportView(tableA);
 		tableA.setModel(administratzaileakModel);
 		
+		tableA.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableE.clearSelection();
+			}
+		});
+		
+		tableE.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableA.clearSelection();
+			}
+		});
+		
 	
 		mezuaBidaliButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Send_Messages"));
 		mezuaBidaliButton.addActionListener(new ActionListener() {
@@ -132,30 +149,31 @@ public class MezuakBidaliGUI extends JFrame {
 				BLFacade facade = MainGUI.getBusinessLogic();
 				int i = tableE.getSelectedRow();
 				try {
-
-					String izena= (String) tableE.getModel().getValueAt(i, 0);
-					aukeratutakoPertsona= facade.getPertsona(izena);
-					MainGUI.eguneratuHistorala(frame);
-					frame.setVisible(false);
-					ChatGUI chat = new ChatGUI(aukeratutakoPertsona);
-					chat.setVisible(true);
-					
+					if(izena==null) {
+						izena= (String) tableE.getModel().getValueAt(i, 0);
+						aukeratutakoPertsona= facade.getPertsona(izena);
+						MainGUI.eguneratuHistorala(frame);
+						frame.setVisible(false);
+						ChatGUI chat = new ChatGUI(aukeratutakoPertsona);
+						chat.setVisible(true);
+					}		
 				} catch (java.lang.ArrayIndexOutOfBoundsException err) {
 					// Ez da ezer aukeratu, ez egiin ezer
 				}
 				int j= tableA.getSelectedRow();
 				try {
-
-					String izena= (String) tableA.getModel().getValueAt(j, 0);
-					aukeratutakoPertsona= facade.getPertsona(izena);
-					MainGUI.eguneratuHistorala(frame);
-					frame.setVisible(false);
-					ChatGUI chat = new ChatGUI(aukeratutakoPertsona);
-					chat.setVisible(true);
-					
+					if(izena==null) {
+						String izena= (String) tableA.getModel().getValueAt(j, 0);
+						aukeratutakoPertsona= facade.getPertsona(izena);
+						MainGUI.eguneratuHistorala(frame);
+						frame.setVisible(false);
+						ChatGUI chat = new ChatGUI(aukeratutakoPertsona);
+						chat.setVisible(true);
+					}	
 				} catch (java.lang.ArrayIndexOutOfBoundsException err) {
 					// Ez da ezer aukeratu, ez egiin ezer
 				}
+				izena=null;
 			}
 		});
 		mezuaBidaliButton.setBounds(289, 220, 112, 33);

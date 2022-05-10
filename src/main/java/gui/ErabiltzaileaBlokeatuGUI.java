@@ -138,7 +138,9 @@ public class ErabiltzaileaBlokeatuGUI extends JFrame {
 				blockUsersButton.setText(ResourceBundle.getBundle("Etiquetas").getString("Block_user"));
 				whoBlockLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Who_do_you_want_to_block"));
 				textField.setVisible(true);
+				textField.setText("");
 				ReasonLabel.setVisible(true);
+				tableB.clearSelection();
 			}
 		});
 		
@@ -148,7 +150,9 @@ public class ErabiltzaileaBlokeatuGUI extends JFrame {
 				blockUsersButton.setText(ResourceBundle.getBundle("Etiquetas").getString("Unlock_user"));
 				whoBlockLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Who_do_you_want_to_unlock"));
 				textField.setVisible(false);
+				textField.setText("");
 				ReasonLabel.setVisible(false);
+				tableBGabe.clearSelection();
 			}
 		});
 		
