@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -40,6 +41,8 @@ public class GertaeraBikoiztuGUI extends JFrame {
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events"));
+	private final JLabel errorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("noDuplication")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JLabel successLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("successLabel"));
 
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 
@@ -95,6 +98,7 @@ public class GertaeraBikoiztuGUI extends JFrame {
 	private String abendua = new String(ResourceBundle.getBundle("Etiquetas").getString("December"));	
 
 	private ArrayList <String> hilabList = new <String> ArrayList();
+	
 
 
 
@@ -349,12 +353,22 @@ public class GertaeraBikoiztuGUI extends JFrame {
 
 
 		//-----------------------------------------------------------------------------------------------------------------------------------------
+		
+		successLabel.setBounds(473, 264, 283, 14);
+		getContentPane().add(successLabel);
+		successLabel.setVisible(false);
+		errorLabel.setBounds(473, 264, 283, 14);
+		getContentPane().add(errorLabel);
+		errorLabel.setVisible(false);
+		
+		
 		JButton duplicateButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("duplicate")); //$NON-NLS-1$ //$NON-NLS-2$
 		duplicateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String deskribapena = descripText.getText();
 				Date data = new Date((Integer) yearComboBox.getSelectedItem() - 1900, monthComboBox.getSelectedIndex(), (Integer) dayComboBox.getSelectedItem());
 				int i = tableEvents.getSelectedRow();
+				boolean ondo = false;
 				if(i == -1) {
 					//TODO alternativa
 
@@ -366,12 +380,18 @@ public class GertaeraBikoiztuGUI extends JFrame {
 
 					if(oldEvent != null) {
 						if(facade.gertaeraBikoiztu(data, deskribapena, oldEvent)) {
-							System.out.println(" Ondo");
-//							JFrame eguneratu = new GertaeraBikoiztuGUI();
-//							frame = MainGUI.eguneratuGertaeraBikoiztuGUI();
+							System.out.println(" Ondo exekutatu da");
+							eguneratuGertaeraBikoiztuGUI(frame);
+							ondo = true;
 						}else {
-							System.out.println(" Gaizki");
-
+							System.out.println(" Ez da ondo exekutatu da");
+							ondo = false;
+						}
+						
+						if(ondo) {
+							successLabel.setVisible(true);
+						}else{
+							errorLabel.setVisible(true);
 						}
 
 					}
@@ -381,20 +401,8 @@ public class GertaeraBikoiztuGUI extends JFrame {
 		});
 		duplicateButton.setBounds(473, 289, 283, 30);
 		getContentPane().add(duplicateButton);
-//		emaitza.setFont(new Font("Tahoma", Font.PLAIN, 13));
-//		emaitza.setBounds(473, 264, 283, 14);
-//		
-//		getContentPane().add(emaitza);
-
-
-
-
-
-
-
-
-
-
+		
+		
 
 		//------------------------------------------------------------------------------------------------------------------------------------------------		
 
@@ -402,6 +410,13 @@ public class GertaeraBikoiztuGUI extends JFrame {
 
 	}
 
+	public static void eguneratuGertaeraBikoiztuGUI(GertaeraBikoiztuGUI frame) {
+
+		GertaeraBikoiztuGUI hurrengoa = new GertaeraBikoiztuGUI();
+
+		frame.setVisible(false);
+		hurrengoa.setVisible(true);
+	}
 
 
 	private void jButton2_actionPerformed(ActionEvent e) {

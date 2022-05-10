@@ -195,4 +195,12 @@ public class GertaeraSortuGUI extends JFrame {
 		hilabetea_model.addElement(azaroa);
 		hilabetea_model.addElement(abendua);
 	}
+	
+	public static void eguneratuGertaeraSortuGUI(JFrame frame) {
+
+		GertaeraSortuGUI hurrengoa = new GertaeraSortuGUI();
+
+		frame.setVisible(false);
+		hurrengoa.setVisible(true);
+	}
 }

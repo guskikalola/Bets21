@@ -352,6 +352,7 @@ public class ApustuakEzabatuGUI extends JFrame {
 					if(bool) {
 						tableModelApustuak.removeRow(selectedRow);
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Apustu")); //$NON-NLS-1$ //$NON-NLS-2$
+						eguneratuApustuakEzabatuGUI(frame);
 					}else {
 						ApustuakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("NoDeleteApustu")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
@@ -373,6 +374,13 @@ public class ApustuakEzabatuGUI extends JFrame {
 
 	}
 
+	public static void eguneratuApustuakEzabatuGUI(JFrame frame) {
+		ApustuakEzabatuGUI hurrengoa = new ApustuakEzabatuGUI();
+
+			frame.setVisible(false);
+			hurrengoa.setVisible(true);
+	 }
+	
 	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
