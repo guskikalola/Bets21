@@ -179,8 +179,8 @@ public class AdministratzaileGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MainGUI.eguneratuHistorala(frame);
 				frame.setVisible(false);
-				//GertaeraBikoiztuGUI mb = new GertaeraBikoiztuGUI();
-				//mb.setVisible(true);
+				GertaeraBikoiztuGUI mb = new GertaeraBikoiztuGUI();
+				mb.setVisible(true);
 			}
 		});
 		GertaeraBikoiztuButton.setBounds(25, 212, 175, 21);
