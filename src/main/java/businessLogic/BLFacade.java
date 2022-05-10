@@ -113,5 +113,7 @@ public interface BLFacade  {
 	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena;
 	@WebMethod public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena;
 	@WebMethod public BlokeoContainer getBlokeoContainer(Erabiltzailea e);
+
+	@WebMethod public boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent);
 	
 }

@@ -273,6 +273,16 @@ public class BLFacadeImplementation implements BLFacade {
 		return er;
 	}
 	
+	@Override
+	@WebMethod
+	public boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent) {
+		dbManager.open(false);
+		boolean emaitza = false;
+		emaitza = dbManager.gertaeraBikoiztu( data, deskribapena,  oldEvent);
+		dbManager.close();
+		return emaitza;
+	}
+	
 
 	@Override
 	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {

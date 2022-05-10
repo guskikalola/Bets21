@@ -325,6 +325,8 @@ public class EmaitzakIpiniGUI extends JFrame {
 						if (er == null) {
 							lblErrorea
 									.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_emaitza_ipini"));
+						}else {
+							eguneratuEmaitzakIpiniGUI(frame);
 						}
 					}
 				} catch (EmaitzaEzinIpini err) {
@@ -347,6 +349,13 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 	}
 
+	 public static void eguneratuEmaitzakIpiniGUI(JFrame frame) {
+		 EmaitzakIpiniGUI hurrengoa = new EmaitzakIpiniGUI();
+
+			frame.setVisible(false);
+			hurrengoa.setVisible(true);
+	 }
+	
 	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}

@@ -211,14 +211,17 @@ public class GertaeraEzabatuGUI extends JFrame {
 					
 				int i = tableEvents.getSelectedRow();
 				domain.Event ev = (domain.Event) tableModelEvents.getValueAt(i, 2); // obtain ev object
-
+				
 				if (ev == null) {
 					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("ez_da_ezabatu_ev"));
 				} else {
 					BLFacade facade = MainGUI.getBusinessLogic();
 					boolean ezabatuta = facade.removeEvent(ev);
+					
 					if (!ezabatuta) {
 						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("ez_da_ezabatu_ev"));
+					}else {
+						eguneratuGertaeraEzabatuGUI(frame);
 					}
 				}
 				} catch  (ArrayIndexOutOfBoundsException err) {
@@ -231,6 +234,14 @@ public class GertaeraEzabatuGUI extends JFrame {
 
 	}
 
+	public static void eguneratuGertaeraEzabatuGUI(JFrame frame) {
+
+		GertaeraEzabatuGUI hurrengoa = new GertaeraEzabatuGUI();
+
+		frame.setVisible(false);
+		hurrengoa.setVisible(true);
+	}
+	
 	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}

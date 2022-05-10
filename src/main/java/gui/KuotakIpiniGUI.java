@@ -55,7 +55,7 @@ public class KuotakIpiniGUI extends JFrame {
 	private Calendar calendarAct = null;
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
-	
+
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
 	private JTable tableEvents= new JTable();
@@ -64,7 +64,7 @@ public class KuotakIpiniGUI extends JFrame {
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
 
-	
+
 	private String[] columnNamesEvents = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
 			ResourceBundle.getBundle("Etiquetas").getString("Event"), 
@@ -80,7 +80,7 @@ public class KuotakIpiniGUI extends JFrame {
 	private final JLabel lblFee = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Amount")); //$NON-NLS-1$ //$NON-NLS-2$
 	private final JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Create")); //$NON-NLS-1$ //$NON-NLS-2$
 	private final JTextField AukeraTextField = new JTextField();
-	
+
 	private String aukera;
 	private double kantitatea;
 	private int selectedRow;
@@ -103,7 +103,7 @@ public class KuotakIpiniGUI extends JFrame {
 		}
 	}
 
-	
+
 	private void jbInit() throws Exception
 	{
 
@@ -124,7 +124,7 @@ public class KuotakIpiniGUI extends JFrame {
 		});
 		button.setBounds(12, 0, 41, 27);
 		this.getContentPane().add(button);
-		
+
 		jLabelEventDate.setBounds(new Rectangle(40, 28, 140, 25));
 		jLabelQueries.setBounds(40, 249, 359, 14);
 		jLabelEvents.setBounds(295, 19, 259, 16);
@@ -167,14 +167,14 @@ public class KuotakIpiniGUI extends JFrame {
 					calendarAnt = (Calendar) propertychangeevent.getOldValue();
 					calendarAct = (Calendar) propertychangeevent.getNewValue();
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar1.getLocale());
-//					jCalendar1.setCalendar(calendarAct);
+					//					jCalendar1.setCalendar(calendarAct);
 					Date firstDay=UtilDate.trim(new Date(jCalendar1.getCalendar().getTime().getTime()));
 
-					 
-					
+
+
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
 					int monthAct = calendarAct.get(Calendar.MONTH);
-					
+
 					if (monthAct!=monthAnt) {
 						if (monthAct==monthAnt+2) {
 							// Si en JCalendar está 30 de enero y se avanza al mes siguiente, devolvería 2 de marzo (se toma como equivalente a 30 de febrero)
@@ -182,7 +182,7 @@ public class KuotakIpiniGUI extends JFrame {
 							calendarAct.set(Calendar.MONTH, monthAnt+1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
 						}						
-						
+
 						jCalendar1.setCalendar(calendarAct);
 
 						BLFacade facade = MainGUI.getBusinessLogic();
@@ -193,8 +193,8 @@ public class KuotakIpiniGUI extends JFrame {
 
 
 					CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);
-													
-					
+
+
 
 					try {
 						tableModelEvents.setDataVector(null, columnNamesEvents);
@@ -229,7 +229,7 @@ public class KuotakIpiniGUI extends JFrame {
 		});
 
 		this.getContentPane().add(jCalendar1, null);
-		
+
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
 		scrollPaneQueries.setBounds(new Rectangle(40, 275, 386, 116));
 
@@ -246,7 +246,7 @@ public class KuotakIpiniGUI extends JFrame {
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("NoQueries")+": "+ev.getDescription());
 				else 
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedEvent")+" "+ev.getDescription());
-				
+
 				questionList = new ArrayList<Question>();
 				for (domain.Question q:queries){
 					Vector<Object> row = new Vector<Object>();
@@ -281,43 +281,52 @@ public class KuotakIpiniGUI extends JFrame {
 		kantitateaTextField.setText((String) null);
 		kantitateaTextField.setColumns(10);
 		kantitateaTextField.setBounds(487, 347, 259, 20);
-		
+
 		getContentPane().add(kantitateaTextField);
 		lblNewLabel.setBounds(488, 249, 111, 14);
-		
+
 		getContentPane().add(lblNewLabel);
 		lblFee.setBounds(487, 322, 112, 14);
-		
+
 		getContentPane().add(lblFee);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aukera = AukeraTextField.getText();
 				try {
-					
-				kantitatea = Double.parseDouble(kantitateaTextField.getText());
-				selectedRow = tableQueries.getSelectedRow();
-				if(selectedRow != -1) {
-					selectedQuestion = questionList.get(selectedRow);
-					facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
-				}
+
+					kantitatea = Double.parseDouble(kantitateaTextField.getText());
+					selectedRow = tableQueries.getSelectedRow();
+					if(selectedRow != -1) {
+						selectedQuestion = questionList.get(selectedRow);
+						facade.ipiniKuota(selectedQuestion, aukera, kantitatea);
+						eguneratuKuotakIpiniGUI(frame);
+					}
 				} catch (NumberFormatException err) {
 					lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("errorea_ez_da_zenbakia"));
 				}
 			}
 		});
 		btnNewButton.setBounds(549, 406, 140, 25);
-		
+
 		getContentPane().add(btnNewButton);
 		AukeraTextField.setText((String) null);
 		AukeraTextField.setColumns(10);
 		AukeraTextField.setBounds(487, 274, 259, 20);
-		
+
 		getContentPane().add(AukeraTextField);
-		
+
 		lblErrorea = new JLabel(""); //$NON-NLS-1$ //$NON-NLS-2$
 		lblErrorea.setBounds(40, 462, 297, 14);
 		getContentPane().add(lblErrorea);
 
+	}
+
+	public static void eguneratuKuotakIpiniGUI(JFrame frame) {
+
+		KuotakIpiniGUI hurrengoa = new KuotakIpiniGUI();
+
+		frame.setVisible(false);
+		hurrengoa.setVisible(true);
 	}
 
 	private void jButton2_actionPerformed(ActionEvent e) {

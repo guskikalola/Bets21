@@ -28,30 +28,33 @@ import java.awt.event.ActionEvent;
 
 
 public class MainGUI extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
-	
+
 	private static Stack<JFrame> historiala = new Stack<JFrame>();
-	
+
 	private JFrame frame;
 
-    private static BLFacade appFacadeInterface;
-    
+	private static BLFacade appFacadeInterface;
+
 	public static JFrame atzeraEgin() {
 		if(historiala.isEmpty()) return null;
 		else return historiala.pop();
 	}
+
+
 	
+
 	public static void eguneratuHistorala(JFrame frame) {
 		historiala.push(frame);
 	}
-	
 
-	
+
+
 	private static Pertsona loginErabiltzailea;
-	
+
 	public static Pertsona getLoginErabiltzailea() {
 		if(getBusinessLogic() == null || loginErabiltzailea == null) return null;
 		Pertsona p = getBusinessLogic().getPertsona(loginErabiltzailea.getIzena());
@@ -60,11 +63,11 @@ public class MainGUI extends JFrame {
 	public static void setLoginErabiltzailea(Pertsona er) {
 		loginErabiltzailea = er;
 	}
-	
+
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;
 	}
-	 
+
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
@@ -75,15 +78,15 @@ public class MainGUI extends JFrame {
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnAurrera;
-	
+
 	/**
 	 * This is the default constructor
 	 */
 	public MainGUI() {
 		super();
-				
+
 		frame = this;
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -100,8 +103,8 @@ public class MainGUI extends JFrame {
 		initialize();
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
+
+
 
 	/**
 	 * This method initializes this
@@ -130,7 +133,7 @@ public class MainGUI extends JFrame {
 		}
 		return jContentPane;
 	}
-	
+
 
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
@@ -192,13 +195,13 @@ public class MainGUI extends JFrame {
 		}
 		return panel;
 	}
-	
+
 	private void redibujar() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		btnAurrera.setText(ResourceBundle.getBundle("Etiquetas").getString("Accept"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
-	
+
 	private JButton getBtnAurrera() {
 		if (btnAurrera == null) {
 			btnAurrera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Accept")); //$NON-NLS-1$ //$NON-NLS-2$
