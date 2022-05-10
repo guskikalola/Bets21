@@ -26,7 +26,7 @@ public class Erabiltzailea extends Pertsona {
 	private List<Apustua> apustuaLista;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private List<Erabiltzailea> jarraitzen;
+	private List<Jarraitzen> jarraitzen;
 	@XmlIDREF 
 	private List<Erabiltzailea> jarraitzaileak;
 	
@@ -34,7 +34,7 @@ public class Erabiltzailea extends Pertsona {
 		super();
 		this.mugimenduak = new ArrayList<Mugimendua>();
 		this.apustuaLista= new ArrayList<Apustua>();
-		this.jarraitzen = new ArrayList<Erabiltzailea>();
+		this.jarraitzen = new ArrayList<Jarraitzen>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 		this.blokeoa=null;
@@ -46,7 +46,7 @@ public class Erabiltzailea extends Pertsona {
 		super(izena,pasahitza,jaiotzeData);
 		this.mugimenduak = new ArrayList<Mugimendua>();
 		this.apustuaLista= new ArrayList<Apustua>();
-		this.jarraitzen = new ArrayList<Erabiltzailea>();
+		this.jarraitzen = new ArrayList<Jarraitzen>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 		this.blokeoa= null;
@@ -143,11 +143,11 @@ public class Erabiltzailea extends Pertsona {
 		this.apustuaLista = apustuaLista;
 	}
 
-	public List<Erabiltzailea> getJarraitzen() {
+	public List<Jarraitzen> getJarraitzen() {
 		return jarraitzen;
 	}
 
-	public void setJarraitzen(List<Erabiltzailea> jarraitzen) {
+	public void setJarraitzen(List<Jarraitzen> jarraitzen) {
 		this.jarraitzen = jarraitzen;
 	}
 
@@ -167,20 +167,20 @@ public class Erabiltzailea extends Pertsona {
 		return kop;
 	}
 
-	public boolean jarraitzenDu(Erabiltzailea nori) {
-		if(nori == null) return false;
-		for(Erabiltzailea j : this.jarraitzen) {
-			if(j.getIzena().equals(nori.getIzena())) return true;
+	public Jarraitzen jarraitzenDu(Erabiltzailea nori) {
+		if(nori == null) return null;
+		for(Jarraitzen j : this.jarraitzen) {
+			if(j.getNoriIzena().equals(nori.getIzena())) return j;
 		}
-		return false;
+		return null;
 	}
 
-	public boolean ezabatuJarraitzenListatik(Erabiltzailea bJarraitu) {
-		Iterator<Erabiltzailea> it = this.jarraitzen.iterator();
+	public boolean ezabatuJarraitzenListatik(Jarraitzen bJarraitu) {
+		Iterator<Jarraitzen> it = this.jarraitzen.iterator();
 		boolean ezabatuta = false;
 		while(it.hasNext() && !ezabatuta) {
-			Erabiltzailea a = it.next();
-			if(a.getIzena() == bJarraitu.getIzena()) {
+			Jarraitzen a = it.next();
+			if(a.getJarraitzenZenbakia() == bJarraitu.getJarraitzenZenbakia()) {
 				ezabatuta = true;
 				it.remove();
 			}
@@ -201,8 +201,14 @@ public class Erabiltzailea extends Pertsona {
 		return ezabatuta;
 	}
 
-	public void gehituJarraitzenListara(Erabiltzailea jB) {
+	public void gehituJarraitzenListara(Jarraitzen jB) {
 		this.jarraitzen.add(jB);
+	}
+
+	public Jarraitzen jarraitu(Erabiltzailea erDB, float diruMax) {
+		Jarraitzen j = new Jarraitzen(erDB, diruMax);
+		this.gehituJarraitzenListara(j);		
+		return j;
 	}
 
 	public void gehituJarraitzaileakListara(Erabiltzailea nor) {

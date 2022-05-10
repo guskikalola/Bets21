@@ -2,6 +2,8 @@ package businessLogic;
 
 import java.util.ArrayList;
 //hola
+import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -285,12 +287,40 @@ public class BLFacadeImplementation implements BLFacade {
 	
 
 	@Override
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
+			float diruMax) {
 		dbManager.open(false);
-		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea);
+		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea, diruMax);
 		dbManager.close();
 		return em;
 	}
+	
+
+	@Override
+	public JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori) {
+		dbManager.open(false);
+		JarraitzenContainer em = null;
+		Erabiltzailea er1 = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
+		Jarraitzen j = er1.jarraitzenDu(nori);
+		if (j != null)
+			em = new JarraitzenContainer(j);
+		dbManager.close();
+		return em;
+	}
+
+	@Override
+	public List<JarraitzenContainer> getJarraitzen(Erabiltzailea er) {
+		dbManager.open(false);
+		List<JarraitzenContainer> em = new ArrayList<JarraitzenContainer>();
+		Erabiltzailea erDB = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
+		for (Jarraitzen j : erDB.getJarraitzen()) {
+			em.add(new JarraitzenContainer(j));
+		}
+		dbManager.close();
+		return em;
+	}
+
+
 
 	@Override
 	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop)
