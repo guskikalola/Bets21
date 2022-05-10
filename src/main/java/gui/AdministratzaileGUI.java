@@ -134,7 +134,7 @@ public class AdministratzaileGUI extends JFrame {
 				atzekoa.setVisible(true);
 			}
 		});
-		button.setBounds(212, 209, 175, 27);
+		button.setBounds(0, 0, 51, 25);
 		contentPane.add(button);
 		
 		JButton btnEmaitzaipin = new JButton(ResourceBundle.getBundle("Etiquetas").getString("emaitza_ipini")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -171,7 +171,7 @@ public class AdministratzaileGUI extends JFrame {
 				eb.setVisible(true);
 			}
 		});
-		blockUsersButton.setBounds(25, 212, 175, 25);
+		blockUsersButton.setBounds(212, 210, 175, 25);
 		contentPane.add(blockUsersButton);
 		
 		JButton GertaeraBikoiztuButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("GertaeraBikoiztu"));  //$NON-NLS-1$ //$NON-NLS-2$
