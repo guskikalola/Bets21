@@ -14,8 +14,6 @@ import domain.BlokeoContainer;
 import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
-import domain.Jarraitzen;
-import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mezua;
 import domain.MezuaContainer;
@@ -98,7 +96,7 @@ public interface BLFacade  {
 	@WebMethod List<Pertsona> getPertsonaGuztiak();
 
 
-	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax);
+	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea);
 
 
 	@WebMethod Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin;
@@ -107,10 +105,10 @@ public interface BLFacade  {
 	// Web zerbitzaria dela eta, container ordez eskatu DB-tik datuak eskuratzea. DB-ak erreferentziak izango dituelako
 	@WebMethod public Pertsona getPertsona(String izena);
 	@WebMethod public Erabiltzailea getErabiltzailea(String izena);
-	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
 	@WebMethod List<MezuaContainer> getMezuGuztiakContainer(Pertsona nor, Pertsona nori);
-	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
 	@WebMethod int getApustuakIrabazitak(Erabiltzailea nori);
+	
+	
 	@WebMethod public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori);
 	@WebMethod public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena;
 	@WebMethod public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena;

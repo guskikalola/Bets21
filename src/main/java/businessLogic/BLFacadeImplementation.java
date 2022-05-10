@@ -22,8 +22,6 @@ import domain.BlokeoContainer;
 import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
-import domain.Jarraitzen;
-import domain.JarraitzenContainer;
 import domain.Kuota;
 import domain.Mezua;
 import domain.MezuaContainer;
@@ -274,12 +272,12 @@ public class BLFacadeImplementation implements BLFacade {
 		dbManager.close();
 		return er;
 	}
+	
 
 	@Override
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
-			float diruMax) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {
 		dbManager.open(false);
-		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea, diruMax);
+		boolean em = dbManager.erabiltzaileaJarraitu(unekoErab, aukeratutakoErabiltzailea);
 		dbManager.close();
 		return em;
 	}
@@ -289,30 +287,6 @@ public class BLFacadeImplementation implements BLFacade {
 			throws ApustuaEzDaEgin {
 		dbManager.open(false);
 		Apustua em = dbManager.apustuAnizkoitzaEgin(er, kuotaLista, diruKop);
-		dbManager.close();
-		return em;
-	}
-
-	@Override
-	public JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori) {
-		dbManager.open(false);
-		JarraitzenContainer em = null;
-		Erabiltzailea er1 = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
-		Jarraitzen j = er1.jarraitzenDu(nori);
-		if (j != null)
-			em = new JarraitzenContainer(j);
-		dbManager.close();
-		return em;
-	}
-
-	@Override
-	public List<JarraitzenContainer> getJarraitzen(Erabiltzailea er) {
-		dbManager.open(false);
-		List<JarraitzenContainer> em = new ArrayList<JarraitzenContainer>();
-		Erabiltzailea erDB = (Erabiltzailea) dbManager.getErabiltzailea(er.getIzena());
-		for (Jarraitzen j : erDB.getJarraitzen()) {
-			em.add(new JarraitzenContainer(j));
-		}
 		dbManager.close();
 		return em;
 	}

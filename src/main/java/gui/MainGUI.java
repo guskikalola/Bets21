@@ -48,6 +48,8 @@ public class MainGUI extends JFrame {
 		historiala.push(frame);
 	}
 	
+
+	
 	private static Pertsona loginErabiltzailea;
 	
 	public static Pertsona getLoginErabiltzailea() {

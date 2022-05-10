@@ -194,6 +194,10 @@ public class Question implements Serializable {
 		return null;
 	}
 
+	public boolean emaitzaDu() {
+		return this.result != null;
+	}
+
 
 	
 }

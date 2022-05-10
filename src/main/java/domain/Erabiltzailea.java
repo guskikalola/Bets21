@@ -25,8 +25,8 @@ public class Erabiltzailea extends Pertsona {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Apustua> apustuaLista;
 	
-//	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	private List<Jarraitzen> jarraitzen;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	private List<Erabiltzailea> jarraitzen;
 	@XmlIDREF 
 	private List<Erabiltzailea> jarraitzaileak;
 	
@@ -34,7 +34,7 @@ public class Erabiltzailea extends Pertsona {
 		super();
 		this.mugimenduak = new ArrayList<Mugimendua>();
 		this.apustuaLista= new ArrayList<Apustua>();
-		this.jarraitzen = new ArrayList<Jarraitzen>();
+		this.jarraitzen = new ArrayList<Erabiltzailea>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 		this.blokeoa=null;
@@ -46,7 +46,7 @@ public class Erabiltzailea extends Pertsona {
 		super(izena,pasahitza,jaiotzeData);
 		this.mugimenduak = new ArrayList<Mugimendua>();
 		this.apustuaLista= new ArrayList<Apustua>();
-		this.jarraitzen = new ArrayList<Jarraitzen>();
+		this.jarraitzen = new ArrayList<Erabiltzailea>();
 		this.jarraitzaileak = new ArrayList<Erabiltzailea>();
 		this.saldoa = 0;
 		this.blokeoa= null;
@@ -143,11 +143,11 @@ public class Erabiltzailea extends Pertsona {
 		this.apustuaLista = apustuaLista;
 	}
 
-	public List<Jarraitzen> getJarraitzen() {
+	public List<Erabiltzailea> getJarraitzen() {
 		return jarraitzen;
 	}
 
-	public void setJarraitzen(List<Jarraitzen> jarraitzen) {
+	public void setJarraitzen(List<Erabiltzailea> jarraitzen) {
 		this.jarraitzen = jarraitzen;
 	}
 
@@ -167,20 +167,20 @@ public class Erabiltzailea extends Pertsona {
 		return kop;
 	}
 
-	public Jarraitzen jarraitzenDu(Erabiltzailea nori) {
-		if(nori == null) return null;
-		for(Jarraitzen j : this.jarraitzen) {
-			if(j.getNori().getIzena().equals(nori.getIzena())) return j;
+	public boolean jarraitzenDu(Erabiltzailea nori) {
+		if(nori == null) return false;
+		for(Erabiltzailea j : this.jarraitzen) {
+			if(j.getIzena().equals(nori.getIzena())) return true;
 		}
-		return null;
+		return false;
 	}
 
-	public boolean ezabatuJarraitzenListatik(Jarraitzen bJarraitu) {
-		Iterator<Jarraitzen> it = this.jarraitzen.iterator();
+	public boolean ezabatuJarraitzenListatik(Erabiltzailea bJarraitu) {
+		Iterator<Erabiltzailea> it = this.jarraitzen.iterator();
 		boolean ezabatuta = false;
 		while(it.hasNext() && !ezabatuta) {
-			Jarraitzen a = it.next();
-			if(a.getJarraitzenZenbakia() == bJarraitu.getJarraitzenZenbakia()) {
+			Erabiltzailea a = it.next();
+			if(a.getIzena() == bJarraitu.getIzena()) {
 				ezabatuta = true;
 				it.remove();
 			}
@@ -201,13 +201,43 @@ public class Erabiltzailea extends Pertsona {
 		return ezabatuta;
 	}
 
-	public void gehituJarraitzenListara(Jarraitzen jB) {
+	public void gehituJarraitzenListara(Erabiltzailea jB) {
 		this.jarraitzen.add(jB);
 	}
 
 	public void gehituJarraitzaileakListara(Erabiltzailea nor) {
 		this.jarraitzaileak.add(nor);
 	}
+
+	public Mugimendua mugimenduaSortu(double d, String str) {
+		Mugimendua m = new Mugimendua(this, d, str);
+		this.mugimenduaGehitu(m);
+		return m;
+	}
+
+	public Apustua apustuaSortu(Double diruKop, Kuota kDB) {
+		Apustua ap = new Apustua(this, diruKop, kDB);
+		this.apustuaGehitu(ap);
+		return ap;
+	}
+	
+	public Apustua apustuaSortu(double diruKop, List<Kuota> kDBLista) {
+		Apustua apAnizkoitza = new Apustua(this, diruKop, kDBLista);
+		this.apustuaGehitu(apAnizkoitza);
+		return apAnizkoitza;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if(other == null) return false;
+		else if(!(other instanceof Erabiltzailea)) return false;
+		else {
+			Erabiltzailea oEr = (Erabiltzailea) other;
+			return (this.getIzena().equals(oEr.getIzena()));
+		}
+	}
+
+
 }
 	
 	

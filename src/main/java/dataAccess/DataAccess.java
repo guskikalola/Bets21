@@ -25,7 +25,6 @@ import domain.BlokeoContainer;
 import domain.Blokeoa;
 import domain.Erabiltzailea;
 import domain.Event;
-import domain.Jarraitzen;
 import domain.Kuota;
 import domain.Mezua;
 import domain.Mugimendua;
@@ -48,7 +47,7 @@ public class DataAccess {
 	public DataAccess(boolean initializeMode) {
 
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		open(initializeMode);
 
@@ -136,14 +135,14 @@ public class DataAccess {
 			Kuota k1, k2;
 
 			if (Locale.getDefault().equals(new Locale("es"))) {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			} else if (Locale.getDefault().equals(new Locale("en"))) {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			} else {
-				k1 = q6.ipiniKuota("1 edo -", 2.0);
-				k2 = q6.ipiniKuota("2 edo +", 6.1);
+				k1 = q1.ipiniKuota("1 edo -", 2.0);
+				k2 = q1.ipiniKuota("2 edo +", 6.1);
 			}
 
 			// TODO: Ezabatu ( Probako login )
@@ -151,7 +150,7 @@ public class DataAccess {
 			Admin admin2 = new Admin("admin2", "pass", new Date());
 			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
 			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
-			Erabiltzailea erab2= new Erabiltzailea("e", "e", new Date());
+			Erabiltzailea erab2 = new Erabiltzailea("e", "e", new Date());
 
 			db.persist(admin);
 			db.persist(admin2);
@@ -221,8 +220,8 @@ public class DataAccess {
 		Question q = ev.addQuestion(question, betMinimum);
 		// db.persist(q);
 		db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions
-						// property of Event class
-						// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		// property of Event class
+		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 		db.getTransaction().commit();
 		return q;
 
@@ -276,7 +275,7 @@ public class DataAccess {
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		String fileName = c.getDbFilename();
 		if (initializeMode) {
@@ -323,7 +322,7 @@ public class DataAccess {
 	public Pertsona getErabiltzailea(String izena) {
 		return db.find(Pertsona.class, izena);
 	}
-	
+
 	public Erabiltzailea getErabiltzaileaIzenarekin(String izena) {
 		return db.find(Erabiltzailea.class, izena);
 	}
@@ -480,17 +479,17 @@ public class DataAccess {
 		if (erDB != null) {
 			Boolean nahikoa = erDB.diruaNahikoa(diruKop);
 			Boolean minimoaGaindtu = diruKop >= kDB.getQuestion().getBetMinimum();
-			if (nahikoa && minimoaGaindtu) {
+			if (kDB.galderaEmaitzaDu()) {
+				throw new ApustuaEzDaEgin("galdera_emaitza_du");
+			} else if (nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1) * diruKop);
-				Mugimendua mugi = new Mugimendua(erDB, (-1) * diruKop, "apustua_eginda");
+				Mugimendua mugi = erDB.mugimenduaSortu((-1) * diruKop, "apustua_eginda");
 				db.persist(mugi);
-				erDB.mugimenduaGehitu(mugi);
-				Apustua apustua = new Apustua(erDB, diruKop, kDB);
+				Apustua apustua = erDB.apustuaSortu(diruKop, kDB);
 				db.persist(apustua);
 				kDB.apustuaGehitu(apustua);
-				erDB.apustuaGehitu(apustua);
-				this.apustuaJarraitu(apustua);
 				db.getTransaction().commit();
+				this.apustuaJarraitu(apustua);
 				return apustua;
 			} else {
 				if (!nahikoa)
@@ -514,9 +513,8 @@ public class DataAccess {
 				List<Kuota> kDBLista = aDB.getKuotak();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
-				Mugimendua m = new Mugimendua(erDB, diruKop, "apustua_ezabatuta");
+				Mugimendua m = erDB.mugimenduaSortu(diruKop, "apustua_ezabatuta");
 				db.persist(m);
-				erDB.mugimenduaGehitu(m);
 				erDB.apustuaEzabatuListatik(aDB);
 				for (Kuota kiDB : kDBLista) {
 					kiDB.apustuaEzabatuListatik(aDB);
@@ -540,7 +538,6 @@ public class DataAccess {
 			Kuota kuota = qDB.getAukeraDuenKuota(aukera);
 			if (kuota != null) {
 				qDB.setResult(aukera);
-				double kuotaBalioa = kuota.getKantitatea();
 				List<Apustua> alist = kuota.getApustuak();
 
 				for (Apustua ap : alist) {
@@ -548,10 +545,8 @@ public class DataAccess {
 					if (ap.irabaziDu()) {
 						double irabaziDirua = ap.getIrabazia();
 						erab.saldoaAldatu(irabaziDirua);
-						Mugimendua m = new Mugimendua(erab, irabaziDirua, "apustua_irabazi");
-						erab.gehituMugimendua(m);
+						Mugimendua m = erab.mugimenduaSortu(irabaziDirua, "apustua_irabazi");
 						db.persist(m);
-
 						erlist.add(erab);
 					}
 				}
@@ -580,7 +575,7 @@ public class DataAccess {
 		TypedQuery<Erabiltzailea> q = db.createQuery("SELECT er FROM Erabiltzailea er", Erabiltzailea.class);
 		return q.getResultList();
 	}
-	
+
 	public List<Pertsona> getPertsonaGuztiak() {
 		TypedQuery<Pertsona> p = db.createQuery("SELECT p FROM Pertsona p", Pertsona.class);
 		return p.getResultList();
@@ -610,23 +605,22 @@ public class DataAccess {
 		return mezuBidali;
 	}
 
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
-			float diruMax) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {
+		if (unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
+			return false; // ezin duzu zure burua jarraitu
+		}
 		db.getTransaction().begin();
 		Erabiltzailea unErDB = db.find(Erabiltzailea.class, unekoErab.getIzena());
 		Erabiltzailea erDB = db.find(Erabiltzailea.class, aukeratutakoErabiltzailea.getIzena());
 		if (unErDB == null || erDB == null) {
 			return false;
 		} else {
-			Jarraitzen bJarraitu = unErDB.jarraitzenDu(erDB);
-			if (bJarraitu != null) { // Jarraizten utzi
-				unErDB.ezabatuJarraitzenListatik(bJarraitu);
+			boolean bJarraitu = unErDB.jarraitzenDu(erDB);
+			if (bJarraitu) { // Jarraizten utzi
+				unErDB.ezabatuJarraitzenListatik(erDB);
 				erDB.ezabatuJarraitzaileakListatik(unErDB);
-				db.remove(bJarraitu);
 			} else {
-				Jarraitzen jB = new Jarraitzen(erDB, diruMax);
-				db.persist(jB);
-				unErDB.gehituJarraitzenListara(jB);
+				unErDB.gehituJarraitzenListara(erDB);
 				erDB.gehituJarraitzaileakListara(unErDB);
 			}
 		}
@@ -635,8 +629,8 @@ public class DataAccess {
 		return true;
 	}
 
-	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop)
-			throws ApustuaEzDaEgin {
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop,
+			boolean apustuaJarraitu) throws ApustuaEzDaEgin {
 		db.getTransaction().begin();
 		String izena = er.getIzena();
 		Erabiltzailea erDB = db.find(Erabiltzailea.class, izena);
@@ -649,6 +643,11 @@ public class DataAccess {
 
 		for (Kuota ki : kuotaLista) {
 			Kuota kiDB = db.find(Kuota.class, ki.getKuotaZenbakia());
+
+			if (kiDB.galderaEmaitzaDu()) {
+				throw new ApustuaEzDaEgin("galdera_emaitza_du");
+			}
+
 			if (kiDB == null)
 				return null;
 			else {
@@ -662,17 +661,16 @@ public class DataAccess {
 			Boolean minimoaGaindtu = diruKop >= minBet;
 			if (nahikoa && minimoaGaindtu) {
 				erDB.saldoaAldatu((-1) * diruKop);
-				Mugimendua mugi = new Mugimendua(erDB, (-1) * diruKop, "apustua_eginda");
+				Mugimendua mugi = erDB.mugimenduaSortu((-1) * diruKop, "apustua_eginda");
 				db.persist(mugi);
-				erDB.mugimenduaGehitu(mugi);
-				Apustua apustua = new Apustua(erDB, diruKop, kDBLista);
+				Apustua apustua = erDB.apustuaSortu(diruKop, kDBLista);
 				db.persist(apustua);
-				erDB.apustuaGehitu(apustua);
 				for (Kuota kDB : kDBLista) {
 					kDB.apustuaGehitu(apustua);
 				}
-				this.apustuaJarraitu(apustua);
 				db.getTransaction().commit();
+				if (apustuaJarraitu)
+					this.apustuaJarraitu(apustua);
 				return apustua;
 			} else {
 				if (!nahikoa)
@@ -688,20 +686,21 @@ public class DataAccess {
 
 	}
 
+	public Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop)
+			throws ApustuaEzDaEgin {
+		return this.apustuAnizkoitzaEgin(er, kuotaLista, diruKop, true);
+	}
+
 	// TODO : Sekuentzian adierazi
 	private void apustuaJarraitu(Apustua apustua) {
 		Erabiltzailea egilea = apustua.getErabiltzailea();
 		List<Erabiltzailea> jarraitzaileak = egilea.getJarraitzaileak();
-		for(Erabiltzailea jarraitzailea : jarraitzaileak) {
-			Jarraitzen baldintzak = jarraitzailea.jarraitzenDu(egilea);
-			if(baldintzak != null) {
+		for (Erabiltzailea jarraitzailea : jarraitzaileak) {
+			boolean jarraitzen = jarraitzailea.jarraitzenDu(egilea);
+			if (jarraitzen) {
 				try {
 					// Aztertu baldintzak
-					
-					if(apustua.getDiruKop() <= baldintzak.getDiruKop()) {
-						this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop());
-					}
-					
+					this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
 				} catch (ApustuaEzDaEgin e) {
 					// ? Ez tratatu momentuz, agian mezua bidali
 				}
@@ -770,5 +769,6 @@ public class DataAccess {
 	}
 	
 
-	
+
+
 }

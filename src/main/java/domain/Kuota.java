@@ -103,4 +103,8 @@ public class Kuota {
 			}
 		}
 	}
+
+	public boolean galderaEmaitzaDu() {
+		return (this.getQuestion().emaitzaDu());
+	}
 }

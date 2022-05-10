@@ -331,7 +331,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		lblFee.setBounds(327, 369, 259, 14);
 
 		getContentPane().add(lblFee);
-		btnNewButton.setBounds(380, 452, 140, 25);
+		btnNewButton.setBounds(337, 452, 233, 25);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int kuotaKopurua = tableModelAukerak.getDataVector().size();
@@ -350,7 +350,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 								ArrayList<Kuota> kuotaLista = new ArrayList<Kuota>();
 
 								// Bete kuotaList
-								
+
 								for (int i = 0; i < kuotaKopurua; i++) {
 									kuotaLista.add((Kuota) tableModelAukerak.getValueAt(i, 2));
 								}
@@ -359,7 +359,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 									// ez ditu kuotarik aukeratu, ez egin ezer
 								} else {
 									Apustua apus = facade.apustuAnizkoitzaEgin(er, kuotaLista, kantitatea);
-									if(apus != null) {
+									if (apus != null) {
 										tableModelAukerak.setDataVector(null, columnNamesAukerak);
 										KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
 										System.out.println("Apustua eginda");
@@ -393,12 +393,11 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		getContentPane().add(KuotakLabel);
 
 		aukerakPane.setBounds(716, 50, 251, 398);
+		tableAukerak.setEnabled(false);
 		aukerakPane.setViewportView(tableAukerak);
 
 		tableModelAukerak = new DefaultTableModel(null, columnNamesAukerak);
 
-		
-		
 		tableAukerak.setCellSelectionEnabled(false);
 		tableAukerak.setModel(tableModelAukerak);
 		tableAukerak.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -410,6 +409,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 		btnGehituKuota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("Kuota"));
 				selectedRow = tableKuota.getSelectedRow();
 				if (selectedRow != -1) {
 					selectedKuota = kuotaList.get(selectedRow);
@@ -419,8 +419,7 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 					// Kuota aukeratu behar da
 					System.out.println("Kuota ez da aukeratu");
 				} else {
-					
-					
+
 					// Ezin dira bitan kuotak berdinak aukeratu
 					boolean errepikatuta = false;
 					int i = 0;
@@ -431,20 +430,36 @@ public class ApustuAnizkoitzaGUI extends JFrame {
 						i++;
 					}
 					if (!errepikatuta) {
-						tableModelAukerak.setColumnCount(3);
-						Vector<Object> row = new Vector<Object>();
-						row.add(selectedKuota.getKuotaZenbakia());
-						row.add(selectedKuota.getAukera());
-						row.add(selectedKuota);
-						tableModelAukerak.addRow(row);
-						tableAukerak.getColumnModel().removeColumn(tableAukerak.getColumnModel().getColumn(2));
+						if (selectedKuota.galderaEmaitzaDu()) {
+							KuotakLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("galdera_emaitza_du"));
+						} else {
+							tableModelAukerak.setColumnCount(3);
+							Vector<Object> row = new Vector<Object>();
+							row.add(selectedKuota.getKuotaZenbakia());
+							row.add(selectedKuota.getAukera());
+							row.add(selectedKuota);
+							tableModelAukerak.addRow(row);
+							tableAukerak.getColumnModel().removeColumn(tableAukerak.getColumnModel().getColumn(2));
+						}
 					}
 				}
 			}
 		});
-		btnGehituKuota.setBounds(380, 422, 140, 27);
+		btnGehituKuota.setBounds(337, 422, 233, 27);
 
 		getContentPane().add(btnGehituKuota);
+		
+		JButton btnEzabatuazkena = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ezabatu_azkena")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnEzabatuazkena.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tableModelAukerak.getRowCount() > 0)
+				{
+					tableModelAukerak.removeRow(tableModelAukerak.getRowCount() - 1);					
+				}
+			}
+		});
+		btnEzabatuazkena.setBounds(716, 451, 251, 27);
+		getContentPane().add(btnEzabatuazkena);
 
 	}
 
