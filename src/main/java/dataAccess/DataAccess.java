@@ -147,12 +147,14 @@ public class DataAccess {
 			}
 
 			// TODO: Ezabatu ( Probako login )
+			Admin sistema = new Admin("sistema", "en28dnMXMN2zj28", new Date());
 			Admin admin = new Admin("admin", "pass", new Date());
 			Admin admin2 = new Admin("admin2", "pass", new Date());
 			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
 			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
 			Erabiltzailea erab2 = new Erabiltzailea("e", "e", new Date());
 
+			db.persist(sistema);
 			db.persist(admin);
 			db.persist(admin2);
 			db.persist(erab);
@@ -675,10 +677,15 @@ public class DataAccess {
 					this.apustuaJarraitu(apustua);
 				return apustua;
 			} else {
-				if (!nahikoa)
+				if (!nahikoa) {
+					db.getTransaction().rollback();					
 					throw new ApustuaEzDaEgin("NoMoney");
+				}
 				else if (!minimoaGaindtu)
+				{
+					db.getTransaction().rollback();					
 					throw new ApustuaEzDaEgin("errorea_minimoa_gainditu");
+				}
 			}
 			return null;
 		} else {
@@ -696,6 +703,7 @@ public class DataAccess {
 	private void apustuaJarraitu(Apustua apustua) {
 		Erabiltzailea egilea = apustua.getErabiltzailea();
 		List<Erabiltzailea> jarraitzaileak = egilea.getJarraitzaileak();
+		Pertsona sistema = db.find(Pertsona.class, "sistema");
 		for (Erabiltzailea jarraitzailea : jarraitzaileak) {
 			Jarraitzen jarraitzen = jarraitzailea.jarraitzenDu(egilea);
 			if (jarraitzen != null) {
@@ -703,10 +711,22 @@ public class DataAccess {
 					// Aztertu baldintzak
 					boolean b = jarraitzen.baldintzakBetetzenDitu(apustua);
 					if(b) {
-						this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
+						Apustua ap = this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
+						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua jarraituta. Apustua: %d", egilea.getIzena(), ap.getApustuZenbakia()));
+					}
+					else
+					{
+						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua ez ditu baldintzak bete. Ez da jarraitu.", egilea.getIzena()));
 					}
 				} catch (ApustuaEzDaEgin e) {
 					// ? Ez tratatu momentuz, agian mezua bidali
+					try {
+						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua ezin izan da jarraitu. Errorea: %s", egilea.getIzena(),e.getMessage()));
+					} catch (MezuaEzDaZuzena e1) {
+						// Ez egin ezer
+					}
+				} catch (MezuaEzDaZuzena e) {
+					// Ez egin ezer
 				}
 			}
 		}
@@ -726,8 +746,10 @@ public class DataAccess {
 			db.persist(mez);
 		}else {
 			if(!zuzenaMIN) {
+				db.getTransaction().rollback();
 				throw new MezuaEzDaZuzena("Short_message");
 			}else if(!zuzenaMAX) {
+				db.getTransaction().rollback();
 				throw new MezuaEzDaZuzena("Long_message");
 			}
 		}

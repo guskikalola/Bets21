@@ -222,12 +222,12 @@ public class JarraituGUI extends JFrame {
 		lblConditions.setBounds(12, 236, 418, 17);
 		contentPane.add(lblConditions);
 
-		lblDiruMax = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop")); //$NON-NLS-1$ //$NON-NLS-2$
-		lblDiruMax.setBounds(12, 265, 134, 17);
+		lblDiruMax = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop_baldintza")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblDiruMax.setBounds(12, 265, 307, 17);
 		contentPane.add(lblDiruMax);
 
 		txtFieldDirua = new JTextField();
-		txtFieldDirua.setBounds(174, 265, 221, 21);
+		txtFieldDirua.setBounds(323, 265, 72, 21);
 		contentPane.add(txtFieldDirua);
 		txtFieldDirua.setColumns(10);
 
