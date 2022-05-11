@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 //import domain.Booking;
+import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 import domain.Question;
 import domain.Admin;
 import domain.Apustua;
@@ -96,7 +98,7 @@ public interface BLFacade  {
 	@WebMethod List<Pertsona> getPertsonaGuztiak();
 
 
-	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea);
+	@WebMethod boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax);
 
 
 	@WebMethod Apustua apustuAnizkoitzaEgin(Erabiltzailea er, List<Kuota> kuotaLista, double diruKop) throws ApustuaEzDaEgin;
@@ -115,5 +117,8 @@ public interface BLFacade  {
 	@WebMethod public BlokeoContainer getBlokeoContainer(Erabiltzailea e);
 
 	@WebMethod public boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent);
+	
+	@WebMethod JarraitzenContainer jarraitzenDu(Erabiltzailea er, Erabiltzailea nori);
+	@WebMethod List<JarraitzenContainer> getJarraitzen(Erabiltzailea er);
 	
 }

@@ -27,6 +27,7 @@ import domain.Erabiltzailea;
 import domain.Event;
 import domain.Kuota;
 import domain.Mezua;
+import domain.Jarraitzen;
 import domain.Mugimendua;
 import domain.Pertsona;
 import domain.Question;
@@ -605,7 +606,7 @@ public class DataAccess {
 		return mezuBidali;
 	}
 
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax) {
 		if (unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
 			return false; // ezin duzu zure burua jarraitu
 		}
@@ -615,13 +616,14 @@ public class DataAccess {
 		if (unErDB == null || erDB == null) {
 			return false;
 		} else {
-			boolean bJarraitu = unErDB.jarraitzenDu(erDB);
-			if (bJarraitu) { // Jarraizten utzi
-				unErDB.ezabatuJarraitzenListatik(erDB);
+			Jarraitzen bJarraitu = unErDB.jarraitzenDu(erDB);
+			if (bJarraitu != null) { // Jarraizten utzi
+				unErDB.ezabatuJarraitzenListatik(bJarraitu);
 				erDB.ezabatuJarraitzaileakListatik(unErDB);
 			} else {
-				unErDB.gehituJarraitzenListara(erDB);
+				Jarraitzen jB = unErDB.jarraitu(erDB,diruMax);
 				erDB.gehituJarraitzaileakListara(unErDB);
+				db.persist(jB);
 			}
 		}
 		db.getTransaction().commit();
@@ -691,16 +693,18 @@ public class DataAccess {
 		return this.apustuAnizkoitzaEgin(er, kuotaLista, diruKop, true);
 	}
 
-	// TODO : Sekuentzian adierazi
 	private void apustuaJarraitu(Apustua apustua) {
 		Erabiltzailea egilea = apustua.getErabiltzailea();
 		List<Erabiltzailea> jarraitzaileak = egilea.getJarraitzaileak();
 		for (Erabiltzailea jarraitzailea : jarraitzaileak) {
-			boolean jarraitzen = jarraitzailea.jarraitzenDu(egilea);
-			if (jarraitzen) {
+			Jarraitzen jarraitzen = jarraitzailea.jarraitzenDu(egilea);
+			if (jarraitzen != null) {
 				try {
 					// Aztertu baldintzak
-					this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
+					boolean b = jarraitzen.baldintzakBetetzenDitu(apustua);
+					if(b) {
+						this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
+					}
 				} catch (ApustuaEzDaEgin e) {
 					// ? Ez tratatu momentuz, agian mezua bidali
 				}

@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import businessLogic.BLFacade;
 import domain.Erabiltzailea;
 import domain.Pertsona;
+import domain.Jarraitzen;
+import domain.JarraitzenContainer;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -48,6 +50,9 @@ public class JarraituGUI extends JFrame {
 
 	private Erabiltzailea aukeratutakoErabiltzailea;
 	private JLabel lblErrorea;
+	private JLabel lblConditions;
+	private JLabel lblDiruMax;
+	private JTextField txtFieldDirua;
 
 	/**
 	 * Launch the application.
@@ -137,9 +142,18 @@ public class JarraituGUI extends JFrame {
 				int i = tableEzJarraitzen.getSelectedRow();
 				try {
 					aukeratutakoErabiltzailea = (Erabiltzailea) tableEzJarraitzen.getModel().getValueAt(i, 2);
+					String diruMaxTxt = txtFieldDirua.getText();
+					float diruMax = 0;
 
+					System.out.println(diruMaxTxt);
+					if (diruMaxTxt != null && diruMaxTxt.length() > 0)
+						diruMax = Float.parseFloat(diruMaxTxt);
+					
 					if (!(unekoErab instanceof Erabiltzailea)) {
 						// Ez da erabiltzailea
+					} else if (diruMax < 0) {
+						// Balioa ez da zuzena
+						lblErrorea.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
 					} else if (aukeratutakoErabiltzailea == null) {
 						// Aukeratu erabiltzaile bat
 					} else if (unekoErab == null) {
@@ -150,7 +164,7 @@ public class JarraituGUI extends JFrame {
 						// blokeatuta zaude
 
 					} else {
-						boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea);
+						boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea, diruMax);
 						// Ezabatu ez jarraitzen taulatik errrenkada eta gehitu jarraitzen taulara
 						if (em) {
 							jarraitzenModel.addRow(ezJarraitzenModel.getDataVector().elementAt(i));
@@ -179,7 +193,7 @@ public class JarraituGUI extends JFrame {
 					aukeratutakoErabiltzailea = (Erabiltzailea) tableJarraitzen.getModel().getValueAt(i, 2);
 
 					// Ezabatu jarraitzen taulatik errrenkada eta gehitu ez jarraitzen taulara
-					boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea);
+					boolean em = facade.erabiltzaileaJarraitu((Erabiltzailea) unekoErab, aukeratutakoErabiltzailea, 0);
 					if (em) {
 						ezJarraitzenModel.addRow(jarraitzenModel.getDataVector().elementAt(i));
 						jarraitzenModel.removeRow(i);
@@ -202,6 +216,20 @@ public class JarraituGUI extends JFrame {
 		lblEzJarraitzen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEzJarraitzen.setBounds(261, 27, 134, 17);
 		contentPane.add(lblEzJarraitzen);
+		
+		lblConditions = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("baldintzak")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblConditions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConditions.setBounds(12, 236, 418, 17);
+		contentPane.add(lblConditions);
+
+		lblDiruMax = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("diru_kop")); //$NON-NLS-1$ //$NON-NLS-2$
+		lblDiruMax.setBounds(12, 265, 134, 17);
+		contentPane.add(lblDiruMax);
+
+		txtFieldDirua = new JTextField();
+		txtFieldDirua.setBounds(174, 265, 221, 21);
+		contentPane.add(txtFieldDirua);
+		txtFieldDirua.setColumns(10);
 
 		lblErrorea = new JLabel(); // $NON-NLS-1$ //$NON-NLS-2$
 		lblErrorea.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -229,10 +257,11 @@ public class JarraituGUI extends JFrame {
 
 		if (MainGUI.getLoginErabiltzailea() instanceof Erabiltzailea) {
 			Erabiltzailea er = (Erabiltzailea) MainGUI.getLoginErabiltzailea();
-			List<Erabiltzailea> jarraitzenLista = er.getJarraitzen();
+			List<JarraitzenContainer> jarraitzenLista = facade.getJarraitzen(er);
 			List<Erabiltzailea> erabiltzaileakLista = facade.getErabiltzaileaGuztiak();
 			// Tratatu jarraitzen ditugun erabiltzaileak
-			for (Erabiltzailea nori : jarraitzenLista) {
+			for (JarraitzenContainer jC : jarraitzenLista) {
+				Erabiltzailea nori = jC.getNori();
 				Vector<Object> row = new Vector<Object>();
 				row.add(nori.getIzena());
 				row.add(facade.getApustuakIrabazitak(nori));
@@ -246,7 +275,7 @@ public class JarraituGUI extends JFrame {
 
 			// Tratatu jarraitzen ez ditugun erabiltzaileak
 			for (Erabiltzailea nori : erabiltzaileakLista) {
-				if (er.jarraitzenDu(nori) == false && !nori.getIzena().equals(er.getIzena())) { // ez badu jarraitzen
+				if (facade.jarraitzenDu(er, nori) == null && !nori.getIzena().equals(er.getIzena())) {  // ez badu jarraitzen
 					Vector<Object> row = new Vector<Object>();
 					row.add(nori.getIzena());
 					row.add(facade.getApustuakIrabazitak(nori));
