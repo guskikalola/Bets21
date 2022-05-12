@@ -220,7 +220,7 @@ public class CreateQuestionGUI extends JFrame {
 			offset += 5;
 
 		for (Date d : datesWithEventsCurrentMonth) {
-
+			
 			calendar.setTime(d);
 			System.out.println(d);
 

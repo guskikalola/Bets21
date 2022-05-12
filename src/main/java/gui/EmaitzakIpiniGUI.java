@@ -147,8 +147,10 @@ public class EmaitzakIpiniGUI extends JFrame {
 
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
 					int monthAct = calendarAct.get(Calendar.MONTH);
+					int yearAnt = calendarAnt.get(Calendar.YEAR);
+					int yearAct = calendarAct.get(Calendar.YEAR);
 
-					if (monthAct != monthAnt) {
+					if ((monthAct != monthAnt) || (yearAnt != yearAct)) {
 						if (monthAct == monthAnt + 2) {
 							// Si en JCalendar est� 30 de enero y se avanza al mes siguiente, devolver�a 2
 							// de marzo (se toma como equivalente a 30 de febrero)
