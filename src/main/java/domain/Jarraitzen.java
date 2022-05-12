@@ -18,28 +18,28 @@ public class Jarraitzen {
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@GeneratedValue
 	private Integer jarraitzenZenbakia;
-	private float diruKop;
+	private float diruMax;
 	@XmlIDREF
 	private Erabiltzailea nori;
 	
 	public Jarraitzen()
 	{
 		this.jarraitzenZenbakia = 0;
-		this.diruKop = 0f;
+		this.diruMax = 0f;
 		this.nori = null;
 	}
 	
-	public Jarraitzen(Erabiltzailea nori, float diruKop) {
-		this.diruKop = diruKop;
+	public Jarraitzen(Erabiltzailea nori, float diruMax) {
+		this.diruMax = diruMax;
 		this.nori = nori;
 	}
 
-	public float getDiruKop() {
-		return diruKop;
+	public float getDiruMax() {
+		return diruMax;
 	}
 
-	public void setDiruKop(float diruKop) {
-		this.diruKop = diruKop;
+	public void setDiruMax(float diruMax) {
+		this.diruMax = diruMax;
 	}
 
 	public Erabiltzailea getNori() {
@@ -68,6 +68,6 @@ public class Jarraitzen {
 
 	public boolean baldintzakBetetzenDitu(Apustua apustua) {
 		double diruKop = apustua.getDiruKop();
-		return this.diruKop >= diruKop;
+		return this.diruMax >= diruKop;
 	}
 }
