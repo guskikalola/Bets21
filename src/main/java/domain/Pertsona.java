@@ -139,5 +139,15 @@ public abstract class Pertsona {
 		}
 		return mezuList;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(other == null) return false;
+		else if(!(other instanceof Pertsona)) return false;
+		else {
+			Pertsona oEr = (Pertsona) other;
+			return (this.getIzena().equals(oEr.getIzena()));
+		}
+	}
 
 }

@@ -752,7 +752,7 @@ public class DataAccess {
 		Boolean zuzenaMIN = Mezua.mezuaZuzenaDaMIN(mezua);
 		Boolean zuzenaMAX = Mezua.mezuaZuzenaDaMAX(mezua);
 		if (zuzenaMIN && zuzenaMAX) {
-			if (mezulariDB instanceof Erabiltzailea && ((Erabiltzailea) mezulariDB).getBlokeoa() != null) {
+			if (mezulariDB instanceof Erabiltzailea && ((Erabiltzailea) mezulariDB).getBlokeoa() != null && !((Erabiltzailea) mezulariDB).getBlokeoa().getNor().equals(nori)) {
 				db.getTransaction().rollback();
 				return null;
 			}
