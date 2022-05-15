@@ -136,7 +136,11 @@ public class ChatGUI extends JFrame {
 					} else {
 						sartuTestuaLabel.setText(ResourceBundle.getBundle("Etiquetas").getString(testua) + " (max: " + Mezua.MEZUAMAX + ")" );
 					}
+				} catch (NullPointerException err)
+				{
+					// Ez egin ezer. Hau emango da erabiltzailea blokeatuta dagoenean
 				}
+				
 			}
 		});
 		mezuaBidaliButton.setBounds(280, 220, 134, 33);

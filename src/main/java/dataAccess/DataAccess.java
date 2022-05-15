@@ -746,6 +746,10 @@ public class DataAccess {
 		Boolean zuzenaMIN = Mezua.mezuaZuzenaDaMIN(mezua);
 		Boolean zuzenaMAX = Mezua.mezuaZuzenaDaMAX(mezua);
 		if (zuzenaMIN && zuzenaMAX) {
+			if (mezulariDB instanceof Erabiltzailea && ((Erabiltzailea) mezulariDB).getBlokeoa() != null) {
+				db.getTransaction().rollback();
+				return null;
+			}
 			mez = new Mezua(mezulariDB, noriDB, mezua);
 			mezulariDB.gehituBidaliLista(mez);
 			noriDB.gehituJasotakoLista(mez);
