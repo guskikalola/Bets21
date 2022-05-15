@@ -48,7 +48,7 @@ public class DataAccess {
 	public DataAccess(boolean initializeMode) {
 
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		open(initializeMode);
 
@@ -278,7 +278,7 @@ public class DataAccess {
 	public void open(boolean initializeMode) {
 
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-		+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
 
 		String fileName = c.getDbFilename();
 		if (initializeMode) {
@@ -423,13 +423,16 @@ public class DataAccess {
 		else if (!e.pasahitzaZuzena(pasahitza))
 			return false;
 		else {
-			db.getTransaction().begin();
-			e.saldoaAldatu(kantitatea);
-			Mugimendua m = new Mugimendua(erabiltzaile, kantitatea, "dirua_sartu");
-			e.mugimenduaGehitu(m);
-			db.persist(m);
-			db.getTransaction().commit();
-			return true;
+			if (e.getBlokeoa() == null) {
+				db.getTransaction().begin();
+				e.saldoaAldatu(kantitatea);
+				Mugimendua m = new Mugimendua(erabiltzaile, kantitatea, "dirua_sartu");
+				e.mugimenduaGehitu(m);
+				db.persist(m);
+				db.getTransaction().commit();
+				return true;
+			} else
+				return false;
 		}
 	}
 
@@ -479,7 +482,7 @@ public class DataAccess {
 		String izena = er.getIzena();
 		Erabiltzailea erDB = db.find(Erabiltzailea.class, izena);
 		Kuota kDB = db.find(Kuota.class, ki.getKuotaZenbakia());
-		if (erDB != null) {
+		if (erDB != null && erDB.getBlokeoa() == null) {
 			Boolean nahikoa = erDB.diruaNahikoa(diruKop);
 			Boolean minimoaGaindtu = diruKop >= kDB.getQuestion().getBetMinimum();
 			if (kDB.galderaEmaitzaDu()) {
@@ -512,7 +515,7 @@ public class DataAccess {
 		Apustua aDB = db.find(Apustua.class, a.getApustuZenbakia());
 		if (aDB != null) {
 			Erabiltzailea erDB = aDB.getErabiltzailea();
-			if (erDB.getIzena().equals(er.getIzena()) && aDB.ezabatuDaiteke()) {
+			if (erDB.getIzena().equals(er.getIzena()) && aDB.ezabatuDaiteke() && erDB.getBlokeoa() == null) {
 				List<Kuota> kDBLista = aDB.getKuotak();
 				Double diruKop = aDB.getDiruKop();
 				erDB.saldoaAldatu(diruKop);
@@ -545,7 +548,7 @@ public class DataAccess {
 
 				for (Apustua ap : alist) {
 					Erabiltzailea erab = ap.getErabiltzailea();
-					if (ap.irabaziDu()) {
+					if (ap.irabaziDu() && erab.getBlokeoa() == null) {
 						double irabaziDirua = ap.getIrabazia();
 						erab.saldoaAldatu(irabaziDirua);
 						Mugimendua m = erab.mugimenduaSortu(irabaziDirua, "apustua_irabazi");
@@ -583,7 +586,7 @@ public class DataAccess {
 		TypedQuery<Pertsona> p = db.createQuery("SELECT p FROM Pertsona p", Pertsona.class);
 		return p.getResultList();
 	}
-	
+
 	public Blokeoa getBlokeoContainer(Erabiltzailea e) {
 		Erabiltzailea eDB = db.find(Erabiltzailea.class, e.getIzena());
 		Query query = db.createQuery("SELECT bl FROM Blokeoa bl WHERE bl.Nori=?1");
@@ -591,15 +594,15 @@ public class DataAccess {
 		Blokeoa blokeo = (Blokeoa) query.getResultList().get(0);
 		return blokeo;
 	}
-	
+
 	public List<Mezua> getMezuGuztiak(Pertsona m, Pertsona nori) {
 		db.getTransaction().begin();
-		Pertsona mezulari= db.find(Pertsona.class, m.getIzena());
-		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		ArrayList<Mezua> mezuBidali= mezulari.BidalitakoMezuakEskuratu(noriDB);
-		ArrayList<Mezua> mezuJaso= mezulari.jasotakoMezuakEskuratu(noriDB);
-		if(mezuJaso!=null) {
-			for(Mezua me: mezuJaso) {
+		Pertsona mezulari = db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB = db.find(Pertsona.class, nori.getIzena());
+		ArrayList<Mezua> mezuBidali = mezulari.BidalitakoMezuakEskuratu(noriDB);
+		ArrayList<Mezua> mezuJaso = mezulari.jasotakoMezuakEskuratu(noriDB);
+		if (mezuJaso != null) {
+			for (Mezua me : mezuJaso) {
 				me.setIrakurrita(true);
 				mezuBidali.add(me);
 			}
@@ -608,14 +611,15 @@ public class DataAccess {
 		return mezuBidali;
 	}
 
-	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea, float diruMax) {
+	public boolean erabiltzaileaJarraitu(Erabiltzailea unekoErab, Erabiltzailea aukeratutakoErabiltzailea,
+			float diruMax) {
 		if (unekoErab == null || aukeratutakoErabiltzailea == null || unekoErab.equals(aukeratutakoErabiltzailea)) {
 			return false; // ezin duzu zure burua jarraitu
 		}
 		db.getTransaction().begin();
 		Erabiltzailea unErDB = db.find(Erabiltzailea.class, unekoErab.getIzena());
 		Erabiltzailea erDB = db.find(Erabiltzailea.class, aukeratutakoErabiltzailea.getIzena());
-		if (unErDB == null || erDB == null) {
+		if (unErDB == null || erDB == null || unErDB.getBlokeoa() != null) {
 			return false;
 		} else {
 			Jarraitzen bJarraitu = unErDB.jarraitzenDu(erDB);
@@ -623,7 +627,7 @@ public class DataAccess {
 				unErDB.ezabatuJarraitzenListatik(bJarraitu);
 				erDB.ezabatuJarraitzaileakListatik(unErDB);
 			} else {
-				Jarraitzen jB = unErDB.jarraitu(erDB,diruMax);
+				Jarraitzen jB = unErDB.jarraitu(erDB, diruMax);
 				erDB.gehituJarraitzaileakListara(unErDB);
 				db.persist(jB);
 			}
@@ -660,7 +664,7 @@ public class DataAccess {
 			}
 		}
 
-		if (erDB != null) {
+		if (erDB != null && erDB.getBlokeoa() == null) {
 			Boolean nahikoa = erDB.diruaNahikoa(diruKop);
 			Boolean minimoaGaindtu = diruKop >= minBet;
 			if (nahikoa && minimoaGaindtu) {
@@ -678,12 +682,10 @@ public class DataAccess {
 				return apustua;
 			} else {
 				if (!nahikoa) {
-					db.getTransaction().rollback();					
+					db.getTransaction().rollback();
 					throw new ApustuaEzDaEgin("NoMoney");
-				}
-				else if (!minimoaGaindtu)
-				{
-					db.getTransaction().rollback();					
+				} else if (!minimoaGaindtu) {
+					db.getTransaction().rollback();
 					throw new ApustuaEzDaEgin("errorea_minimoa_gainditu");
 				}
 			}
@@ -706,22 +708,26 @@ public class DataAccess {
 		Pertsona sistema = db.find(Pertsona.class, "sistema");
 		for (Erabiltzailea jarraitzailea : jarraitzaileak) {
 			Jarraitzen jarraitzen = jarraitzailea.jarraitzenDu(egilea);
-			if (jarraitzen != null) {
+			if (jarraitzen != null && jarraitzailea.getBlokeoa() == null) {
 				try {
 					// Aztertu baldintzak
 					boolean b = jarraitzen.baldintzakBetetzenDitu(apustua);
-					if(b) {
-						Apustua ap = this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(), false);
-						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua jarraituta. Apustua: %d", egilea.getIzena(), ap.getApustuZenbakia()));
-					}
-					else
-					{
-						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua ez ditu baldintzak bete. Ez da jarraitu.", egilea.getIzena()));
+					if (b) {
+						Apustua ap = this.apustuAnizkoitzaEgin(jarraitzailea, apustua.getKuotak(), apustua.getDiruKop(),
+								false);
+						this.mezuaBidali(sistema, jarraitzailea,
+								String.format("%s egindako apustua jarraituta. Apustua: %d", egilea.getIzena(),
+										ap.getApustuZenbakia()));
+					} else {
+						this.mezuaBidali(sistema, jarraitzailea, String.format(
+								"%s egindako apustua ez ditu baldintzak bete. Ez da jarraitu.", egilea.getIzena()));
 					}
 				} catch (ApustuaEzDaEgin e) {
 					// ? Ez tratatu momentuz, agian mezua bidali
 					try {
-						this.mezuaBidali(sistema, jarraitzailea, String.format("%s egindako apustua ezin izan da jarraitu. Errorea: %s", egilea.getIzena(),e.getMessage()));
+						this.mezuaBidali(sistema, jarraitzailea,
+								String.format("%s egindako apustua ezin izan da jarraitu. Errorea: %s",
+										egilea.getIzena(), e.getMessage()));
 					} catch (MezuaEzDaZuzena e1) {
 						// Ez egin ezer
 					}
@@ -731,24 +737,24 @@ public class DataAccess {
 			}
 		}
 	}
-	
+
 	public Mezua mezuaBidali(Pertsona m, Pertsona nori, String mezua) throws MezuaEzDaZuzena {
 		db.getTransaction().begin();
-		Mezua mez= null;
-		Pertsona mezulariDB= db.find(Pertsona.class, m.getIzena());
-		Pertsona noriDB= db.find(Pertsona.class, nori.getIzena());
-		Boolean zuzenaMIN= Mezua.mezuaZuzenaDaMIN(mezua);
-		Boolean zuzenaMAX= Mezua.mezuaZuzenaDaMAX(mezua);
-		if(zuzenaMIN && zuzenaMAX) {
-			mez= new Mezua(mezulariDB, noriDB, mezua);
+		Mezua mez = null;
+		Pertsona mezulariDB = db.find(Pertsona.class, m.getIzena());
+		Pertsona noriDB = db.find(Pertsona.class, nori.getIzena());
+		Boolean zuzenaMIN = Mezua.mezuaZuzenaDaMIN(mezua);
+		Boolean zuzenaMAX = Mezua.mezuaZuzenaDaMAX(mezua);
+		if (zuzenaMIN && zuzenaMAX) {
+			mez = new Mezua(mezulariDB, noriDB, mezua);
 			mezulariDB.gehituBidaliLista(mez);
 			noriDB.gehituJasotakoLista(mez);
 			db.persist(mez);
-		}else {
-			if(!zuzenaMIN) {
+		} else {
+			if (!zuzenaMIN) {
 				db.getTransaction().rollback();
 				throw new MezuaEzDaZuzena("Short_message");
-			}else if(!zuzenaMAX) {
+			} else if (!zuzenaMAX) {
 				db.getTransaction().rollback();
 				throw new MezuaEzDaZuzena("Long_message");
 			}
@@ -756,44 +762,43 @@ public class DataAccess {
 		db.getTransaction().commit();
 		return mez;
 	}
-	
+
 	public Blokeoa erabiltzaileaBlokeatu(Admin a, Erabiltzailea ei, String arrazoia) throws MezuaEzDaZuzena {
 		db.getTransaction().begin();
-		Blokeoa bl= null;
-		Admin aDB= db.find(Admin.class, a.getIzena());
-		Boolean zuzenaMIN=false;
-		Boolean zuzenaMAX=false;
-		Erabiltzailea eDB= db.find(Erabiltzailea.class, ei.getIzena());
-		if(arrazoia==null) {
-			zuzenaMIN=true;
-			zuzenaMAX=true;
-		}else {
-			zuzenaMIN= Mezua.mezuaZuzenaDaMIN(arrazoia);
-			zuzenaMAX= Mezua.mezuaZuzenaDaMAX(arrazoia);
+		Blokeoa bl = null;
+		Admin aDB = db.find(Admin.class, a.getIzena());
+		Boolean zuzenaMIN = false;
+		Boolean zuzenaMAX = false;
+		Erabiltzailea eDB = db.find(Erabiltzailea.class, ei.getIzena());
+		if (arrazoia == null) {
+			zuzenaMIN = true;
+			zuzenaMAX = true;
+		} else {
+			zuzenaMIN = Mezua.mezuaZuzenaDaMIN(arrazoia);
+			zuzenaMAX = Mezua.mezuaZuzenaDaMAX(arrazoia);
 		}
-		if(zuzenaMIN && zuzenaMAX ) {
-			if(eDB.getBlokeoa()==null) {
-				bl= new Blokeoa(aDB, eDB, arrazoia);
+		if (zuzenaMIN && zuzenaMAX) {
+			if (eDB.getBlokeoa() == null) {
+				bl = new Blokeoa(aDB, eDB, arrazoia);
 				aDB.blokeoaGehituListan(bl);
 				eDB.blokeoaGehitu(bl);
 				db.persist(bl);
-			}else {
-				bl= eDB.getBlokeoa();
+			} else {
+				bl = eDB.getBlokeoa();
 				aDB.blokeoaEzabatuListatik(bl);
 				eDB.blokeoaEzabatu();
 				db.remove(bl);
 			}
-		}else {
-			if(!zuzenaMIN) {
+		} else {
+			if (!zuzenaMIN) {
 				throw new MezuaEzDaZuzena("Short_reason");
-			}else if(!zuzenaMAX) {
+			} else if (!zuzenaMAX) {
 				throw new MezuaEzDaZuzena("Long_reason");
 			}
 		}
 		db.getTransaction().commit();
 		return bl;
 	}
-	
 
 	public boolean gertaeraBikoiztu(Date data, String deskribapena, Event oldEvent) {
 		db.getTransaction().begin();
@@ -802,13 +807,13 @@ public class DataAccess {
 		List<Question> qlist = evDB.getQuestions();
 		Event newEvent = new Event(deskribapena, data);
 
-		for(Question q:qlist ) {
+		for (Question q : qlist) {
 			List<Kuota> klist = q.getKuotak();
 			String ques = q.getQuestion();
 			float betMin = q.getBetMinimum();
 			Question qnew = new Question(ques, betMin, newEvent);
 
-			for(Kuota k:klist) {
+			for (Kuota k : klist) {
 				String auk = k.getAukera();
 				double kant = k.getKantitatea();
 				Kuota knew = new Kuota(auk, kant, qnew);
@@ -820,15 +825,12 @@ public class DataAccess {
 		}
 		try {
 			db.persist(newEvent);
-		}catch(IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			emaitza = false;
 		}
-
-
 
 		db.getTransaction().commit();
 		return emaitza;
 	}
-
 
 }
