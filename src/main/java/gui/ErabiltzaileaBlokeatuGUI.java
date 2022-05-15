@@ -108,7 +108,7 @@ public class ErabiltzaileaBlokeatuGUI extends JFrame {
 		
 		blockUsersLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Block_user"));
 		blockUsersLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		blockUsersLabel.setBounds(10, 10, 136, 19);
+		blockUsersLabel.setBounds(10, 10, 258, 19);
 		contentPane.add(blockUsersLabel);
 		
 		whoBlockLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Who_do_you_want_to_block"));		
@@ -218,11 +218,11 @@ public class ErabiltzaileaBlokeatuGUI extends JFrame {
 				}
 			}
 		});
-		blockUsersButton.setBounds(256, 220, 154, 33);
+		blockUsersButton.setBounds(233, 220, 193, 33);
 		contentPane.add(blockUsersButton);
 		
 		ReasonLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Reason")); 
-		ReasonLabel.setBounds(20, 204, 170, 13);
+		ReasonLabel.setBounds(20, 204, 248, 13);
 		contentPane.add(ReasonLabel);
 		
 		textField = new JTextField();

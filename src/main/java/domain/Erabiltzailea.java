@@ -25,7 +25,7 @@ public class Erabiltzailea extends Pertsona {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Apustua> apustuaLista;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
+	//@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private List<Jarraitzen> jarraitzen;
 	@XmlIDREF 
 	private List<Erabiltzailea> jarraitzaileak;
