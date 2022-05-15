@@ -76,7 +76,7 @@ public class BlokeoGUI extends JFrame {
 		blockAccountLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Account_block"));
 		blockAccountLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		blockAccountLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		blockAccountLabel.setBounds(99, 69, 240, 27);
+		blockAccountLabel.setBounds(20, 69, 410, 27);
 		contentPane.add(blockAccountLabel);
 		
 		adminLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("admin") + ":");
