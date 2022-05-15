@@ -133,26 +133,29 @@ public class DataAccess {
 
 			}
 
-			Kuota k1, k2;
-
-			if (Locale.getDefault().equals(new Locale("es"))) {
-				k1 = q1.ipiniKuota("1 edo -", 2.0);
-				k2 = q1.ipiniKuota("2 edo +", 6.1);
-			} else if (Locale.getDefault().equals(new Locale("en"))) {
-				k1 = q1.ipiniKuota("1 edo -", 2.0);
-				k2 = q1.ipiniKuota("2 edo +", 6.1);
-			} else {
-				k1 = q1.ipiniKuota("1 edo -", 2.0);
-				k2 = q1.ipiniKuota("2 edo +", 6.1);
-			}
-
-			// TODO: Ezabatu ( Probako login )
-			Admin sistema = new Admin("sistema", "en28dnMXMN2zj28", new Date());
-			Admin admin = new Admin("admin", "pass", new Date());
+			Admin sistema = new Admin("sistema", "en28dnMXMN2zj28", new Date()); // MEZUAK SISTEMA BEZELA BIDALTZEKO
 			Admin admin2 = new Admin("admin2", "pass", new Date());
 			Erabiltzailea erab = new Erabiltzailea("erab", "erab", new Date());
+
+			/* AURKEZPENERAKO DATUAK */
+
+			Admin admin = new Admin("admin", "pass", new Date());
+
 			Erabiltzailea erab1 = new Erabiltzailea("a", "a", new Date());
 			Erabiltzailea erab2 = new Erabiltzailea("e", "e", new Date());
+			erab1.saldoaAldatu(1200);
+			erab2.saldoaAldatu(1340);
+
+			Kuota k1, k2, k3, k4,k5;
+			// Zeinek irabaziko du partidoa
+			k1 = q1.ipiniKuota("Atlético", 2.0);
+			k2 = q1.ipiniKuota("X", 6.1);
+			k3 = q1.ipiniKuota("Athletic", 6.1);
+			// Zeinek sartuko du lehengo gola
+			k4 = q2.ipiniKuota("Atlético", 2.0);
+			k5 = q2.ipiniKuota("Athletic", 6.1);
+			
+			/* AURKEZPENERAKO DATUAK */
 
 			db.persist(sistema);
 			db.persist(admin);
@@ -163,6 +166,9 @@ public class DataAccess {
 
 			db.persist(k1);
 			db.persist(k2);
+			db.persist(k3);
+			db.persist(k4);
+			db.persist(k5);
 
 			db.persist(q1);
 			db.persist(q2);

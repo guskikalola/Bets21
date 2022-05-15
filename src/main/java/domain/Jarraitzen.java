@@ -68,6 +68,6 @@ public class Jarraitzen {
 
 	public boolean baldintzakBetetzenDitu(Apustua apustua) {
 		double diruKop = apustua.getDiruKop();
-		return this.diruMax >= diruKop;
+		return this.diruMax > 0 ? (this.diruMax >= diruKop) : true;
 	}
 }
