@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-//@Entity
+@Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Jarraitzen {
 	
