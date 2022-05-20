@@ -50324,9 +50324,9 @@
 														"$ref": "AAAAAAF/SmWLK0zPoWs="
 													},
 													"font": "Arial;13;0",
-													"left": 78,
+													"left": 78.97900390625,
 													"top": 29,
-													"width": 34,
+													"width": 32.80810546875,
 													"height": 13,
 													"text": "Login"
 												},
@@ -50339,7 +50339,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 29,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -53866,7 +53866,7 @@
 													"lineColor": "#005446",
 													"fillColor": "#00967d",
 													"font": "Arial;13;0",
-													"left": 377,
+													"left": 376.72998046875,
 													"top": 437,
 													"width": 1,
 													"height": 13
@@ -53882,7 +53882,7 @@
 													"font": "Arial;13;1",
 													"left": 357,
 													"top": 437,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -53917,7 +53917,7 @@
 																	"font": "Arial;13;0",
 																	"left": 372,
 																	"top": 470,
-																	"width": 210,
+																	"width": 214.98876953125,
 																	"height": 13,
 																	"text": "[e!=null && e instanceof Erabiltzailea]"
 																}
@@ -53954,7 +53954,7 @@
 																	"font": "Arial;13;0",
 																	"left": 372,
 																	"top": 1032,
-																	"width": 178,
+																	"width": 181.0224609375,
 																	"height": 13,
 																	"text": "[e!=null && e instanceof Admin]"
 																}
@@ -54133,7 +54133,7 @@
 													"lineColor": "#840084",
 													"fillColor": "#ff00ff",
 													"font": "Arial;13;0",
-													"left": 409,
+													"left": 408.72998046875,
 													"top": 565,
 													"width": 1,
 													"height": 13
@@ -54149,7 +54149,7 @@
 													"font": "Arial;13;1",
 													"left": 389,
 													"top": 565,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -54184,7 +54184,7 @@
 																	"font": "Arial;13;0",
 																	"left": 404,
 																	"top": 598,
-																	"width": 91,
+																	"width": 91.42529296875,
 																	"height": 13,
 																	"text": "[blokeoa != null]"
 																}
@@ -54221,7 +54221,7 @@
 																	"font": "Arial;13;0",
 																	"left": 404,
 																	"top": 800,
-																	"width": 29,
+																	"width": 31.07177734375,
 																	"height": 13,
 																	"text": "[else]"
 																}
@@ -55202,9 +55202,9 @@
 														"$ref": "AAAAAAF/SmlvVFC5QCg="
 													},
 													"font": "Arial;13;0",
-													"left": 70,
+													"left": 70.97900390625,
 													"top": 5,
-													"width": 64,
+													"width": 68.18994140625,
 													"height": 13,
 													"text": "Erregistratu"
 												},
@@ -55217,7 +55217,7 @@
 													"font": "Arial;13;1",
 													"left": 5,
 													"top": 5,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -59306,9 +59306,9 @@
 														"$ref": "AAAAAAF/Smi+r07WCPw="
 													},
 													"font": "Arial;13;0",
-													"left": 78,
+													"left": 78.97900390625,
 													"top": 13,
-													"width": 75,
+													"width": 83.37353515625,
 													"height": 13,
 													"text": "GertaeraSortu"
 												},
@@ -59321,7 +59321,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -61734,9 +61734,9 @@
 														"$ref": "AAAAAAF/Smqq0VNS+ZM="
 													},
 													"font": "Arial;13;0",
-													"left": 142,
+													"left": 142.97900390625,
 													"top": 21,
-													"width": 67,
+													"width": 65.32080078125,
 													"height": 13,
 													"text": "KuotakIpini"
 												},
@@ -61749,7 +61749,7 @@
 													"font": "Arial;13;1",
 													"left": 77,
 													"top": 21,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -66578,9 +66578,9 @@
 														"$ref": "AAAAAAF/0RRw9Xkclug="
 													},
 													"font": "Arial;13;0",
-													"left": 102,
+													"left": 102.97900390625,
 													"top": 13,
-													"width": 90,
+													"width": 100.00439453125,
 													"height": 13,
 													"text": "GertaeraEzabatu"
 												},
@@ -66593,7 +66593,7 @@
 													"font": "Arial;13;1",
 													"left": 37,
 													"top": 13,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -70249,9 +70249,9 @@
 													},
 													"lineColor": "#0000ff",
 													"font": "Arial;13;0",
-													"left": 1236,
+													"left": 1235.578125,
 													"top": 629,
-													"width": 96,
+													"width": 103.6162109375,
 													"height": 13,
 													"text": "for each Question"
 												},
@@ -70265,7 +70265,7 @@
 													"font": "Arial;13;1",
 													"left": 1205,
 													"top": 629,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -70579,9 +70579,9 @@
 													},
 													"lineColor": "#468c00",
 													"font": "Arial;13;0",
-													"left": 1236,
+													"left": 1235.578125,
 													"top": 717,
-													"width": 80,
+													"width": 85.55712890625,
 													"height": 13,
 													"text": "for each Kuota"
 												},
@@ -70595,7 +70595,7 @@
 													"font": "Arial;13;1",
 													"left": 1205,
 													"top": 717,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -70909,9 +70909,9 @@
 													},
 													"lineColor": "#ff0000",
 													"font": "Arial;13;0",
-													"left": 1236,
+													"left": 1235.578125,
 													"top": 813,
-													"width": 92,
+													"width": 99.287109375,
 													"height": 13,
 													"text": "for each Apustua"
 												},
@@ -70925,7 +70925,7 @@
 													"font": "Arial;13;1",
 													"left": 1205,
 													"top": 813,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -82462,9 +82462,9 @@
 														"$ref": "AAAAAAF/3AxF07AiDA4="
 													},
 													"font": "Arial;13;0",
-													"left": 956,
+													"left": 955.578125,
 													"top": 1045,
-													"width": 89,
+													"width": 97.84619140625,
 													"height": 13,
 													"text": "for each apustua"
 												},
@@ -82477,7 +82477,7 @@
 													"font": "Arial;13;1",
 													"left": 925,
 													"top": 1045,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -82566,7 +82566,7 @@
 													"lineColor": "#336600",
 													"fillColor": "#00ff00",
 													"font": "Arial;13;0",
-													"left": 953,
+													"left": 952.72998046875,
 													"top": 1109,
 													"width": 1,
 													"height": 13
@@ -82582,7 +82582,7 @@
 													"font": "Arial;13;1",
 													"left": 933,
 													"top": 1109,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -82617,7 +82617,7 @@
 																	"font": "Arial;13;0",
 																	"left": 948,
 																	"top": 1142,
-																	"width": 103,
+																	"width": 109.12255859375,
 																	"height": 13,
 																	"text": "[bIrabazita == true]"
 																}
@@ -88007,9 +88007,9 @@
 														"$ref": "AAAAAAGAuVthDElQu6A="
 													},
 													"font": "Arial;13;0",
-													"left": 118,
-													"top": 53,
-													"width": 72,
+													"left": 70.97900390625,
+													"top": 13,
+													"width": 74.7216796875,
 													"height": 13,
 													"text": "ApustuaEgin"
 												},
@@ -88020,16 +88020,15 @@
 														"$ref": "AAAAAAGAuVthDElQu6A="
 													},
 													"font": "Arial;13;1",
-													"left": 53,
-													"top": 53,
-													"width": 60,
+													"left": 5,
+													"top": 13,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 48,
-											"top": 48,
+											"top": 8,
 											"width": 3513,
 											"height": 2577,
 											"nameLabel": {
@@ -88979,117 +88978,6 @@
 										},
 										{
 											"_type": "UMLSeqMessageView",
-											"_id": "AAAAAAGAyM8Xn4dlU2w=",
-											"_parent": {
-												"$ref": "AAAAAAGAuVthDElPkNQ="
-											},
-											"model": {
-												"$ref": "AAAAAAGAyM8Xn4dk6Qw="
-											},
-											"subViews": [
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAGAyM8Xn4dm/Hw=",
-													"_parent": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"model": {
-														"$ref": "AAAAAAGAyM8Xn4dk6Qw="
-													},
-													"font": "Arial;13;0",
-													"left": 1001,
-													"top": 113,
-													"width": 152.1279296875,
-													"height": 13,
-													"alpha": 1.5707963267948966,
-													"distance": 10,
-													"hostEdge": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"edgePosition": 1,
-													"text": "3 : blokeoa = getBlokeoa()"
-												},
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAGAyM8Xn4dnFXU=",
-													"_parent": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"model": {
-														"$ref": "AAAAAAGAyM8Xn4dk6Qw="
-													},
-													"visible": false,
-													"font": "Arial;13;0",
-													"left": 1077,
-													"top": 98,
-													"height": 13,
-													"alpha": 1.5707963267948966,
-													"distance": 25,
-													"hostEdge": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"edgePosition": 1
-												},
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAGAyM8Xn4doamo=",
-													"_parent": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"model": {
-														"$ref": "AAAAAAGAyM8Xn4dk6Qw="
-													},
-													"visible": false,
-													"font": "Arial;13;0",
-													"left": 1077,
-													"top": 133,
-													"height": 13,
-													"alpha": -1.5707963267948966,
-													"distance": 10,
-													"hostEdge": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"edgePosition": 1
-												},
-												{
-													"_type": "UMLActivationView",
-													"_id": "AAAAAAGAyM8Xn4dp6Zg=",
-													"_parent": {
-														"$ref": "AAAAAAGAyM8Xn4dlU2w="
-													},
-													"model": {
-														"$ref": "AAAAAAGAyM8Xn4dk6Qw="
-													},
-													"font": "Arial;13;0",
-													"left": 1799,
-													"top": 129,
-													"width": 14,
-													"height": 29
-												}
-											],
-											"font": "Arial;13;0",
-											"head": {
-												"$ref": "AAAAAAGAuVthDknhGxs="
-											},
-											"tail": {
-												"$ref": "AAAAAAGAuVthDUlgPCA="
-											},
-											"points": "356:129;1799:129",
-											"nameLabel": {
-												"$ref": "AAAAAAGAyM8Xn4dm/Hw="
-											},
-											"stereotypeLabel": {
-												"$ref": "AAAAAAGAyM8Xn4dnFXU="
-											},
-											"propertyLabel": {
-												"$ref": "AAAAAAGAyM8Xn4doamo="
-											},
-											"activation": {
-												"$ref": "AAAAAAGAyM8Xn4dp6Zg="
-											}
-										},
-										{
-											"_type": "UMLSeqMessageView",
 											"_id": "AAAAAAGAuVthDUmHUk8=",
 											"_parent": {
 												"$ref": "AAAAAAGAuVthDElPkNQ="
@@ -89118,7 +89006,7 @@
 														"$ref": "AAAAAAGAuVthDUmHUk8="
 													},
 													"edgePosition": 1,
-													"text": "4 [blokeoa!=null] : paintDaysWithEvents()"
+													"text": "3 : paintDaysWithEvents()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89229,7 +89117,7 @@
 														"$ref": "AAAAAAGAuVthDUmMXUI="
 													},
 													"edgePosition": 1,
-													"text": "5 [for each day d of the month] : getEvents(d)"
+													"text": "4 [for each day d of the month] : getEvents(d)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89340,7 +89228,7 @@
 														"$ref": "AAAAAAGAuVthDUmRKsQ="
 													},
 													"edgePosition": 1,
-													"text": "6 : egun bat aukeratu"
+													"text": "5 : egun bat aukeratu"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89451,7 +89339,7 @@
 														"$ref": "AAAAAAGAuVthDUmWIvA="
 													},
 													"edgePosition": 1,
-													"text": "7 : getEvents(egun)"
+													"text": "6 : getEvents(egun)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89562,7 +89450,7 @@
 														"$ref": "AAAAAAGAuVthDUmbPc8="
 													},
 													"edgePosition": 1,
-													"text": "8 : getEvents(egun)"
+													"text": "7 : getEvents(egun)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89673,7 +89561,7 @@
 														"$ref": "AAAAAAGAuVthDUmgaJ4="
 													},
 													"edgePosition": 1,
-													"text": "9 : createQuery(\"SELECT ev FROM Event ev WHERE ev.eventDate=?egun\")"
+													"text": "8 : createQuery(\"SELECT ev FROM Event ev WHERE ev.eventDate=?egun\")"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89784,7 +89672,7 @@
 														"$ref": "AAAAAAGAuVthDUmlAwI="
 													},
 													"edgePosition": 1,
-													"text": "10 : ev1,...,evn"
+													"text": "9 : ev1,...,evn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -89896,7 +89784,7 @@
 														"$ref": "AAAAAAGAuVthDUmqUwE="
 													},
 													"edgePosition": 1,
-													"text": "11 : ev1,...,evn"
+													"text": "10 : ev1,...,evn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90124,7 +90012,7 @@
 														"$ref": "AAAAAAGAuVthDUm2Uyk="
 													},
 													"edgePosition": 1,
-													"text": "12 : ev1,...,evn"
+													"text": "11 : ev1,...,evn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90236,7 +90124,7 @@
 														"$ref": "AAAAAAGAuVthDUm7BqA="
 													},
 													"edgePosition": 1,
-													"text": "13 : evi gertaera aukeratu"
+													"text": "12 : evi gertaera aukeratu"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90466,7 +90354,7 @@
 														"$ref": "AAAAAAGAuVthDknHHHg="
 													},
 													"edgePosition": 1,
-													"text": "14 : getQuestions()"
+													"text": "13 : getQuestions()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90577,7 +90465,7 @@
 														"$ref": "AAAAAAGAuVthDknMJjA="
 													},
 													"edgePosition": 1,
-													"text": "15 : q1,...,qn"
+													"text": "14 : q1,...,qn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90689,7 +90577,7 @@
 														"$ref": "AAAAAAGAuVthDknRyAM="
 													},
 													"edgePosition": 1,
-													"text": "16 : qi galdera aukeratu"
+													"text": "15 : qi galdera aukeratu"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -90800,7 +90688,7 @@
 														"$ref": "AAAAAAGAuVthDknWurc="
 													},
 													"edgePosition": 1,
-													"text": "17 : getKuotak()"
+													"text": "16 : getKuotak()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91030,7 +90918,7 @@
 														"$ref": "AAAAAAGAuVthDkni8D8="
 													},
 													"edgePosition": 1,
-													"text": "18 : k1,...,kn"
+													"text": "17 : k1,...,kn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91142,7 +91030,7 @@
 														"$ref": "AAAAAAGAuVthDknnN0M="
 													},
 													"edgePosition": 1,
-													"text": "19 : ki kuota aukeratu"
+													"text": "18 : ki kuota aukeratu"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91372,7 +91260,7 @@
 														"$ref": "AAAAAAGAuVthDknzOsM="
 													},
 													"edgePosition": 1,
-													"text": "20 : diru kopurua sartzen du"
+													"text": "19 : diru kopurua sartzen du"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91483,7 +91371,7 @@
 														"$ref": "AAAAAAGAuVthDkn4y5Q="
 													},
 													"edgePosition": 1,
-													"text": "21 : apustuaEgin(er ,ki ,diru kopurua)"
+													"text": "20 : apustuaEgin(er ,ki ,diru kopurua)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91594,7 +91482,7 @@
 														"$ref": "AAAAAAGAuVthDkn929M="
 													},
 													"edgePosition": 1,
-													"text": "22 : apustuaEgin(er ,ki, diru kopurua)"
+													"text": "21 : apustuaEgin(er ,ki, diru kopurua)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91705,7 +91593,7 @@
 														"$ref": "AAAAAAGAuVthDkoC4Nc="
 													},
 													"edgePosition": 1,
-													"text": "23 : galderaEmaitzaDu()"
+													"text": "22 : galderaEmaitzaDu()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91816,7 +91704,7 @@
 														"$ref": "AAAAAAGAuVthDkoH0eQ="
 													},
 													"edgePosition": 1,
-													"text": "24 : bEmaitza"
+													"text": "23 : bEmaitza"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -91928,7 +91816,7 @@
 														"$ref": "AAAAAAGAuVthDkoM22M="
 													},
 													"edgePosition": 1,
-													"text": "25 : emaitzaDu()"
+													"text": "24 : emaitzaDu()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92039,7 +91927,7 @@
 														"$ref": "AAAAAAGAuVthDkoRKZM="
 													},
 													"edgePosition": 1,
-													"text": "26 : bEmaitza"
+													"text": "25 : bEmaitza"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92151,7 +92039,7 @@
 														"$ref": "AAAAAAGAuVthDkoWW5s="
 													},
 													"edgePosition": 1,
-													"text": "27 [bEmaitza == true] : null"
+													"text": "26 [bEmaitza == true] : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92263,7 +92151,7 @@
 														"$ref": "AAAAAAGAuVthDkob4Wk="
 													},
 													"edgePosition": 1,
-													"text": "28 [bEmaitza == false] : getIzena()"
+													"text": "27 [bEmaitza == false] : getIzena()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92374,7 +92262,7 @@
 														"$ref": "AAAAAAGAuVthD0ogZcQ="
 													},
 													"edgePosition": 1,
-													"text": "29 : null"
+													"text": "28 : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92724,7 +92612,7 @@
 														"$ref": "AAAAAAGAuVthD0oliW0="
 													},
 													"edgePosition": 1,
-													"text": "30 : izena"
+													"text": "29 : izena"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92836,7 +92724,7 @@
 														"$ref": "AAAAAAGAuVthD0o4WxU="
 													},
 													"edgePosition": 1,
-													"text": "31 : find(Erabiltzailea.class, izena)"
+													"text": "30 : find(Erabiltzailea.class, izena)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -92947,7 +92835,7 @@
 														"$ref": "AAAAAAGAuVthD0o95M8="
 													},
 													"edgePosition": 1,
-													"text": "32 : erDB"
+													"text": "31 : erDB"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93059,7 +92947,7 @@
 														"$ref": "AAAAAAGAuVthD0pCJZo="
 													},
 													"edgePosition": 1,
-													"text": "33 : getKuotaZenbakia()"
+													"text": "32 : getKuotaZenbakia()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93170,7 +93058,7 @@
 														"$ref": "AAAAAAGAuVthD0pHr1g="
 													},
 													"edgePosition": 1,
-													"text": "34 : kzbkia"
+													"text": "33 : kzbkia"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93282,7 +93170,7 @@
 														"$ref": "AAAAAAGAuVthD0pMOIU="
 													},
 													"edgePosition": 1,
-													"text": "35 : find(Kuota.class, kzbkia)"
+													"text": "34 : find(Kuota.class, kzbkia)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93393,7 +93281,7 @@
 														"$ref": "AAAAAAGAuVthEEpRWI0="
 													},
 													"edgePosition": 1,
-													"text": "36 : kDB"
+													"text": "35 : kDB"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93505,7 +93393,7 @@
 														"$ref": "AAAAAAGAuVthEEpW1OI="
 													},
 													"edgePosition": 1,
-													"text": "37 : diruNahikoa(kopurua)"
+													"text": "36 : diruNahikoa(kopurua)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93616,7 +93504,7 @@
 														"$ref": "AAAAAAGAuVthEEpbM2k="
 													},
 													"edgePosition": 1,
-													"text": "38 : b"
+													"text": "37 : b"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93728,7 +93616,7 @@
 														"$ref": "AAAAAAGAuVthEEpg4NA="
 													},
 													"edgePosition": 1,
-													"text": "39 [b==false] : null"
+													"text": "38 [b==false] : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93840,7 +93728,7 @@
 														"$ref": "AAAAAAGAuVthEEplH1w="
 													},
 													"edgePosition": 1,
-													"text": "40 : null"
+													"text": "39 : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -93952,7 +93840,7 @@
 														"$ref": "AAAAAAGAuVthEEpqI5c="
 													},
 													"edgePosition": 1,
-													"text": "41 [b==true] : getQuestion()"
+													"text": "40 [b==true] : getQuestion()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94063,7 +93951,7 @@
 														"$ref": "AAAAAAGAuVthEEpvucA="
 													},
 													"edgePosition": 1,
-													"text": "42 : qDB"
+													"text": "41 : qDB"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94175,7 +94063,7 @@
 														"$ref": "AAAAAAGAuVthEEp5pek="
 													},
 													"edgePosition": 1,
-													"text": "43 : betMin"
+													"text": "42 : betMin"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94406,7 +94294,7 @@
 														"$ref": "AAAAAAGAuVthEEp0Kyg="
 													},
 													"edgePosition": 1,
-													"text": "44 : getBetMinimum()"
+													"text": "43 : getBetMinimum()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94517,7 +94405,7 @@
 														"$ref": "AAAAAAGAuVthEEqF6og="
 													},
 													"edgePosition": 1,
-													"text": "45 [diru kopurua < betMin] : null"
+													"text": "44 [diru kopurua < betMin] : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94629,7 +94517,7 @@
 														"$ref": "AAAAAAGAuVthEEqK6n0="
 													},
 													"edgePosition": 1,
-													"text": "46 : null"
+													"text": "45 : null"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94741,7 +94629,7 @@
 														"$ref": "AAAAAAGAuVthEEqPJO8="
 													},
 													"edgePosition": 1,
-													"text": "47 [diru kopurua >= betMin] : saldoaAldatu((-1) * diru kopurua)"
+													"text": "46 [diru kopurua >= betMin] : saldoaAldatu((-1) * diru kopurua)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -94971,7 +94859,7 @@
 														"$ref": "AAAAAAGAuVthEUqUYvs="
 													},
 													"edgePosition": 1,
-													"text": "48 : mugimenduaSortu((-1) * diru kopurua, \"apustua eginda\")"
+													"text": "47 : mugimenduaSortu((-1) * diru kopurua, \"apustua eginda\")"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95082,7 +94970,7 @@
 														"$ref": "AAAAAAGAuVthEUqgACU="
 													},
 													"edgePosition": 1,
-													"text": "49 : Mugimendua(erDB, (-1) * diru kopurua, \"apustua eginda\")"
+													"text": "48 : Mugimendua(erDB, (-1) * diru kopurua, \"apustua eginda\")"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95195,7 +95083,7 @@
 														"$ref": "AAAAAAGAuVthEUqlIHY="
 													},
 													"edgePosition": 1,
-													"text": "50 : m"
+													"text": "49 : m"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95307,7 +95195,7 @@
 														"$ref": "AAAAAAGAuVthEUqqyaM="
 													},
 													"edgePosition": 1,
-													"text": "51 : mugimenduaGehitu(m)"
+													"text": "50 : mugimenduaGehitu(m)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95418,7 +95306,7 @@
 														"$ref": "AAAAAAGAuVthEUqvX+I="
 													},
 													"edgePosition": 1,
-													"text": "52 : m"
+													"text": "51 : m"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95530,7 +95418,7 @@
 														"$ref": "AAAAAAGAuVthEUq01Co="
 													},
 													"edgePosition": 1,
-													"text": "53 : persist(m)"
+													"text": "52 : persist(m)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95641,7 +95529,7 @@
 														"$ref": "AAAAAAGAuVthEUq5QXI="
 													},
 													"edgePosition": 1,
-													"text": "54 : apostuaSortu(diru kantitatea, kDB)"
+													"text": "53 : apostuaSortu(diru kantitatea, kDB)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95752,7 +95640,7 @@
 														"$ref": "AAAAAAGAuVthEUq+8fY="
 													},
 													"edgePosition": 1,
-													"text": "55 : Apustua(erDB, diru kantitatea, kDB)"
+													"text": "54 : Apustua(erDB, diru kantitatea, kDB)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95865,7 +95753,7 @@
 														"$ref": "AAAAAAGAuVthEUrDtfI="
 													},
 													"edgePosition": 1,
-													"text": "56 : ap"
+													"text": "55 : ap"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -95977,7 +95865,7 @@
 														"$ref": "AAAAAAGAuVthEUrIIpU="
 													},
 													"edgePosition": 1,
-													"text": "57 : apustuaGehitu(ap)"
+													"text": "56 : apustuaGehitu(ap)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96088,7 +95976,7 @@
 														"$ref": "AAAAAAGAuVthEUrNwRI="
 													},
 													"edgePosition": 1,
-													"text": "58 : ap"
+													"text": "57 : ap"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96200,7 +96088,7 @@
 														"$ref": "AAAAAAGAuVthEUrS6NY="
 													},
 													"edgePosition": 1,
-													"text": "59 : apustuaGehitu(ap)"
+													"text": "58 : apustuaGehitu(ap)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96311,7 +96199,7 @@
 														"$ref": "AAAAAAGAuVthEUrXkPU="
 													},
 													"edgePosition": 1,
-													"text": "60 : persist(ap)"
+													"text": "59 : persist(ap)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96422,7 +96310,7 @@
 														"$ref": "AAAAAAGAuVthEUrc7DM="
 													},
 													"edgePosition": 1,
-													"text": "61 : apustuaJarraitu(ap)"
+													"text": "60 : apustuaJarraitu(ap)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96533,7 +96421,7 @@
 														"$ref": "AAAAAAGAuVthEkrhrTs="
 													},
 													"edgePosition": 1,
-													"text": "62 : getErabiltzailea()"
+													"text": "61 : getErabiltzailea()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96644,7 +96532,7 @@
 														"$ref": "AAAAAAGAuVthEkrmqdw="
 													},
 													"edgePosition": 1,
-													"text": "63 : erDB"
+													"text": "62 : erDB"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96756,7 +96644,7 @@
 														"$ref": "AAAAAAGAuVthEkrrZ84="
 													},
 													"edgePosition": 1,
-													"text": "64 : getKuotak()"
+													"text": "63 : getKuotak()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96867,7 +96755,7 @@
 														"$ref": "AAAAAAGAuVthEkrwKfk="
 													},
 													"edgePosition": 1,
-													"text": "65 : k1DB, ..., kmDB"
+													"text": "64 : k1DB, ..., kmDB"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -96979,7 +96867,7 @@
 														"$ref": "AAAAAAGAuVthEkr6WNQ="
 													},
 													"edgePosition": 1,
-													"text": "66 : j1, ..., jn"
+													"text": "65 : j1, ..., jn"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97091,7 +96979,7 @@
 														"$ref": "AAAAAAGAuVthEkr14tk="
 													},
 													"edgePosition": 1,
-													"text": "67 : getJarraitzaileak()"
+													"text": "66 : getJarraitzaileak()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97202,7 +97090,7 @@
 														"$ref": "AAAAAAGAuVthEkr/m4I="
 													},
 													"edgePosition": 1,
-													"text": "68 : getDiruKop()"
+													"text": "67 : getDiruKop()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97313,7 +97201,7 @@
 														"$ref": "AAAAAAGAuVthEksEYAQ="
 													},
 													"edgePosition": 1,
-													"text": "69 : diru kantitatea"
+													"text": "68 : diru kantitatea"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97425,7 +97313,7 @@
 														"$ref": "AAAAAAGAuVthEksJ67U="
 													},
 													"edgePosition": 1,
-													"text": "70 : jarraitzenDu(erDB)"
+													"text": "69 : jarraitzenDu(erDB)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97526,7 +97414,7 @@
 													"lineColor": "#ed2828",
 													"fillColor": "#da0f0f",
 													"font": "Arial;13;0",
-													"left": 716,
+													"left": 715.578125,
 													"top": 1733,
 													"width": 1,
 													"height": 13
@@ -97542,7 +97430,7 @@
 													"font": "Arial;13;1",
 													"left": 685,
 													"top": 1733,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -97768,7 +97656,7 @@
 														"$ref": "AAAAAAGAuVthEksONzs="
 													},
 													"edgePosition": 1,
-													"text": "71 : jarraitzen"
+													"text": "70 : jarraitzen"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -97880,7 +97768,7 @@
 														"$ref": "AAAAAAGAuVthEksgoD0="
 													},
 													"edgePosition": 1,
-													"text": "72 : baldintzakBetetzenDitu(ap)"
+													"text": "71 : baldintzakBetetzenDitu(ap)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98110,7 +97998,7 @@
 														"$ref": "AAAAAAGAuVthEksln/0="
 													},
 													"edgePosition": 1,
-													"text": "73 : getDiruKop()"
+													"text": "72 : getDiruKop()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98221,7 +98109,7 @@
 														"$ref": "AAAAAAGAuVthEksxpf8="
 													},
 													"edgePosition": 1,
-													"text": "74 : diruKop"
+													"text": "73 : diruKop"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98333,7 +98221,7 @@
 														"$ref": "AAAAAAGAuVthEks26IM="
 													},
 													"edgePosition": 1,
-													"text": "75 : baldintzakBete"
+													"text": "74 : baldintzakBete"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98445,7 +98333,7 @@
 														"$ref": "AAAAAAGAuVthEks7sCc="
 													},
 													"edgePosition": 1,
-													"text": "76 [baldintzakBete == true] : apustuAnizkoitzaEgin(j, <k1DB, ..., kmDB>, diru kantitatea)"
+													"text": "75 [baldintzakBete == true] : apustuAnizkoitzaEgin(j, <k1DB, ..., kmDB>, diru kantitatea)"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98556,7 +98444,7 @@
 														"$ref": "AAAAAAGAuVthEktARe0="
 													},
 													"edgePosition": 1,
-													"text": "77 : ap"
+													"text": "76 : ap"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98658,7 +98546,7 @@
 													"lineColor": "#005b00",
 													"fillColor": "#7fff00",
 													"font": "Arial;13;0",
-													"left": 721,
+													"left": 720.72998046875,
 													"top": 1797,
 													"width": 1,
 													"height": 13
@@ -98674,7 +98562,7 @@
 													"font": "Arial;13;1",
 													"left": 701,
 													"top": 1797,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -98709,7 +98597,7 @@
 																	"font": "Arial;13;0",
 																	"left": 716,
 																	"top": 1830,
-																	"width": 98,
+																	"width": 99.353515625,
 																	"height": 13,
 																	"text": "[jarraitzen != null]"
 																}
@@ -98782,7 +98670,7 @@
 														"$ref": "AAAAAAGAuVthEktFleM="
 													},
 													"edgePosition": 1,
-													"text": "78 : ap"
+													"text": "77 : ap"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -98902,24 +98790,6 @@
 								},
 								{
 									"_type": "UMLMessage",
-									"_id": "AAAAAAGAyM8Xn4dk6Qw=",
-									"_parent": {
-										"$ref": "AAAAAAGAuVthDElONzM="
-									},
-									"name": "Message32",
-									"source": {
-										"$ref": "AAAAAAGAuVthFEueZho="
-									},
-									"target": {
-										"$ref": "AAAAAAGAuVthFEullkU="
-									},
-									"signature": {
-										"$ref": "AAAAAAGArt+pKdZFMNs="
-									},
-									"assignmentTarget": "blokeoa"
-								},
-								{
-									"_type": "UMLMessage",
 									"_id": "AAAAAAGAuVthE0tS1WE=",
 									"_parent": {
 										"$ref": "AAAAAAGAuVthDElONzM="
@@ -98933,8 +98803,7 @@
 									},
 									"signature": {
 										"$ref": "AAAAAAF/spO4Jq/13CI="
-									},
-									"guard": "blokeoa!=null"
+									}
 								},
 								{
 									"_type": "UMLMessage",
@@ -100596,9 +100465,9 @@
 														"$ref": "AAAAAAF/uL5tAHhWVVk="
 													},
 													"font": "Arial;13;0",
-													"left": 94,
+													"left": 94.97900390625,
 													"top": 13,
-													"width": 93,
+													"width": 100.01708984375,
 													"height": 13,
 													"text": "Apustua Ezabatu"
 												},
@@ -100611,7 +100480,7 @@
 													"font": "Arial;13;1",
 													"left": 29,
 													"top": 13,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -112466,7 +112335,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 833,
+													"left": 832.72998046875,
 													"top": 997,
 													"width": 1,
 													"height": 13
@@ -112480,7 +112349,7 @@
 													"font": "Arial;13;1",
 													"left": 813,
 													"top": 997,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -112513,7 +112382,7 @@
 																	"font": "Arial;13;0",
 																	"left": 828,
 																	"top": 1030,
-																	"width": 70,
+																	"width": 66.8408203125,
 																	"height": 13,
 																	"text": "[blDB!=null]"
 																}
@@ -112546,7 +112415,7 @@
 																	"font": "Arial;13;0",
 																	"left": 828,
 																	"top": 1256,
-																	"width": 29,
+																	"width": 31.07177734375,
 																	"height": 13,
 																	"text": "[else]"
 																}
@@ -116294,9 +116163,9 @@
 														"$ref": "AAAAAAGAr7bETGMtVzs="
 													},
 													"font": "Arial;13;0",
-													"left": 86,
+													"left": 86.97900390625,
 													"top": 5,
-													"width": 94,
+													"width": 97.82080078125,
 													"height": 13,
 													"text": "GertaeraBikoiztu"
 												},
@@ -116309,7 +116178,7 @@
 													"font": "Arial;13;1",
 													"left": 21,
 													"top": 5,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -119500,9 +119369,9 @@
 													},
 													"lineColor": "#00967d",
 													"font": "Arial;13;0",
-													"left": 1220,
+													"left": 1219.578125,
 													"top": 845,
-													"width": 88,
+													"width": 90.603515625,
 													"height": 13,
 													"text": "Question q:qlist"
 												},
@@ -119516,7 +119385,7 @@
 													"font": "Arial;13;1",
 													"left": 1189,
 													"top": 845,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -120285,9 +120154,9 @@
 													},
 													"lineColor": "#008ed6",
 													"font": "Arial;13;0",
-													"left": 1236,
+													"left": 1235.578125,
 													"top": 1053,
-													"width": 72,
+													"width": 71.08447265625,
 													"height": 13,
 													"text": "Kuota k:klist"
 												},
@@ -120301,7 +120170,7 @@
 													"font": "Arial;13;1",
 													"left": 1205,
 													"top": 1053,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -122478,9 +122347,9 @@
 														"$ref": "AAAAAAGAuV0kCFnz8e8="
 													},
 													"font": "Arial;13;0",
-													"left": 70,
+													"left": 70.97900390625,
 													"top": 5,
-													"width": 126,
+													"width": 126.74072265625,
 													"height": 13,
 													"text": "ApustuAnizkoitzaEgin"
 												},
@@ -122493,7 +122362,7 @@
 													"font": "Arial;13;1",
 													"left": 5,
 													"top": 5,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -127608,9 +127477,9 @@
 														"$ref": "AAAAAAGAuV0kC1rybA0="
 													},
 													"font": "Arial;13;0",
-													"left": 940,
+													"left": 939.578125,
 													"top": 845,
-													"width": 221,
+													"width": 232.96240234375,
 													"height": 13,
 													"text": "[b==true] foreach Kuota ki of <k1,...,km>"
 												},
@@ -127623,7 +127492,7 @@
 													"font": "Arial;13;1",
 													"left": 909,
 													"top": 845,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -131852,7 +131721,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 60,
+													"left": 59.578125,
 													"top": 205,
 													"width": 1,
 													"height": 13
@@ -131866,7 +131735,7 @@
 													"font": "Arial;13;1",
 													"left": 29,
 													"top": 205,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -131955,7 +131824,7 @@
 													"lineColor": "#c82121",
 													"fillColor": "#e01111",
 													"font": "Arial;13;0",
-													"left": 780,
+													"left": 779.578125,
 													"top": 1997,
 													"width": 1,
 													"height": 13
@@ -131971,7 +131840,7 @@
 													"font": "Arial;13;1",
 													"left": 749,
 													"top": 1997,
-													"width": 26,
+													"width": 25.578125,
 													"height": 13,
 													"text": "loop"
 												},
@@ -132849,7 +132718,7 @@
 													"lineColor": "#005b00",
 													"fillColor": "#9bff38",
 													"font": "Arial;13;0",
-													"left": 817,
+													"left": 816.72998046875,
 													"top": 2069,
 													"width": 1,
 													"height": 13
@@ -132865,7 +132734,7 @@
 													"font": "Arial;13;1",
 													"left": 797,
 													"top": 2069,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -132900,7 +132769,7 @@
 																	"font": "Arial;13;0",
 																	"left": 812,
 																	"top": 2102,
-																	"width": 98,
+																	"width": 99.353515625,
 																	"height": 13,
 																	"text": "[jarraitzen != null]"
 																}
@@ -135281,9 +135150,9 @@
 														"$ref": "AAAAAAGAuV9X62aHElg="
 													},
 													"font": "Arial;13;0",
-													"left": 70,
+													"left": 70.97900390625,
 													"top": 13,
-													"width": 110,
+													"width": 115.16259765625,
 													"height": 13,
 													"text": "ErabiltzaileaJarraitu"
 												},
@@ -135296,7 +135165,7 @@
 													"font": "Arial;13;1",
 													"left": 5,
 													"top": 13,
-													"width": 60,
+													"width": 60.97900390625,
 													"height": 13,
 													"text": "interaction"
 												}
@@ -138259,7 +138128,7 @@
 													"lineColor": "#005b00",
 													"fillColor": "#00d369",
 													"font": "Arial;13;0",
-													"left": 937,
+													"left": 936.72998046875,
 													"top": 733,
 													"width": 1,
 													"height": 13
@@ -138275,7 +138144,7 @@
 													"font": "Arial;13;1",
 													"left": 917,
 													"top": 733,
-													"width": 15,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -138310,7 +138179,7 @@
 																	"font": "Arial;13;0",
 																	"left": 932,
 																	"top": 766,
-																	"width": 94,
+																	"width": 96.46533203125,
 																	"height": 13,
 																	"text": "[bJarraitu != null]"
 																}
@@ -138347,7 +138216,7 @@
 																	"font": "Arial;13;0",
 																	"left": 932,
 																	"top": 1008,
-																	"width": 29,
+																	"width": 31.07177734375,
 																	"height": 13,
 																	"text": "[else]"
 																}
